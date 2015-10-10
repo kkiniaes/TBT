@@ -11,6 +11,8 @@ public class Goal : MonoBehaviour {
 	public bool combined = false;
 	public int numElementsCombined = 1;
 
+	private Vector3 originalScale;
+
 	public bool Combined {
 		get { return combined; }
 	}
@@ -33,6 +35,8 @@ public class Goal : MonoBehaviour {
 		if(combineEffect == null) {
 			combineEffect = Resources.Load<GameObject>("CombineEffect");
 		}
+
+		originalScale = transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -53,7 +57,7 @@ public class Goal : MonoBehaviour {
 				}
 			}
 
-			transform.localScale = Vector3.one*numElementsCombined;
+			transform.localScale = originalScale * numElementsCombined;
 			transform.GetChild(0).GetComponent<TextMesh>().text = System.Enum.GetNames(typeof(Element))[numElementsCombined-1];
 
 			if((int)LevelManager.instance.goalElement == (numElementsCombined-1)) {
@@ -87,5 +91,9 @@ public class Goal : MonoBehaviour {
 				transform.GetChild (i).gameObject.SetActive (true);
 			}
 		}
+	}
+
+	public static void AddGoal(Goal g) {
+		goals.Add(g);
 	}
 }

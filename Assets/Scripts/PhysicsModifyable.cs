@@ -2,7 +2,15 @@
 using System.Collections;
 
 public class PhysicsModifyable : MonoBehaviour {
+	[System.Serializable]
+	public class SpecificallyImmutable {
+		public bool mass;
+		public bool charge;
+		public bool entangled;
+	}
+
 	public bool immutable;
+	public SpecificallyImmutable specificallyImmutable;
 	public float mass;
 	public float charge;
 	public PhysicsModifyable entangled;
@@ -102,9 +110,15 @@ public class PhysicsModifyable : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(immutable) {
+			specificallyImmutable.mass = true;
+			specificallyImmutable.charge = true;
+			specificallyImmutable.entangled = true;
+		}
+
 		Player player = Player.instance;
 
-//		GetComponent<Renderer>().material.SetFloat("_Power", 1f);
+		//GetComponent<Renderer>().material.SetFloat("_Power", 1f);
 
 		if(chargeLockTimer > 0) {
 			chargeLockTimer -= Time.deltaTime * player.timeScale;
