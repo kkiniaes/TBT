@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CombineEffect : MonoBehaviour {
 
-	private float timer = 4f;
+	private float timer = 2f;
 
 	// Use this for initialization
 	void Start () {

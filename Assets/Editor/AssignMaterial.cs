@@ -28,7 +28,7 @@ public class AssignMaterial : ScriptableWizard {
 			go.GetComponent<Renderer> ().material = theMaterial;
 		}
 		if (runRecursively == true) {
-			for(int i = 0; i < go.transform.GetChildCount(); i++){
+			for(int i = 0; i < go.transform.childCount; i++){
 				changeMaterial(go.transform.GetChild(i).gameObject);
 			}
 		}

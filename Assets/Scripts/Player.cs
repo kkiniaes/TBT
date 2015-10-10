@@ -79,7 +79,8 @@ public class Player : MonoBehaviour {
 			if(!noStateChangesThisFrame || timeReversed) {
 				timeElapsed = Mathf.Max(0, timeElapsed + timeScale);
 				noStateChangesThisFrame = true;
-			}Debug.Log ("Time Elapsed: " + timeElapsed);
+			}
+			//Debug.Log ("Time Elapsed: " + timeElapsed);
 
 			GetComponent<MotionBlur>().blurAmount = Mathf.MoveTowards(GetComponent<MotionBlur>().blurAmount, 0f, Time.deltaTime*3f);
 		}
@@ -117,7 +118,7 @@ public class Player : MonoBehaviour {
 					delta = (Input.GetKeyDown(KeyCode.UpArrow) ? 0.5f : 0) + -1 * (Input.GetKeyDown(KeyCode.DownArrow) ? 0.5f : 0);
 				}
 
-				if(!timeReversed) {
+				if(!timeReversed && !pM.immutable) {
 					//Increases/Decreases mass of object
 					if(!pM.specificallyImmutable.mass && currentMode == PhysicMode.Mass && pM.mass <= 6) {
 						pM.Mass = Mathf.Max(0, pM.Mass + delta);
@@ -131,17 +132,17 @@ public class Player : MonoBehaviour {
 					}// Quantam Entangle objects
 					else if(!pM.specificallyImmutable.entangled && currentMode == PhysicMode.Entangle) {
 						if(Input.GetMouseButtonDown(0)) {
-							if(pM.entangled != null) {
-								Debug.Log("Detangle");
+							if(pM.entangled != null && !pM.entangled.immutable) {
+								//Debug.Log("Detangle");
 								pM.entangled.entangled = null;
 								pM.entangled = null;
 								entangleSelected = null;
 							} else if(entangleSelected != null) {
-								Debug.Log("Entangle " + pM + ":" + entangleSelected);
+								//Debug.Log("Entangle " + pM + ":" + entangleSelected);
 								pM.entangled = entangleSelected;
 								entangleSelected.entangled = pM;
 							} else {
-								Debug.Log("Entangle " + pM);
+								//Debug.Log("Entangle " + pM);
 								entangleSelected = pM;
 							}
 						}
@@ -205,7 +206,7 @@ public class Player : MonoBehaviour {
 
 		if (!timeFrozen) {
 			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-				Debug.Log("HERE");
+				//Debug.Log("HERE");
 				timeReversed = true;
 			} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
 				timeReversed = false;
@@ -231,3 +232,4 @@ public class Player : MonoBehaviour {
 		loadNextLevel = true;
 	}
 }
+

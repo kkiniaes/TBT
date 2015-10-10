@@ -12,16 +12,26 @@ public class SwitchMove : Switch {
 	// The speed at which the object will move.
 	public float speed;
 
-	// Use this for initialization
-	void Start () {
-		base.Start ();
+	// Must occur before time starts being logged.
+	void Awake () {
 		start = attachedObject.transform.position;
+		if (activated) {
+			attachedObject.transform.position = end;
+		}
+	}
+
+	// Use this for initialization
+	new void Start () {
+		base.Start ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 destination = activated ? end : start;
-		attachedObject.transform.position = Vector3.MoveTowards (attachedObject.transform.position, destination, speed * Time.deltaTime);
-		GetComponent<LineRenderer> ().SetPosition (1, attachedObject.transform.position);
+		if (Player.instance.timeScale > 0) {
+			Vector3 destination = activated ? end : start;
+			attachedObject.transform.position = Vector3.MoveTowards (attachedObject.transform.position, destination, speed * Time.deltaTime);
+		}
+		LineRenderer line = gameObject.transform.FindChild ("LineRenderer" + switchIndex).GetComponent<LineRenderer> ();
+		line.SetPosition (1, attachedObject.transform.position);
 	}
 }

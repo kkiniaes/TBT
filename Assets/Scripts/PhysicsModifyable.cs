@@ -14,6 +14,9 @@ public class PhysicsModifyable : MonoBehaviour {
 	public float mass;
 	public float charge;
 	public PhysicsModifyable entangled;
+
+	[HideInInspector]
+	public int switchCounter = 0;
 	
 	private const float NEUTRALIZE_DIST = 7.5f;
 	
@@ -103,6 +106,12 @@ public class PhysicsModifyable : MonoBehaviour {
 				myState.combined = GetComponent<Goal>().Combined;
 				myState.numElementsCombined = GetComponent<Goal>().NumElementsCombined;
 			}
+
+			Switch[] switches = GetComponents<Switch>();
+			myState.activated = new bool[switches.Length];
+			foreach (Switch s in switches) {
+				myState.activated[s.switchIndex] = s.activated;
+			}
 		}
 		
 		return myState;
@@ -118,7 +127,7 @@ public class PhysicsModifyable : MonoBehaviour {
 
 		Player player = Player.instance;
 
-		//GetComponent<Renderer>().material.SetFloat("_Power", 1f);
+		GetComponent<Renderer>().material.SetFloat("_Power", 1f);
 
 		if(chargeLockTimer > 0) {
 			chargeLockTimer -= Time.deltaTime * player.timeScale;
@@ -197,14 +206,16 @@ public class PhysicsModifyable : MonoBehaviour {
 				transform.Find("PositiveCharge(Clone)").GetComponent<ParticleSystemRenderer>().velocityScale = Mathf.Abs(charge);
 			}
 
-			Collider[] cols = Physics.OverlapSphere(transform.position, charge*10f);
-			foreach(Collider col in cols) {
-				if(col.GetComponent<PhysicsModifyable>() != null && Mathf.Sign(col.GetComponent<PhysicsModifyable>().charge) != Mathf.Sign(charge)
-				   && col.GetComponent<PhysicsModifyable>().charge != 0) {
-					col.GetComponent<PhysicsModifyable>().NegateCharge();
-					NegateCharge();
-					GameObject temp = (GameObject)GameObject.Instantiate(lightning, (transform.position + col.transform.position)/2, Quaternion.LookRotation(col.transform.position - transform.position));
-					temp.transform.localScale = Vector3.one*Vector3.Distance(transform.position, col.transform.position)/30f;
+			if(player.timeScale > 0) {
+				Collider[] cols = Physics.OverlapSphere(transform.position, charge*10f);
+				foreach(Collider col in cols) {
+					if(col.GetComponent<PhysicsModifyable>() != null && Mathf.Sign(col.GetComponent<PhysicsModifyable>().charge) != Mathf.Sign(charge)
+					   && col.GetComponent<PhysicsModifyable>().charge != 0) {
+						col.GetComponent<PhysicsModifyable>().NegateCharge();
+						NegateCharge();
+						GameObject temp = (GameObject)GameObject.Instantiate(lightning, (transform.position + col.transform.position)/2, Quaternion.LookRotation(col.transform.position - transform.position));
+						temp.transform.localScale = Vector3.one*Vector3.Distance(transform.position, col.transform.position)/30f;
+					}
 				}
 			}
 		}
@@ -224,7 +235,11 @@ public class PhysicsModifyable : MonoBehaviour {
 
 				Vector3 randVect = Vector3.Lerp(transform.position, entangled.transform.position, Random.value);
 				//Debug.Log(transform.position + " " + randVect + " " + entangled.transform.position);
-				fx.GetComponent<ParticleSystem>().Emit(transform.InverseTransformPoint(randVect), new Vector3(Random.value - 0.5f,Random.value - 0.5f,Random.value - 0.5f), 0.5f, 0.5f, Color.white);
+				Vector3 inverseTransform = transform.InverseTransformPoint(randVect);
+				inverseTransform.x *= transform.localScale.x;
+				inverseTransform.y *= transform.localScale.y;
+				inverseTransform.z *= transform.localScale.z;
+				fx.GetComponent<ParticleSystem>().Emit(inverseTransform, new Vector3(Random.value - 0.5f,Random.value - 0.5f,Random.value - 0.5f), 0.5f, 0.5f, Color.white);
 			}
 		}
 	}

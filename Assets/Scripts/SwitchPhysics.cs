@@ -18,20 +18,22 @@ public class SwitchPhysics : Switch {
 	PhysicsModifyable objectPhysics;
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
 		base.Start ();
 		objectPhysics = attachedObject.GetComponent<PhysicsModifyable> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		switch (mode) {
-		case SwitchPhysicsMode.Mass:
-			objectPhysics.mass = activated ? target : 0;
-			break;
-		case SwitchPhysicsMode.Charge:
-			objectPhysics.charge = activated ? target : 0;
-			break;
+		if (Player.instance.timeScale > 0) {
+			switch (mode) {
+			case SwitchPhysicsMode.Mass:
+				objectPhysics.mass = activated ? target : 0;
+				break;
+			case SwitchPhysicsMode.Charge:
+				objectPhysics.charge = activated ? target : 0;
+				break;
+			}
 		}
 	}
 }
