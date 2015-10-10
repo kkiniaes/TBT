@@ -95,9 +95,12 @@ public class GenerateMaze : MonoBehaviour {
 
 	public int columns;
 	public int rows;
+	public bool addGoals;
+	public bool border;
 	public Vector3 origin;
 	public Vector3 blockSize;
 	public GameObject blockPrefab;
+	public GameObject goalPrefab;
 
 	private System.Random rand;
 	private List<GameObject> blocks;
@@ -107,17 +110,18 @@ public class GenerateMaze : MonoBehaviour {
 		rand = new System.Random ();
 		HashSet<Edge> connections = getRandomConnections(new Point(columns, rows));
 
-		Point size = new Point (columns * 2 + 1, rows * 2 + 1);
+		int extraBorderSpace = (border) ? 2 : 0;
+		Point size = new Point (columns * 2 + extraBorderSpace - 1, rows * 2 + extraBorderSpace - 1);
 		bool[,] maze = initializedBoolArray (size, true);
 		foreach (Edge e in connections) {
-			int betweenX = Mathf.Min(e.P1.x * 2 + 1, e.P2.x * 2 + 1) + Mathf.Abs((e.P2.x * 2 + 1) - (e.P1.x * 2 + 1)) / 2;
-			int betweenY = Mathf.Min(e.P1.y * 2 + 1, e.P2.y * 2 + 1) + Mathf.Abs((e.P2.y * 2 + 1) - (e.P1.y * 2 + 1)) / 2;
-			maze[e.P1.x * 2 + 1, e.P1.y * 2 + 1] = false;
+			int offset = (border) ? 1 : 0;
+			int betweenX = Mathf.Min(e.P1.x * 2 + offset, e.P2.x * 2 + offset) + Mathf.Abs((e.P2.x * 2 + offset) - (e.P1.x * 2 + offset)) / 2;
+			int betweenY = Mathf.Min(e.P1.y * 2 + offset, e.P2.y * 2 + offset) + Mathf.Abs((e.P2.y * 2 + offset) - (e.P1.y * 2 + offset)) / 2;
+			maze[e.P1.x * 2 + offset, e.P1.y * 2 + offset] = false;
 			maze[betweenX, betweenY] = false;
-			maze[e.P2.x * 2 + 1, e.P2.y * 2 + 1] = false;
+			maze[e.P2.x * 2 + offset, e.P2.y * 2 + offset] = false;
 		}
 
-		blockPrefab.transform.localScale = blockSize;
 		blocks = new List<GameObject> ();
 		for (int x = 0; x < maze.GetLength(0); x++) {
 			for (int y = 0; y < maze.GetLength(1); y++) {
@@ -126,13 +130,31 @@ public class GenerateMaze : MonoBehaviour {
 					float posY = origin.y;
 					float posZ = origin.z + y * blockSize.z;
 					blocks.Add(Instantiate(blockPrefab, new Vector3(posX, posY, posZ), Quaternion.identity) as GameObject);
+					blocks[blocks.Count - 1].transform.localScale = blockSize;
+					PhysicsAffected.AddPM(blocks[blocks.Count - 1].GetComponent<PhysicsModifyable>());
 				}
 			}
+		}
+
+		if (addGoals) {
+			float ySign = Mathf.Sign(origin.y);
+
+			float posX1 = origin.x + extraBorderSpace * blockSize.x / 2;
+			float posY1 = origin.y;// + blockSize.y / 2 * ySign;
+			float posZ1 = origin.z + extraBorderSpace * blockSize.z / 2;
+			GameObject goal1 = Instantiate(goalPrefab, new Vector3(posX1, posY1, posZ1), Quaternion.identity) as GameObject;
+			goal1.transform.localScale = blockSize * 0.4f;
+
+			float posX2 = origin.x + (size.x - extraBorderSpace) * blockSize.x;
+			float posY2 = origin.y;// + blockSize.y / 2 * ySign;
+			float posZ2 = origin.z + (size.y - extraBorderSpace) * blockSize.z;
+			GameObject goal2 = Instantiate(goalPrefab, new Vector3(posX2, posY2, posZ2), Quaternion.identity) as GameObject;
+			goal2.transform.localScale = blockSize * 0.4f;
 		}
 	}
 
 	private HashSet<Edge> getRandomConnections(Point size) {
-		bool[,] visited = initializedBoolArray (size, false);
+		int[,] visited = initializedIntArray (size, false);
 		int visitedCount = 0;
 		HashSet<Edge> edges = new HashSet<Edge>();
 		List<Point> points = new List<Point> ();
@@ -141,11 +163,13 @@ public class GenerateMaze : MonoBehaviour {
 		points.Add (initialPoint);
 		visit (initialPoint, ref visited, ref visitedCount);
 
-
+		//int maxConnections = (size.x * size.y * 4 - size.x * 2 - size.y * 2) / 2;Debug.Break ();
 		while (visitedCount < size.x * size.y) {
-			//Point active = points[0];
-			//Point active = points[rand.Next(points.Count)];
-			Point active = points[points.Count - 1];
+			Point active;
+
+			//active = points[0];
+			//active = points[rand.Next(points.Count)];
+			active = points[points.Count - 1];
 
 			Point unvisitedNeighbor = unvisitedNeighborOf(active, size, visited);
 
@@ -161,11 +185,25 @@ public class GenerateMaze : MonoBehaviour {
 		return edges;
 	}
 
-	private Point unvisitedNeighborOf(Point p, Point size, bool[,] visited) {
+	private Point unvisitedNeighborOf(Point p, Point size, int[,] visited) {
 		List<Point> unvisitedNeighbors = new List<Point> (4);
 		foreach (Dir direction in System.Enum.GetValues(typeof(Dir))) {
 			Point neighbor = p + direction;
-			if(inBounds(neighbor, size) && !visited[neighbor.x, neighbor.y]) {
+			if(inBounds(neighbor, size) && visited[neighbor.x, neighbor.y] < 1) {
+				unvisitedNeighbors.Add(neighbor);
+			}
+		}
+		if (unvisitedNeighbors.Count > 0) {
+			return unvisitedNeighbors [rand.Next (unvisitedNeighbors.Count)];
+		} else {
+			return null;
+		}
+	}
+	private Point unvisitedNeighborOf(Point p, Point size, int[,] visited, int maxVisits) {
+		List<Point> unvisitedNeighbors = new List<Point> (4);
+		foreach (Dir direction in System.Enum.GetValues(typeof(Dir))) {
+			Point neighbor = p + direction;
+			if(inBounds(neighbor, size) && visited[neighbor.x, neighbor.y] <= maxVisits) {
 				unvisitedNeighbors.Add(neighbor);
 			}
 		}
@@ -176,13 +214,23 @@ public class GenerateMaze : MonoBehaviour {
 		}
 	}
 
-	private void visit(Point p, ref bool[,] visited, ref int visitedCount) {
-		visited[p.x, p.y] = true;
+	private void visit(Point p, ref int[,] visited, ref int visitedCount) {
+		visited[p.x, p.y]++;
 		visitedCount++;
 	}
 	
 	private bool inBounds(Point p, Point size) {
 		return p.x >= 0 && p.x < size.x && p.y >= 0 && p.y < size.y;
+	}
+
+	private int[,] initializedIntArray(Point size, bool value) {
+		int[,] array = new int[size.x, size.y];
+		for (int x = 0; x < array.GetLength(0); x++) {
+			for (int y = 0; y < array.GetLength(1); y++) {
+				array[x, y] = 0;
+			}
+		}
+		return array;
 	}
 
 	private bool[,] initializedBoolArray(Point size, bool value) {

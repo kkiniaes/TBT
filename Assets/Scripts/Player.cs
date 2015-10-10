@@ -49,7 +49,6 @@ public class Player : MonoBehaviour {
 		GetTimeManipInput();
 		GetVisualModeInput();
 
-
 		//time manipulation code
 		if(timeFrozen) {
 			if(timeScale < 0) {
@@ -105,8 +104,7 @@ public class Player : MonoBehaviour {
 		Debug.DrawRay(transform.position, Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).direction*10f); 
 		if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).origin,Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).direction, out rh, 100000, ~(1 << 10))) {
 			GetComponent<DepthOfField>().focalLength = Vector3.Distance(transform.position, rh.point);
-			Debug.Log(GetComponent<DepthOfField>().focalLength);
-			GetComponent<DepthOfField>().aperture = Mathf.MoveTowards(GetComponent<DepthOfField>().aperture, 100/(Vector3.Distance(transform.position, rh.point)), Time.deltaTime*10f);
+			GetComponent<DepthOfField>().aperture = Mathf.MoveTowards(GetComponent<DepthOfField>().aperture, 10/(Vector3.Distance(transform.position, rh.point)), Time.deltaTime*10f);
 
 			if(rh.transform.gameObject.GetComponent<PhysicsModifyable>() != null) {
 				lookingAtObject = rh.transform.gameObject;
@@ -119,19 +117,19 @@ public class Player : MonoBehaviour {
 					delta = (Input.GetKeyDown(KeyCode.UpArrow) ? 0.5f : 0) + -1 * (Input.GetKeyDown(KeyCode.DownArrow) ? 0.5f : 0);
 				}
 
-				if(!timeReversed && !pM.immutable) {
+				if(!timeReversed) {
 					//Increases/Decreases mass of object
-					if(currentMode == PhysicMode.Mass && pM.mass <= 6) {
+					if(!pM.specificallyImmutable.mass && currentMode == PhysicMode.Mass && pM.mass <= 6) {
 						pM.Mass = Mathf.Max(0, pM.Mass + delta);
 					}// Increase/Decrease charge of object 
-					else if(currentMode == PhysicMode.Charge) {
+					else if(!pM.specificallyImmutable.charge && currentMode == PhysicMode.Charge) {
 						if((pM.Charge == -1 && delta > 0) || (pM.Charge == 1 && delta < 0)) {
 							pM.Charge = 0;
 						} else if(delta != 0) {
 							pM.Charge = Mathf.Sign(delta);
 						}
 					}// Quantam Entangle objects
-					else if(currentMode == PhysicMode.Entangle) {
+					else if(!pM.specificallyImmutable.entangled && currentMode == PhysicMode.Entangle) {
 						if(Input.GetMouseButtonDown(0)) {
 							if(pM.entangled != null) {
 								Debug.Log("Detangle");
