@@ -1,0 +1,272 @@
+#line 188 ""
+#ifdef DUMMY_PREPROCESSOR_TO_WORK_AROUND_HLSL_COMPILER_LINE_HANDLING
+#endif
+
+// compile directives
+// #pragma vertex vert_surf
+// #pragma fragment frag_surf
+// #pragma target 3.0
+// #pragma multi_compile_fog
+// #pragma multi_compile_prepassfinal noshadow nolightmap nodynlightmap
+#include "HLSLSupport.cginc"
+#include "UnityShaderVariables.cginc"
+// Surface shader code generated based on:
+// vertex modifier: 'vert'
+// writes to per-pixel normal: YES
+// writes to emission: YES
+// needs world space reflection vector: no
+// needs world space normal vector: no
+// needs screen space position: no
+// needs world space position: no
+// needs view direction: YES
+// needs world space view direction: no
+// needs world space position for lighting: no
+// needs world space view direction for lighting: YES
+// needs world space view direction for lightmaps: no
+// needs vertex color: no
+// needs VFACE: no
+// passes tangent-to-world matrix to pixel shader: YES
+// reads from normal: no
+// 1 texcoords actually used
+//   float2 _Color
+#define UNITY_PASS_PREPASSFINAL
+#include "UnityCG.cginc"
+#include "Lighting.cginc"
+
+#define INTERNAL_DATA
+#define WorldReflectionVector(data,normal) data.worldRefl
+#define WorldNormalVector(data,normal) normal
+
+// Original surface shader snippet:
+#include "HLSLSupport.cginc"
+#include "UnityShaderVariables.cginc"
+#line 30 ""
+#ifdef DUMMY_PREPROCESSOR_TO_WORK_AROUND_HLSL_COMPILER_LINE_HANDLING
+#endif
+
+//// #pragma surface surf BlinnPhongEditor  noambient nolightmap alpha decal:add vertex:vert
+//// #pragma target 3.0
+
+
+sampler2D _Color;
+float4 _HighlightColor;
+float _Power;
+float _AlphaMult;
+float4 _ColorTint;
+
+			struct EditorSurfaceOutput {
+				half3 Albedo;
+				half3 Normal;
+				half3 Emission;
+				half3 Gloss;
+				half Specular;
+				half Alpha;
+				half4 Custom;
+			};
+			
+			inline half4 LightingBlinnPhongEditor_PrePass (EditorSurfaceOutput s, half4 light)
+			{
+float4 Mask0=float4(s.Alpha.xxxx.x,s.Alpha.xxxx.y,s.Alpha.xxxx.z,0.0);
+float4 Multiply0=s.Custom * Mask0;
+return Multiply0;
+
+			}
+
+			inline half4 LightingBlinnPhongEditor (EditorSurfaceOutput s, half3 lightDir, half3 viewDir, half atten)
+			{
+				half3 h = normalize (lightDir + viewDir);
+				
+				half diff = max (0, dot ( lightDir, s.Normal ));
+				
+				float nh = max (0, dot (s.Normal, h));
+				float spec = pow (nh, s.Specular*128.0);
+				
+				half4 res;
+				res.rgb = _LightColor0.rgb * diff;
+				res.w = spec * Luminance (_LightColor0.rgb);
+				res *= atten * 2.0;
+
+				return LightingBlinnPhongEditor_PrePass( s, res );
+			}
+			
+			struct Input {
+				float3 viewDir;
+float2 uv_Color;
+
+			};
+
+			void vert (inout appdata_full v, out Input o) {
+				float4 VertexOutputMaster0_0_NoInput = float4(0,0,0,0);
+				float4 VertexOutputMaster0_1_NoInput = float4(0,0,0,0);
+				float4 VertexOutputMaster0_2_NoInput = float4(0,0,0,0);
+				float4 VertexOutputMaster0_3_NoInput = float4(0,0,0,0);
+				
+
+			}
+			
+
+			void surf (Input IN, inout EditorSurfaceOutput o) {
+				o.Normal = float3(0.0,0.0,1.0);
+				o.Alpha = 1.0;
+				o.Albedo = 0.0;
+				o.Emission = 0.0;
+				o.Gloss = 0.0;
+				o.Specular = 0.0;
+				o.Custom = 0.0;
+				
+float4 Fresnel0_1_NoInput = float4(0,0,1,1);
+float4 Fresnel0=(1.0 - dot( normalize( float4( IN.viewDir.x, IN.viewDir.y,IN.viewDir.z,1.0 ).xyz), normalize( Fresnel0_1_NoInput.xyz ) )).xxxx;
+float4 Multiply1=_HighlightColor * Fresnel0;
+float4 Pow0=pow(_Power.xxxx,Multiply1);
+float4 Invert0= float4(1.0, 1.0, 1.0, 1.0) - Pow0;
+float4 Tex2D0=tex2D(_Color,(IN.uv_Color.xyxy).xy);
+float4 Multiply0=Tex2D0.aaaa * _AlphaMult.xxxx;
+float4 Master0_1_NoInput = float4(0,0,1,1);
+float4 Master0_3_NoInput = float4(0,0,0,0);
+float4 Master0_4_NoInput = float4(0,0,0,0);
+float4 Master0_6_NoInput = float4(1,1,1,1);
+o.Albedo = _ColorTint;
+o.Emission = Invert0;
+o.Custom = _ColorTint;
+o.Alpha = Multiply0;
+
+				o.Normal = normalize(o.Normal);
+			}
+		
+
+// vertex-to-fragment interpolation data
+struct v2f_surf {
+  float4 pos : SV_POSITION;
+  float2 pack0 : TEXCOORD0; // _Color
+  float3 worldPos : TEXCOORD1;
+  half3 viewDir : TEXCOORD2;
+  float4 screen : TEXCOORD3;
+  float4 lmap : TEXCOORD4;
+#ifdef LIGHTMAP_OFF
+#else
+#ifdef DIRLIGHTMAP_OFF
+  float4 lmapFadePos : TEXCOORD5;
+#endif
+#endif
+  UNITY_FOG_COORDS(6)
+  #if !defined(LIGHTMAP_OFF) && defined(DIRLIGHTMAP_COMBINED)
+  fixed3 tSpace0 : TEXCOORD7;
+  fixed3 tSpace1 : TEXCOORD8;
+  fixed3 tSpace2 : TEXCOORD9;
+  #endif
+};
+float4 _Color_ST;
+
+// vertex shader
+v2f_surf vert_surf (appdata_full v) {
+  v2f_surf o;
+  UNITY_INITIALIZE_OUTPUT(v2f_surf,o);
+  Input customInputData;
+  vert (v, customInputData);
+  o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+  o.pack0.xy = TRANSFORM_TEX(v.texcoord, _Color);
+  float3 worldPos = mul(_Object2World, v.vertex).xyz;
+  fixed3 worldNormal = UnityObjectToWorldNormal(v.normal);
+  fixed3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
+  fixed3 worldBinormal = cross(worldNormal, worldTangent) * v.tangent.w;
+  #if !defined(LIGHTMAP_OFF) && defined(DIRLIGHTMAP_COMBINED)
+  o.tSpace0 = float4(worldTangent.x, worldBinormal.x, worldNormal.x, worldPos.x);
+  o.tSpace1 = float4(worldTangent.y, worldBinormal.y, worldNormal.y, worldPos.y);
+  o.tSpace2 = float4(worldTangent.z, worldBinormal.z, worldNormal.z, worldPos.z);
+  #endif
+  o.worldPos = worldPos;
+  float3 viewDirForLight = UnityWorldSpaceViewDir(worldPos);
+  o.viewDir.x = dot(viewDirForLight, worldTangent);
+  o.viewDir.y = dot(viewDirForLight, worldBinormal);
+  o.viewDir.z = dot(viewDirForLight, worldNormal);
+  o.screen = ComputeScreenPos (o.pos);
+  o.lmap.zw = 0;
+#ifndef LIGHTMAP_OFF
+  o.lmap.xy = v.texcoord1.xy * unity_LightmapST.xy + unity_LightmapST.zw;
+  #ifdef DIRLIGHTMAP_OFF
+    o.lmapFadePos.xyz = (mul(_Object2World, v.vertex).xyz - unity_ShadowFadeCenterAndType.xyz) * unity_ShadowFadeCenterAndType.w;
+    o.lmapFadePos.w = (-mul(UNITY_MATRIX_MV, v.vertex).z) * (1.0 - unity_ShadowFadeCenterAndType.w);
+  #endif
+#else
+  o.lmap.xy = 0;
+#endif
+  UNITY_TRANSFER_FOG(o,o.pos); // pass fog coordinates to pixel shader
+  return o;
+}
+sampler2D _LightBuffer;
+#if defined (SHADER_API_XBOX360) && defined (UNITY_HDR_ON)
+sampler2D _LightSpecBuffer;
+#endif
+#ifdef LIGHTMAP_ON
+float4 unity_LightmapFade;
+#endif
+fixed4 unity_Ambient;
+
+// fragment shader
+fixed4 frag_surf (v2f_surf IN) : SV_Target {
+  // prepare and unpack data
+  Input surfIN;
+  UNITY_INITIALIZE_OUTPUT(Input,surfIN);
+  surfIN.uv_Color = IN.pack0.xy;
+  float3 worldPos = IN.worldPos;
+  #ifndef USING_DIRECTIONAL_LIGHT
+    fixed3 lightDir = normalize(UnityWorldSpaceLightDir(worldPos));
+  #else
+    fixed3 lightDir = _WorldSpaceLightPos0.xyz;
+  #endif
+  fixed3 worldViewDir = normalize(UnityWorldSpaceViewDir(worldPos));
+  fixed3 viewDir = normalize(IN.viewDir);
+  surfIN.viewDir = viewDir;
+  #ifdef UNITY_COMPILER_HLSL
+  EditorSurfaceOutput o = (EditorSurfaceOutput)0;
+  #else
+  EditorSurfaceOutput o;
+  #endif
+  o.Albedo = 0.0;
+  o.Emission = 0.0;
+  o.Specular = 0.0;
+  o.Alpha = 0.0;
+  fixed3 normalWorldVertex = fixed3(0,0,1);
+
+  // call surface function
+  surf (surfIN, o);
+  half4 light = tex2Dproj (_LightBuffer, UNITY_PROJ_COORD(IN.screen));
+#if defined (SHADER_API_MOBILE)
+  light = max(light, half4(0.001, 0.001, 0.001, 0.001));
+#endif
+#ifndef UNITY_HDR_ON
+  light = -log2(light);
+#endif
+#if defined (SHADER_API_XBOX360) && defined (UNITY_HDR_ON)
+  light.w = tex2Dproj (_LightSpecBuffer, UNITY_PROJ_COORD(IN.screen)).r;
+#endif
+  #ifndef LIGHTMAP_OFF
+    #ifdef DIRLIGHTMAP_OFF
+      // single lightmap
+      fixed4 lmtex = UNITY_SAMPLE_TEX2D(unity_Lightmap, IN.lmap.xy);
+      fixed3 lm = DecodeLightmap (lmtex);
+      light.rgb += lm;
+    #elif DIRLIGHTMAP_COMBINED
+  fixed3 worldN;
+  worldN.x = dot(IN.tSpace0.xyz, o.Normal);
+  worldN.y = dot(IN.tSpace1.xyz, o.Normal);
+  worldN.z = dot(IN.tSpace2.xyz, o.Normal);
+  o.Normal = worldN;
+      // directional lightmaps
+      fixed4 lmtex = UNITY_SAMPLE_TEX2D(unity_Lightmap, IN.lmap.xy);
+      fixed4 lmIndTex = UNITY_SAMPLE_TEX2D_SAMPLER(unity_LightmapInd, unity_Lightmap, IN.lmap.xy);
+      half4 lm = half4(DecodeDirectionalLightmap (DecodeLightmap(lmtex), lmIndTex, o.Normal), 0);
+      light += lm;
+    #elif DIRLIGHTMAP_SEPARATE
+      // directional with specular - no support
+    #endif // DIRLIGHTMAP_OFF
+  #else
+  #endif // !LIGHTMAP_OFF
+
+  half4 c = LightingBlinnPhongEditor_PrePass (o, light);
+  c.rgb += o.Emission;
+  UNITY_APPLY_FOG_COLOR(IN.fogCoord, c, fixed4(0,0,0,0)); // fog towards black for decal:add
+  UNITY_OPAQUE_ALPHA(c.a);
+  return c;
+}
+
