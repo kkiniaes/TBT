@@ -16,8 +16,7 @@ public class LevelManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//TODO: keep track of switch states
-		//      only add time when no changes made
+		//TODO: only add time when no changes made
 		Player player = Player.instance;
 		foreach (PhysicsModifyable pM in stateStacks.Keys) {
 			if(stateStacks[pM] == null) {
@@ -78,6 +77,13 @@ public class LevelManager : MonoBehaviour {
 
 				g.NumElementsCombined = state.numElementsCombined;
 			}
+
+			if(state.activated.Length > 0) {
+				foreach (Switch s in pM.GetComponents<Switch>()) {
+					s.activated = state.activated[s.switchIndex];
+					s.transform.FindChild("SwitchParticles" + s.switchIndex).gameObject.SetActive(s.activated);
+				}
+			}
 		}
 	}
 
@@ -102,9 +108,16 @@ public class LevelManager : MonoBehaviour {
 				myState.rotation = pM.Rotation;
 			}
 
-			if(pM.GetComponent<Goal>() != null) {
+			if (pM.GetComponent<Goal>() != null) {
 				myState.combined = pM.GetComponent<Goal>().Combined;
 				myState.numElementsCombined = pM.GetComponent<Goal>().NumElementsCombined;
+			}
+			
+			Switch[] switches = pM.GetComponents<Switch>();
+			myState.activated = new bool[switches.Length];
+			for(int i = 0; i < switches.Length; i++) {
+				Switch s = switches[i];
+				myState.activated[s.switchIndex] = s.activated;
 			}
 		}
 		

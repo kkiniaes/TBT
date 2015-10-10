@@ -55,12 +55,6 @@ public class PhysicsAffected : MonoBehaviour {
 
 		foreach(PhysicsModifyable pM in objs) {
 			if(pM != null && pM.gameObject != this.gameObject) {
-				//Handles completing a level
-				if(GetComponent<Goal>() != null && pM.GetComponent<Goal>() != null) {
-					if(Vector3.Distance(pM.transform.position, transform.position) < 0.25f) {
-						player.LoadNextLevel();
-					}
-				}
 
 				if(player.timeScale > 0) {
 					//Handles Gravity

@@ -46,6 +46,11 @@ public class Goal : MonoBehaviour {
 				if(g != null && g.gameObject != null && g != this && !g.combined && Vector3.Distance(g.transform.position, this.transform.position) < 2*transform.localScale.magnitude) {
 					if(g.numElementsCombined == numElementsCombined) {
 						g.Combine();
+						if(g.GetComponent<PhysicsAffected> () && !GetComponent<PhysicsAffected> ()) {
+							gameObject.AddComponent<PhysicsAffected> ();
+							gameObject.AddComponent<Rigidbody> ();
+							GetComponent<Renderer> ().material = g.GetComponent<Renderer> ().material;
+						}
 						GameObject.Instantiate(combineEffect, transform.position, Quaternion.identity);
 						numElementsCombined++;
 						if(GetComponent<Rigidbody>() != null && g.GetComponent<Rigidbody>() != null) {

@@ -11,7 +11,7 @@ public class SwitchRotate : Switch {
 	float rotateSpeed = 0;
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
 		base.Start ();
 		objectRotation = attachedObject.GetComponent<Rotating> ();
 		rotateSpeed = objectRotation.speed;

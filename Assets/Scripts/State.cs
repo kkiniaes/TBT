@@ -20,6 +20,9 @@ public class State {
 	public bool combined;
 	public int numElementsCombined;
 
+	//Switch State
+	public bool[] activated;
+
 	public bool Equals(State s) {
 		if (!active && !s.active) {
 			return true;
