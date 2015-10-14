@@ -22,7 +22,7 @@ public class SwitchRotate : Switch {
 
 	// Update is called once per frame
 	new void Update () {
-		base.Update (); {
+		base.Update ();
 		float targetSpeed = activated ? rotateSpeed : 0;
 		objectRotation.speed = Mathf.MoveTowards (objectRotation.speed, targetSpeed, rotateSpeed * Time.deltaTime);
 	}

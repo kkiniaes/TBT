@@ -7,6 +7,10 @@ public class AutoWireframeWorld : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Collider collider = GetComponent<Collider>();
+		if (collider != null) {
+			collider.enabled = false;
+		}
 		GameObject temp = (GameObject)GameObject.Instantiate(this.gameObject, transform.position, transform.rotation);
 		temp.transform.parent = this.transform;
 		Destroy(temp.GetComponent<AutoWireframeWorld>());
@@ -15,6 +19,9 @@ public class AutoWireframeWorld : MonoBehaviour {
 			if(!comps[i].GetType().Equals(typeof(MeshRenderer)) && !comps[i].GetType().Equals(typeof(MeshFilter)) && !comps[i].GetType().Equals(typeof(Transform))) {
 				Destroy(comps[i]);
 			}
+		}
+		if (collider != null) {
+			collider.enabled = true;
 		}
 		temp.GetComponent<MeshRenderer>().material = wireframeMat;
 		temp.gameObject.layer = 11;

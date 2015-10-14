@@ -12,6 +12,7 @@ GameObject:
   - 65: {fileID: 6570588}
   - 23: {fileID: 2322288}
   - 114: {fileID: 11462362}
+  - 114: {fileID: 11453140}
   m_Layer: 0
   m_Name: Wall (1)
   m_TagString: Untagged
@@ -46,6 +47,7 @@ GameObject:
   - 65: {fileID: 6549366}
   - 23: {fileID: 2391792}
   - 114: {fileID: 11425922}
+  - 114: {fileID: 11459982}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -188,10 +190,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
+  specificallyImmutable:
+    mass: 0
+    charge: 0
+    entangled: 0
   mass: 0
   charge: 0
   entangled: {fileID: 0}
+  switchCounter: 0
+--- !u!114 &11453140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac49b509336c407db7cbbc55511b7f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+--- !u!114 &11459982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac49b509336c407db7cbbc55511b7f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
 --- !u!114 &11462362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,10 +235,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
+  specificallyImmutable:
+    mass: 0
+    charge: 0
+    entangled: 0
   mass: 0
   charge: 0
   entangled: {fileID: 0}
+  switchCounter: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -218,6 +256,10 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: .460000008
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 138798}
