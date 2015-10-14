@@ -263,7 +263,7 @@ public class PhysicsModifyable : MonoBehaviour {
 		   && Player.instance.timeScale > 0 && !antiMatterAnhilated) {
 			GameObject.Instantiate(antiMatterExplosion,transform.position, transform.rotation);
 			antiMatterAnhilated = true;
-			other.transform.position -= (transform.position - other.transform.position);
+			//other.transform.position -= (transform.position - other.transform.position);
 		}
 	}
 

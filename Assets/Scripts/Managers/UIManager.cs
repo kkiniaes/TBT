@@ -36,7 +36,16 @@ public class UIManager : MonoBehaviour {
 			if(Player.instance.lookingAtObject.GetComponent<Goal>() != null) {
 				headTitle.GetComponent<Text>().text = System.Enum.GetNames(typeof(VerboseElement))[Player.instance.lookingAtObject.GetComponent<Goal>().numElementsCombined-1];
 			} else {
-				headTitle.GetComponent<Text>().text = Player.instance.lookingAtObject.GetComponent<PhysicsAffected>() != null ? "GravityAffectedShape" : "StaticShape";
+				if(Player.instance.lookingAtObject.GetComponent<PhysicsAffected>() != null) {
+					headTitle.GetComponent<Text>().text = "Gravity Affected";
+				} else {
+					headTitle.GetComponent<Text>().text = "Static";
+				}
+				if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>() != null) {
+					if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().antiMatter) {
+						headTitle.GetComponent<Text>().text += " Antimatter";
+					}
+				}
 			}
 		} else {
 			detailGroup.GetComponent<Animator>().SetBool("PaneOpen", false);
