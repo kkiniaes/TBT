@@ -37,8 +37,6 @@ public class Switch : MonoBehaviour {
 			switchLine = Resources.Load<GameObject> ("SwitchLine");
 		}
 
-		switchIndex = GetComponent<PhysicsModifyable> ().switchCounter++;
-
 		GameObject particleObject = Instantiate (switchParticles, transform.position, transform.rotation) as GameObject;
 		particleObject.transform.parent = transform;
 		particleObject.name = "SwitchParticles" + switchIndex;
