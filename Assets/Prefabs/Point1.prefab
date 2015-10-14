@@ -31,7 +31,7 @@ GameObject:
   - 102: {fileID: 10216050}
   - 23: {fileID: 2333026}
   - 114: {fileID: 11465044}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Star_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,10 +161,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
+  specificallyImmutable:
+    mass: 0
+    charge: 0
+    entangled: 0
   mass: 0
   charge: 0
   entangled: {fileID: 0}
+  switchCounter: 0
 --- !u!114 &11492848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,6 +211,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e3742e8ba17774532af978c5de49607c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 106228}
