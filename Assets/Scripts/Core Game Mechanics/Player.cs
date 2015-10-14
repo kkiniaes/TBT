@@ -200,17 +200,19 @@ public class Player : MonoBehaviour {
 	}
 
 	private void GetTimeManipInput() {
-		if(Input.GetKeyDown(KeyCode.Space)) {
-			timeReversed = false;
-			timeFrozen = !timeFrozen;
-		}
-
-		if (!timeFrozen) {
-			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-				//Debug.Log("HERE");
-				timeReversed = true;
-			} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
+		if (!loadNextLevel) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
 				timeReversed = false;
+				timeFrozen = !timeFrozen;
+			}
+
+			if (!timeFrozen) {
+				if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+					//Debug.Log("HERE");
+					timeReversed = true;
+				} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
+					timeReversed = false;
+				}
 			}
 		}
 	}

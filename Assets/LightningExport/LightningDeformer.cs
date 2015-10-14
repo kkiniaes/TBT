@@ -152,7 +152,9 @@ public class LightningDeformer : MonoBehaviour
 				timerEnd = Random.Range(lifetimeLowerLimit, lifetimeUpperLimit);
 				
 				GetComponent<AudioSource>().Stop();
-				GetComponent<AudioSource>().Play();
+				if (GetComponent<AudioSource>().enabled) {
+					GetComponent<AudioSource>().Play();
+				}
 			}
 		}
 		

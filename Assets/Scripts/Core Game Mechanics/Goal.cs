@@ -13,6 +13,9 @@ public class Goal : MonoBehaviour {
 
 	private Vector3 originalScale;
 
+	private Goal combinedWith;
+	private Material prevMaterial;
+
 	public bool Combined {
 		get { return combined; }
 	}
@@ -46,9 +49,12 @@ public class Goal : MonoBehaviour {
 				if(g != null && g.gameObject != null && g != this && !g.combined && Vector3.Distance(g.transform.position, this.transform.position) < 2*transform.localScale.magnitude) {
 					if(g.numElementsCombined == numElementsCombined) {
 						g.Combine();
+						g.combinedWith = this;
+						combinedWith = g;
 						if(g.GetComponent<PhysicsAffected> () && !GetComponent<PhysicsAffected> ()) {
 							gameObject.AddComponent<PhysicsAffected> ();
-							gameObject.AddComponent<Rigidbody> ();
+							gameObject.AddComponent<Rigidbody> ().useGravity = false;
+							prevMaterial = GetComponent<Renderer> ().material;
 							GetComponent<Renderer> ().material = g.GetComponent<Renderer> ().material;
 						}
 						GameObject.Instantiate(combineEffect, transform.position, Quaternion.identity);
@@ -95,6 +101,14 @@ public class Goal : MonoBehaviour {
 			for (int i = 0; i < transform.childCount; i++) {
 				transform.GetChild (i).gameObject.SetActive (true);
 			}
+			if (combinedWith.prevMaterial != null) {
+				Destroy (combinedWith.GetComponent<PhysicsAffected> ());
+				Destroy (combinedWith.GetComponent<Rigidbody> ());
+				combinedWith.GetComponent<Renderer> ().material = combinedWith.prevMaterial;
+				combinedWith.prevMaterial = null;
+			}
+			combinedWith.combinedWith = null;
+			combinedWith = null;
 		}
 	}
 

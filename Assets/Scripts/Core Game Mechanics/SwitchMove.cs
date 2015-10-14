@@ -26,7 +26,8 @@ public class SwitchMove : Switch {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	new void Update () {
+		base.Update ();
 		if (Player.instance.timeScale > 0) {
 			Vector3 destination = activated ? end : start;
 			attachedObject.transform.position = Vector3.MoveTowards (attachedObject.transform.position, destination, speed * Time.deltaTime);

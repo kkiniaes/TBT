@@ -25,6 +25,11 @@ public class Switch : MonoBehaviour {
 	// The line drawn between the switch and its attached object.
 	private static GameObject switchLine;
 
+	// Set switch indices before a state is initialized.
+	void Awake () {
+		switchIndex = GetComponent<PhysicsModifyable> ().switchCounter++;
+	}
+
 	// Use this for initialization
 	protected void Start () {
 		if (switchParticles == null) {
@@ -49,6 +54,12 @@ public class Switch : MonoBehaviour {
 		line.SetPosition (0, transform.position);
 		line.SetPosition (1, attachedObject.transform.position);
 		line.SetColors (particles.startColor, particles.startColor);
+	}
+
+	// Update is called once per frame
+	protected void Update () {
+		LineRenderer line = transform.FindChild ("LineRenderer" + switchIndex).GetComponent<LineRenderer> ();
+		line.SetPosition (1, attachedObject.transform.position);
 	}
 
 	// Turns the switch on or off.

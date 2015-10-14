@@ -8,7 +8,8 @@ public class SwitchSwitch : Switch {
 	static List<Switch> switchChain = new List<Switch>();
 
 	// Update is called once per frame.
-	void Update () {
+	new void Update () {
+		base.Update ();
 		if (switchChain.Count > 0) {
 			switchChain.Clear ();
 		}

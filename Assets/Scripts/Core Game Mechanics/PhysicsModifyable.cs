@@ -133,7 +133,7 @@ public class PhysicsModifyable : MonoBehaviour {
 
 		GetComponent<Renderer>().material.SetFloat("_Power", 1f);
 
-		if(chargeLockTimer > 0) {
+		if(chargeLockTimer > 0 && player.timeScale > 0) {
 			chargeLockTimer -= Time.deltaTime * player.timeScale;
 			charge = 0;
 		}
@@ -267,5 +267,8 @@ public class PhysicsModifyable : MonoBehaviour {
 		}
 	}
 
-	
+	// Returns whether the object's charge is on cooldown.
+	public bool IsChargeLocked() {
+		return chargeLockTimer > 0;
+	}
 }

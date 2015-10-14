@@ -24,14 +24,17 @@ public class SwitchPhysics : Switch {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	new void Update () {
+		base.Update ();
 		if (Player.instance.timeScale > 0) {
 			switch (mode) {
 			case SwitchPhysicsMode.Mass:
 				objectPhysics.mass = activated ? target : 0;
 				break;
 			case SwitchPhysicsMode.Charge:
-				objectPhysics.charge = activated ? target : 0;
+				if (!objectPhysics.IsChargeLocked ()) {
+					objectPhysics.charge = activated ? target : 0;
+				}
 				break;
 			}
 		}
