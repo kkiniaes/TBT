@@ -9,6 +9,7 @@ public class PhysicsModifyable : MonoBehaviour {
 		public bool entangled;
 	}
 
+	public bool antiMatter;
 	public bool immutable;
 	public SpecificallyImmutable specificallyImmutable;
 	public float mass;
@@ -61,8 +62,10 @@ public class PhysicsModifyable : MonoBehaviour {
 	private static GameObject lightning;
 	private static GameObject blackHole;
 	private static GameObject entangledFX;
+	private static GameObject antiMatterExplosion;
 
 	private float chargeLockTimer = 0;
+	private bool antiMatterAnhilated;
 	private Vector3 entangledOffset;
 
 	// Use this for initialization
@@ -74,6 +77,7 @@ public class PhysicsModifyable : MonoBehaviour {
 			positiveCharge = Resources.Load<GameObject>("PositiveCharge");
 			lightning = Resources.Load<GameObject>("Lightning");
 			entangledFX = Resources.Load<GameObject>("EntangledFX");
+			antiMatterExplosion = Resources.Load<GameObject>("AntiMatterExplosion");
 		}
 
 		Stack initStackState = new Stack();
@@ -242,11 +246,25 @@ public class PhysicsModifyable : MonoBehaviour {
 				fx.GetComponent<ParticleSystem>().Emit(inverseTransform, new Vector3(Random.value - 0.5f,Random.value - 0.5f,Random.value - 0.5f), 0.5f, 0.5f, Color.white);
 			}
 		}
+
+		if(player.timeReversed) {
+			antiMatterAnhilated = false;
+		}
+
 	}
 
 	public void NegateCharge() {
 		charge = 0;
 		chargeLockTimer = 1f;
+	}
+
+	void OnCollisionEnter(Collision other) {
+		if(antiMatter && other.gameObject.GetComponent<PhysicsModifyable>() != null && !other.gameObject.GetComponent<PhysicsModifyable>().antiMatter
+		   && Player.instance.timeScale > 0 && !antiMatterAnhilated) {
+			GameObject.Instantiate(antiMatterExplosion,transform.position, transform.rotation);
+			antiMatterAnhilated = true;
+			other.transform.position -= (transform.position - other.transform.position);
+		}
 	}
 
 	

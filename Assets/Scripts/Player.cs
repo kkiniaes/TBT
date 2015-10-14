@@ -25,8 +25,8 @@ public class Player : MonoBehaviour {
 
 	private float timeElapsed = 0;
 	private Vector3 velocityVector;
-	private bool timeFrozen;
-	private bool timeReversed;
+	public bool timeFrozen;
+	public bool timeReversed;
 	private bool loadNextLevel;
 	private float loadNextLevelTimer;
 	private PhysicsModifyable entangleSelected;
