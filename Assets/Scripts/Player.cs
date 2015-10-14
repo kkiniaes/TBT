@@ -163,6 +163,7 @@ public class Player : MonoBehaviour {
 		if(loadNextLevel) {
 			loadNextLevelTimer += Time.deltaTime;
 				if(loadNextLevelTimer > 2f) {
+
 				Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, 179f, Time.deltaTime*30f);
 				transform.Translate(transform.forward*Time.deltaTime*Camera.main.fieldOfView/2f, Space.World);
 				if(Camera.main.fieldOfView > 170) {
@@ -219,9 +220,9 @@ public class Player : MonoBehaviour {
 			wireframeMode = !wireframeMode;
 		}
 		if(wireframeMode) {
-			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 100f, Time.deltaTime*10f);
+			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 50f, Time.deltaTime*(2+GetComponent<Camera>().nearClipPlane));
 		} else {
-			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 0.1f, Time.deltaTime*10f);
+			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 0.1f, Time.deltaTime*(2+GetComponent<Camera>().nearClipPlane));
 		}
 		transform.FindChild("WireframeCam").GetComponent<Camera>().farClipPlane = GetComponent<Camera>().nearClipPlane;
 	}
