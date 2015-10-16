@@ -99,7 +99,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: e3742e8ba17774532af978c5de49607c, type: 2}
+  - {fileID: 2100000, guid: 6d7fc40036f7c4fd6927c4edc98981d4, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -155,7 +155,7 @@ TextMesh:
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278251007
+    rgba: 4290248710
 --- !u!114 &11446830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,10 +178,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
+  specificallyImmutable:
+    mass: 0
+    charge: 0
+    entangled: 0
   mass: 0
   charge: 0
   entangled: {fileID: 0}
+  switchCounter: 0
 --- !u!114 &11468934
 MonoBehaviour:
   m_ObjectHideFlags: 1
