@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
 	public float moveSpeed;
 	public float timeScale = 1;
 
+
 	[HideInInspector]
 	public GameObject lookingAtObject;
 	[HideInInspector]
@@ -233,6 +234,12 @@ public class Player : MonoBehaviour {
 
 	public void LoadNextLevel() {
 		loadNextLevel = true;
+	}
+
+	public bool BeatLevel {
+		get {
+			return loadNextLevelTimer > 2f;
+		}
 	}
 }
 
