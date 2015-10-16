@@ -79,6 +79,7 @@ GameObject:
   - 23: {fileID: 2377710}
   - 114: {fileID: 11430158}
   - 82: {fileID: 8256274}
+  - 114: {fileID: 11481000}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Untagged
@@ -161,9 +162,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116658}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.7079182, y: 3.31418991, z: -1.74553347}
-  m_LocalScale: {x: 1, y: 1, z: .47094205}
+  m_LocalRotation: {x: 0, y: .70710659, z: 0, w: -.707106948}
+  m_LocalPosition: {x: 40.3199997, y: 1.5, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 408138}
   - {fileID: 405146}
@@ -391,6 +392,19 @@ MonoBehaviour:
   invisibleTimeUpperLimit: 2.5
   probabilityOfDisappearing: 0
   stopSoundOnDisappear: 1
+--- !u!114 &11481000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa32042ccc0e4f73a0eb172bb21cd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPoint: 0
+  loopPoint: 1
 --- !u!114 &11492356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -608,10 +622,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4294939904
+        rgba: 4278220434
       maxColor:
         serializedVersion: 2
-        rgba: 4294967295
+        rgba: 4278190080
       minMaxState: 2
     startSize:
       scalar: 1
@@ -817,10 +831,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4294967295
+          rgba: 4278190080
         key1:
           serializedVersion: 2
-          rgba: 16712192
+          rgba: 55551
         key2:
           serializedVersion: 2
           rgba: 0
@@ -908,20 +922,15 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 1
   UVModule:
-    enabled: 0
+    enabled: 1
     frameOverTime:
       scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 1
-          tangentMode: 0
-        - time: 1
           value: 1
-          inSlope: 1
+          inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
@@ -932,21 +941,16 @@ ParticleSystem:
         - time: 0
           value: 0
           inSlope: 0
-          outSlope: 1
-          tangentMode: 0
-        - time: 1
-          value: 1
-          inSlope: 1
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 1
-    tilesX: 1
+      minMaxState: 3
+    tilesX: 2
     tilesY: 1
     animationType: 0
     rowIndex: 0
-    cycles: 1
+    cycles: 10
     randomRow: 1
   VelocityModule:
     enabled: 0
@@ -1532,7 +1536,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: loopPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ColorModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: UVModule.tilesX
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 116658}

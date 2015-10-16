@@ -14,10 +14,10 @@ public class Switch : MonoBehaviour {
 
 	static Color[] particleColors = new Color[]{
 		new Color(0.047f, 0.522f, 0.914f),
-		new Color(1, 0, 0),
-		new Color(0, 1, 0),
-		new Color(1, 1, 0),
-		new Color(1, 0, 1)
+		new Color(0.1f, 0, 0),
+		new Color(0, 0.1f, 0),
+		new Color(0.1f, 0.1f, 0),
+		new Color(0.1f, 0, 0.1f)
 	};
 
 	// Particles emitted when the switch is on.

@@ -46,7 +46,7 @@ public class Goal : MonoBehaviour {
 	void Update () {
 		if(!combined) {
 			foreach(Goal g in goals) {
-				if(g != null && g.gameObject != null && g != this && !g.combined && Vector3.Distance(g.transform.position, this.transform.position) < 2*transform.localScale.magnitude) {
+				if(g != null && g.gameObject != null && g != this && !g.combined && Vector3.Distance(g.transform.position, this.transform.position) < transform.localScale.magnitude) {
 					if(g.numElementsCombined == numElementsCombined) {
 						g.Combine();
 						g.combinedWith = this;

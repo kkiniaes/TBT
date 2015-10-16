@@ -110,13 +110,13 @@ public class LightningDeformer : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		disappearTimer -= Time.deltaTime;
+		disappearTimer -= Time.deltaTime * Mathf.Max(0,Player.instance.timeScale);
 		if(disappearTimer <= 0) {
 			gameObject.GetComponent<Renderer>().enabled = false;
 			glow.GetComponent<Renderer>().enabled = false;
 			Destroy (gameObject.transform.parent.gameObject);
 		} else {
-			timer += Time.deltaTime;
+			timer += Time.deltaTime* Mathf.Max(0,Player.instance.timeScale);
 		}
 		if (timer >= timerEnd)
 		{
@@ -158,86 +158,88 @@ public class LightningDeformer : MonoBehaviour
 			}
 		}
 		
-		
-		// apply motion and animation to the lightning
-		Mesh mesh = ((MeshFilter)GetComponent(typeof(MeshFilter))).mesh;
-		Vector3[] vertices = mesh.vertices;
-		Vector3[] normals = mesh.normals;
-		Mesh glowMesh = ((MeshFilter)glow.GetComponent(typeof(MeshFilter))).mesh;
-		Vector3[] glowVertices = glowMesh.vertices;
-		for (int i = 0; i < vertices.Length; i++)
-		{
-			// animate the whole lightning curve
-			vertices[i] += lightningAmplitude * sinusSpeed * Vector3.up * Mathf.Sin(sinusYOffset + Time.time + vertices[i].x * 0.1f) * 0.03f * Mathf.Cos(vertices[i].x / 15f * 1.57f);
-			vertices[i] += lightningAmplitude * sinusSpeed * Vector3.forward * Mathf.Sin(sinusZOffset + Time.time + vertices[i].x * 0.1f) * 0.03f * Mathf.Cos(vertices[i].x / 15f * 1.57f);
-			
-			// animate the whole lightning glow curve
-			glowVertices[i] += lightningAmplitude * sinusSpeed * Vector3.up * Mathf.Sin(sinusYOffset + Time.time + glowVertices[i].x * 0.1f) * 0.03f * Mathf.Cos(glowVertices[i].x / 15f * 1.57f);
-			glowVertices[i] += lightningAmplitude * sinusSpeed * Vector3.forward * Mathf.Sin(sinusZOffset + Time.time + glowVertices[i].x * 0.1f) * 0.03f * Mathf.Cos(glowVertices[i].x / 15f * 1.57f);
+		if(Player.instance.timeScale > 0) {
+			// apply motion and animation to the lightning
+			Mesh mesh = ((MeshFilter)GetComponent(typeof(MeshFilter))).mesh;
+			Vector3[] vertices = mesh.vertices;
+			Vector3[] normals = mesh.normals;
+			Mesh glowMesh = ((MeshFilter)glow.GetComponent(typeof(MeshFilter))).mesh;
+			Vector3[] glowVertices = glowMesh.vertices;
+			for (int i = 0; i < vertices.Length; i++)
+			{
+				// animate the whole lightning curve
+				vertices[i] += lightningAmplitude * sinusSpeed * Vector3.up * Mathf.Sin(sinusYOffset + Time.time + vertices[i].x * 0.1f) * 0.03f * Mathf.Cos(vertices[i].x / 15f * 1.57f);
+				vertices[i] += lightningAmplitude * sinusSpeed * Vector3.forward * Mathf.Sin(sinusZOffset + Time.time + vertices[i].x * 0.1f) * 0.03f * Mathf.Cos(vertices[i].x / 15f * 1.57f);
+				
+				// animate the whole lightning glow curve
+				glowVertices[i] += lightningAmplitude * sinusSpeed * Vector3.up * Mathf.Sin(sinusYOffset + Time.time + glowVertices[i].x * 0.1f) * 0.03f * Mathf.Cos(glowVertices[i].x / 15f * 1.57f);
+				glowVertices[i] += lightningAmplitude * sinusSpeed * Vector3.forward * Mathf.Sin(sinusZOffset + Time.time + glowVertices[i].x * 0.1f) * 0.03f * Mathf.Cos(glowVertices[i].x / 15f * 1.57f);
 
-			// make the lightning become thicker over time
-			vertices[i] += 0.07f * normals[i] * Time.deltaTime / timerEnd;
+				// make the lightning become thicker over time
+				vertices[i] += 0.07f * normals[i] * Time.deltaTime / timerEnd;
+				
+				// the condition was added to avoid large undesirable deformations
+				// if the framerate is low, the deformations aren't needed at all
+				if (Time.smoothDeltaTime < 0.05f)
+				{
+					int index = (int)(Mathf.Clamp((vertices[i].x + 15f) / 30f * randomnessY.Length, 0, randomnessY.Length - 1));
+					
+					// animate the agility of the lightning
+					if ((index > 3) && (index < randomnessY.Length - 4))
+					{
+						if (randomnessYCurrDirection[index])
+							vertices[i].y += lightningAgility * Time.smoothDeltaTime * 2.0f;
+						else
+							vertices[i].y -= lightningAgility * Time.smoothDeltaTime * 2.0f;
+						if (randomnessZCurrDirection[index])
+							vertices[i].z += lightningAgility * Time.smoothDeltaTime * 2.0f;
+						else
+							vertices[i].z -= lightningAgility * Time.smoothDeltaTime * 2.0f;
+					}
+				}
+			}
 			
 			// the condition was added to avoid large undesirable deformations
 			// if the framerate is low, the deformations aren't needed at all
 			if (Time.smoothDeltaTime < 0.05f)
 			{
-				int index = (int)(Mathf.Clamp((vertices[i].x + 15f) / 30f * randomnessY.Length, 0, randomnessY.Length - 1));
-				
-				// animate the agility of the lightning
-				if ((index > 3) && (index < randomnessY.Length - 4))
+				// check the agility parameters (basically vertex distance from the primary position)
+				// change the directions if needed
+				for (int index = 0; index < randomnessY.Length; index++)
 				{
 					if (randomnessYCurrDirection[index])
-						vertices[i].y += lightningAgility * Time.smoothDeltaTime * 2.0f;
+					{
+						randomnessYCurr[index] += Time.smoothDeltaTime * 4.5f;
+						if (randomnessYCurr[index] >= randomnessY[index])
+							randomnessYCurrDirection[index] = false;
+					}
 					else
-						vertices[i].y -= lightningAgility * Time.smoothDeltaTime * 2.0f;
+					{
+						randomnessYCurr[index] -= Time.smoothDeltaTime * 4.5f;
+						if (randomnessYCurr[index] <= -randomnessY[index])
+							randomnessYCurrDirection[index] = true;
+					}
+					
 					if (randomnessZCurrDirection[index])
-						vertices[i].z += lightningAgility * Time.smoothDeltaTime * 2.0f;
+					{
+						randomnessZCurr[index] += Time.smoothDeltaTime * 4.5f;
+						if (randomnessZCurr[index] >= randomnessZ[index])
+							randomnessZCurrDirection[index] = false;
+					}
 					else
-						vertices[i].z -= lightningAgility * Time.smoothDeltaTime * 2.0f;
+					{
+						randomnessZCurr[index] -= Time.smoothDeltaTime * 4.5f;
+						if (randomnessZCurr[index] <= -randomnessZ[index])
+							randomnessZCurrDirection[index] = true;
+					}
 				}
 			}
+			
+			// apply the deformations to the meshes
+			mesh.vertices = vertices;
+			glowMesh.vertices = glowVertices;
 		}
-		
-		// the condition was added to avoid large undesirable deformations
-		// if the framerate is low, the deformations aren't needed at all
-		if (Time.smoothDeltaTime < 0.05f)
-		{
-			// check the agility parameters (basically vertex distance from the primary position)
-			// change the directions if needed
-			for (int index = 0; index < randomnessY.Length; index++)
-			{
-				if (randomnessYCurrDirection[index])
-				{
-					randomnessYCurr[index] += Time.smoothDeltaTime * 4.5f;
-					if (randomnessYCurr[index] >= randomnessY[index])
-						randomnessYCurrDirection[index] = false;
-				}
-				else
-				{
-					randomnessYCurr[index] -= Time.smoothDeltaTime * 4.5f;
-					if (randomnessYCurr[index] <= -randomnessY[index])
-						randomnessYCurrDirection[index] = true;
-				}
-				
-				if (randomnessZCurrDirection[index])
-				{
-					randomnessZCurr[index] += Time.smoothDeltaTime * 4.5f;
-					if (randomnessZCurr[index] >= randomnessZ[index])
-						randomnessZCurrDirection[index] = false;
-				}
-				else
-				{
-					randomnessZCurr[index] -= Time.smoothDeltaTime * 4.5f;
-					if (randomnessZCurr[index] <= -randomnessZ[index])
-						randomnessZCurrDirection[index] = true;
-				}
-			}
-		}
-		
-		// apply the deformations to the meshes
-		mesh.vertices = vertices;
-		glowMesh.vertices = glowVertices;
+		particles.GetComponent<ParticleSystem>().playbackSpeed = Player.instance.timeScale;
 	
 	}
 	
@@ -316,7 +318,7 @@ public class LightningDeformer : MonoBehaviour
 
 			particles.GetComponent<ParticleSystem>().Emit(transform.TransformPoint(vertices[i]) + new Vector3(Random.Range(-0.2f, 0.2f),Random.Range(-0.2f, 0.2f),Random.Range(-0.2f, 0.2f)),
 			                                              new Vector3(Random.value-0.5f, Random.value-0.5f, Random.value-0.5f),
-			                                              0.5f, 1f, new Color32((byte)(Random.value*100 + 155), (byte)(Random.value*100 + 155), 255, (byte)(Random.value*100)));
+			                                              0.5f, 1f, new Color32((byte)(Random.value*50), (byte)(Random.value*50), 0, (byte)(Random.value*100)));
 
 		
 		}
