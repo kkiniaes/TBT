@@ -248,23 +248,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: blockSize.x
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: blockSize.y
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: blockSize.z
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: columns
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: rows
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062a78d173039324881d800b45f88bf7, type: 2}

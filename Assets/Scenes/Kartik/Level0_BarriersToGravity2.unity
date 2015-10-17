@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
@@ -212,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
@@ -306,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
@@ -493,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
@@ -655,6 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
@@ -749,6 +754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
@@ -889,6 +895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
@@ -1029,6 +1036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
@@ -1068,6 +1076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 0
   specificallyImmutable:
     mass: 0
