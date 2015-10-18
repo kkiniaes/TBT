@@ -37,9 +37,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -68,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -176,6 +174,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11499544, guid: 79b99bd7e6b32408bae8ddede88f8c4e, type: 2}
+      propertyPath: goalElement
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79b99bd7e6b32408bae8ddede88f8c4e, type: 2}
   m_IsPrefabParent: 0
@@ -221,11 +223,11 @@ Prefab:
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: blockPrefab
       value: 
-      objectReference: {fileID: 140112, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
+      objectReference: {fileID: 103252, guid: b21f3af63e5624e058421f378640fc27, type: 2}
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: goalPrefab
       value: 
-      objectReference: {fileID: 156194, guid: 9aa396013c0b14feb8a5fae4b808e847, type: 2}
+      objectReference: {fileID: 106228, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: addGoals
       value: 1

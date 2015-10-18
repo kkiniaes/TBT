@@ -43,7 +43,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 96eb857f6df984de6957f6791b0f1994, type: 2}
+  - {fileID: 2100000, guid: 7f19676bbaa9042fd8ddacedcbf5bda9, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiMatter: 0
   immutable: 1
   specificallyImmutable:
     mass: 0
@@ -110,6 +111,7 @@ MonoBehaviour:
   mass: 0
   charge: 0
   entangled: {fileID: 0}
+  switchCounter: 0
 --- !u!114 &11489756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedObject: {fileID: 0}
   activated: 0
+  switchIndex: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Kartik/Level0_IntroToGravity.unity
+    path: Assets/Scenes/Kartik/IntroToGravity.unity
   - enabled: 1
-    path: Assets/Scenes/Kartik/Level0_BarriersToGravity.unity
+    path: Assets/Scenes/Kartik/BarriersToGravity.unity
   - enabled: 1
-    path: Assets/Scenes/Kartik/Level0_BarriersToGravity2.unity
+    path: Assets/Scenes/Kartik/BarriersToGravity2.unity
