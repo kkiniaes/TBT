@@ -11,7 +11,7 @@ GameObject:
   - 198: {fileID: 19819950}
   - 199: {fileID: 19965474}
   - 114: {fileID: 11427322}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GravityWell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1152,6 +1152,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.key2.rgba
       value: 16735830
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
