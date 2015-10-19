@@ -81,7 +81,6 @@ public class Player : MonoBehaviour {
 				timeElapsed = Mathf.Max(0, timeElapsed + timeScale);
 				noStateChangesThisFrame = true;
 			}
-			//Debug.Log ("Time Elapsed: " + timeElapsed);
 
 			GetComponent<MotionBlur>().blurAmount = Mathf.MoveTowards(GetComponent<MotionBlur>().blurAmount, 0f, Time.deltaTime*3f);
 		}
@@ -209,7 +208,6 @@ public class Player : MonoBehaviour {
 
 			if (!timeFrozen) {
 				if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-					//Debug.Log("HERE");
 					timeReversed = true;
 				} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
 					timeReversed = false;

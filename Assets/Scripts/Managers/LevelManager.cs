@@ -16,7 +16,6 @@ public class LevelManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//TODO: only add time when no changes made
 		Player player = Player.instance;
 		foreach (PhysicsModifyable pM in stateStacks.Keys) {
 			if(stateStacks[pM] == null) {
@@ -27,7 +26,7 @@ public class LevelManager : MonoBehaviour {
 			
 			if (player.timeScale >= 0) {
 				State myState = GetState(pM, pA);
-				if(states.Count > 0) {
+				if(states.Count > 1) {
 					bool timeFrozenForBoth = player.timeScale == 0 && player.TimeElapsed == ((State) states.Peek()).timeElapsed;
 					if (timeFrozenForBoth || myState.Equals((State) states.Peek())) {
 						states.Pop ();
@@ -75,7 +74,22 @@ public class LevelManager : MonoBehaviour {
 					g.UnCombine();
 				}
 
-				g.NumElementsCombined = state.numElementsCombined;
+				g.numElementsCombined = state.numElementsCombined;
+				if(!g.children.Equals(state.children)) {
+					Stack<Goal> newChildren = new Stack<Goal>();
+					while(state.children.Count > 0) {
+						state.children.Peek().Combine();
+						newChildren.Push(state.children.Pop());
+					}
+					while(g.children.Count > 0) {
+						if(!newChildren.Contains(g.children.Peek())) {
+							g.children.Peek().UnCombine();
+						}
+						g.children.Pop();
+					}
+
+					g.children = ReverseClone(newChildren);
+				}
 			}
 
 			if(state.activated.Length > 0) {
@@ -89,8 +103,6 @@ public class LevelManager : MonoBehaviour {
 
 	public static State GetState(PhysicsModifyable pM, PhysicsAffected pA) {
 		State myState = new State();
-		if (pM == null)
-			Debug.Break ();
 		myState.timeElapsed = Player.instance.TimeElapsed;
 		myState.active = pM.gameObject.activeSelf;
 		if (pM.gameObject.activeSelf) {
@@ -110,7 +122,8 @@ public class LevelManager : MonoBehaviour {
 
 			if (pM.GetComponent<Goal>() != null) {
 				myState.combined = pM.GetComponent<Goal>().Combined;
-				myState.numElementsCombined = pM.GetComponent<Goal>().NumElementsCombined;
+				myState.numElementsCombined = pM.GetComponent<Goal>().numElementsCombined;
+				myState.children = Clone(pM.GetComponent<Goal>().children);
 			}
 			
 			Switch[] switches = pM.GetComponents<Switch>();
@@ -122,5 +135,13 @@ public class LevelManager : MonoBehaviour {
 		}
 		
 		return myState;
+	}
+
+	public static Stack<T> Clone<T>(Stack<T> stack) {
+		return new Stack<T>(new Stack<T>(stack));
+	}
+
+	public static Stack<T> ReverseClone<T>(Stack<T> stack) {
+		return new Stack<T>(stack);
 	}
 }

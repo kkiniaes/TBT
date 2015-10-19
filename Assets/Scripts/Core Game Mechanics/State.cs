@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class State {
 	//General State
@@ -19,6 +20,7 @@ public class State {
 	//Goal State
 	public bool combined;
 	public int numElementsCombined;
+	public Stack<Goal> children;
 
 	//Switch State
 	public bool[] activated;
@@ -30,6 +32,7 @@ public class State {
 
 		bool pmEqual = mass == s.mass && charge == s.charge && entangled == s.entangled;
 		bool paEqual = velocity == s.velocity && angularVelocity == s.angularVelocity && position == s.position && rotation == s.rotation;
-		return pmEqual && paEqual;
+		bool goalEqual = combined == s.combined && numElementsCombined == s.numElementsCombined;
+		return pmEqual && paEqual && goalEqual;
 	}
 }

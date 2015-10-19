@@ -6,27 +6,18 @@ public class Goal : MonoBehaviour {
 
 	private static List<Goal> goals;
 	private static GameObject combineEffect;
+	private float combineCooldown = 0;
 
 	[HideInInspector]
 	public bool combined = false;
+	[HideInInspector]
+	public Stack<Goal> children = new Stack<Goal>();
 	public int numElementsCombined = 1;
 
 	private Vector3 originalScale;
 
-	private Goal combinedWith;
-	private Material prevMaterial;
-
 	public bool Combined {
 		get { return combined; }
-	}
-
-	public int NumElementsCombined {
-		get { return numElementsCombined; }
-		set { 
-			numElementsCombined = value;
-			transform.localScale = Vector3.one*numElementsCombined;
-			transform.GetChild(0).GetComponent<TextMesh>().text = System.Enum.GetNames(typeof(Element))[numElementsCombined-1];
-		}
 	}
 
 	// Use this for initialization
@@ -45,36 +36,61 @@ public class Goal : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(!combined) {
-			foreach(Goal g in goals) {
-				if(g != null && g.gameObject != null && g != this && !g.combined && Vector3.Distance(g.transform.position, this.transform.position) < transform.localScale.magnitude) {
-					if(g.numElementsCombined == numElementsCombined) {
-						g.Combine();
-						g.combinedWith = this;
-						combinedWith = g;
-						if(g.GetComponent<PhysicsAffected> () && !GetComponent<PhysicsAffected> ()) {
-							gameObject.AddComponent<PhysicsAffected> ();
-							gameObject.AddComponent<Rigidbody> ().useGravity = false;
-							prevMaterial = GetComponent<Renderer> ().material;
-							GetComponent<Renderer> ().material = g.GetComponent<Renderer> ().material;
-						}
-						GameObject.Instantiate(combineEffect, transform.position, Quaternion.identity);
-						numElementsCombined++;
-						if(GetComponent<Rigidbody>() != null && g.GetComponent<Rigidbody>() != null) {
-							GetComponent<Rigidbody>().velocity = (GetComponent<Rigidbody>().velocity + g.GetComponent<Rigidbody>().velocity)/2f;
-						} else if(GetComponent<Rigidbody>() != null) {
-							GetComponent<Rigidbody>().velocity /= 2f;
+			if(Player.instance.timeScale > 0) {
+				combineCooldown = Mathf.Max(0, combineCooldown - Time.deltaTime);
+				foreach(Goal g in goals) {
+					if(combineCooldown <= 0 && Player.instance.timeScale > 0) {
+						if(g != null && g.gameObject != null && g != this && !g.combined && touching(g)) {
+							float myCharge = GetComponent<PhysicsModifyable>().charge;
+							float otherCharge = g.GetComponent<PhysicsModifyable>().charge;
+							if(g.numElementsCombined == numElementsCombined && (myCharge == 0 || otherCharge != myCharge)) {
+								Goal child = null;
+								Goal parent = null;
+								
+								if(GetComponent<PhysicsAffected>() == null && g.GetComponent<PhysicsAffected>() != null) {
+									child = this;
+									parent = g;
+								} else {
+									child = g;
+									parent = this;
+								}
+								
+								PhysicsAffected parentPA = parent.GetComponent<PhysicsAffected>();
+								PhysicsAffected childPA = child.GetComponent<PhysicsAffected>();
+								if(parentPA != null && childPA != null) {
+									parentPA.Velocity = (parentPA.Velocity + childPA.Velocity) / 2f;
+								} else if(parentPA != null) {
+									parentPA.Velocity /= 2f;
+								}
+								
+								parent.children.Push(child);
+								parent.numElementsCombined++;
+								GameObject.Instantiate(combineEffect, parent.transform.position, Quaternion.identity);
+								child.Combine();
+							}
 						}
 					}
 				}
+			} else {
+				combineCooldown = 0;
 			}
 
-			transform.localScale = originalScale * numElementsCombined;
+			transform.localScale = originalScale * Mathf.Sqrt(numElementsCombined);
 			transform.GetChild(0).GetComponent<TextMesh>().text = System.Enum.GetNames(typeof(Element))[numElementsCombined-1];
-
+			if(GetComponent<PhysicsAffected>() != null) {
+				GetComponent<PhysicsAffected>().Inertia = numElementsCombined / 2f;
+			}
+			
 			if((int)LevelManager.instance.goalElement == (numElementsCombined-1)) {
 				Player.instance.LoadNextLevel();
 			}
 		}
+	}
+
+	private bool touching(Goal g) {
+		float myRadius = GetComponent<SphereCollider>().radius * transform.localScale.x;
+		float gRadius = GetComponent<SphereCollider>().radius * g.transform.localScale.x;
+		return Vector3.Distance(transform.position, g.transform.position) <= myRadius + gRadius;
 	}
 
 	public void Combine() {
@@ -101,14 +117,29 @@ public class Goal : MonoBehaviour {
 			for (int i = 0; i < transform.childCount; i++) {
 				transform.GetChild (i).gameObject.SetActive (true);
 			}
-			if (combinedWith.prevMaterial != null) {
-				Destroy (combinedWith.GetComponent<PhysicsAffected> ());
-				Destroy (combinedWith.GetComponent<Rigidbody> ());
-				combinedWith.GetComponent<Renderer> ().material = combinedWith.prevMaterial;
-				combinedWith.prevMaterial = null;
+		}
+	}
+
+	public void Split() {
+		if(numElementsCombined > 1) {
+			Goal child = children.Peek();
+			child.combineCooldown = 0.5f;
+			combineCooldown = 0.5f;
+			numElementsCombined--;
+			child.UnCombine();
+
+			if(child.GetComponent<PhysicsAffected>() != null) {
+				child.transform.position = transform.position + Random.insideUnitSphere;
+				Vector3 midPoint = (transform.position + child.transform.position) / 2f;
+				float distance = Vector3.Distance(transform.position, child.transform.position) / 2f;
+
+				child.GetComponent<Rigidbody>().AddExplosionForce(25, midPoint, distance, 0, ForceMode.Impulse);
+				if(GetComponent<PhysicsAffected>() != null) {
+					GetComponent<Rigidbody>().AddExplosionForce(25, midPoint, distance, 0, ForceMode.Impulse);
+				}
 			}
-			combinedWith.combinedWith = null;
-			combinedWith = null;
+
+			children.Pop();
 		}
 	}
 

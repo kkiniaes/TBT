@@ -144,14 +144,12 @@ public class GenerateMaze : MonoBehaviour {
 			float posZ1 = origin.z + extraBorderSpace * blockSize.z / 2;
 			GameObject goal1 = Instantiate(goalPrefab, new Vector3(posX1, posY1, posZ1), Quaternion.identity) as GameObject;
 			goal1.transform.localScale = blockSize * 0.4f;
-//			goal1.GetComponent<SphereCollider>().radius = goal1.transform.localScale.x;
 
 			float posX2 = origin.x + (size.x - extraBorderSpace) * blockSize.x;
 			float posY2 = origin.y;// + blockSize.y / 2 * ySign;
 			float posZ2 = origin.z + (size.y - extraBorderSpace) * blockSize.z;
 			GameObject goal2 = Instantiate(goalPrefab, new Vector3(posX2, posY2, posZ2), Quaternion.identity) as GameObject;
 			goal2.transform.localScale = blockSize * 0.4f;
-//			goal2.GetComponent<SphereCollider>().radius = goal2.transform.localScale.x;
 		}
 	}
 
@@ -165,7 +163,7 @@ public class GenerateMaze : MonoBehaviour {
 		points.Add (initialPoint);
 		visit (initialPoint, ref visited, ref visitedCount);
 
-		//int maxConnections = (size.x * size.y * 4 - size.x * 2 - size.y * 2) / 2;Debug.Break ();
+		//int maxConnections = (size.x * size.y * 4 - size.x * 2 - size.y * 2) / 2;
 		while (visitedCount < size.x * size.y) {
 			Point active;
 

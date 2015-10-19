@@ -7,18 +7,23 @@ public class PhysicsAffected : MonoBehaviour {
 
 	//note: attraction is linear (stuff / radius instead of stuff / radius^2) to simplify things
 	private const float G = 20f; //gravitational constant
-	private const float K = 50f; //Coulomb's constant
 	
 	private Vector3 velocity, angularVelocity;
 
 	public Vector3 Velocity {
 		get { return velocity; }
-		set { velocity = value; }
+		set { 
+			velocity = value; 
+			GetComponent<Rigidbody>().velocity = value;
+		}
 	}
 
 	public Vector3 AngularVelocity {
 		get { return angularVelocity; }
-		set { angularVelocity = value; }
+		set { 
+			angularVelocity = value; 
+			GetComponent<Rigidbody>().angularVelocity = value;
+		}
 	}
 
 	public Vector3 Position {
@@ -29,6 +34,11 @@ public class PhysicsAffected : MonoBehaviour {
 	public Quaternion Rotation {
 		get { return GetComponent<Rigidbody>().rotation; }
 		set { GetComponent<Rigidbody>().rotation = value; }
+	}
+	
+	public float Inertia {
+		get { return GetComponent<Rigidbody>().mass; }
+		set { GetComponent<Rigidbody>().mass = value; }
 	}
 
 	// Use this for initialization
@@ -59,7 +69,7 @@ public class PhysicsAffected : MonoBehaviour {
 				if(player.timeScale > 0) {
 					//Handles Gravity
 					if(pM.gameObject.activeSelf && pM.mass > 0) {
-						float forceMagnitude = player.timeScale * G * pM.mass * myRB.mass / Vector3.Distance(transform.position, pM.transform.position);
+						float forceMagnitude = player.timeScale * G * pM.mass / Vector3.Distance(transform.position, pM.transform.position);
 						myRB.AddForce(Vector3.Normalize(pM.transform.position - transform.position) * forceMagnitude);
 
 						if(pM.GetComponent<PhysicsAffected>() != null) {

@@ -65,7 +65,7 @@ public class PhysicsModifyable : MonoBehaviour {
 	private static GameObject antiMatterExplosion;
 
 	private float chargeLockTimer = 0;
-	private bool antiMatterAnhilated;
+	private bool antiMatterAnnihilated;
 	private Vector3 entangledOffset;
 
 	// Use this for initialization
@@ -108,7 +108,8 @@ public class PhysicsModifyable : MonoBehaviour {
 			
 			if(GetComponent<Goal>() != null) {
 				myState.combined = GetComponent<Goal>().Combined;
-				myState.numElementsCombined = GetComponent<Goal>().NumElementsCombined;
+				myState.numElementsCombined = GetComponent<Goal>().numElementsCombined;
+				myState.children = LevelManager.Clone(GetComponent<Goal>().children);
 			}
 
 			Switch[] switches = GetComponents<Switch>();
@@ -211,14 +212,15 @@ public class PhysicsModifyable : MonoBehaviour {
 			}
 
 			if(player.timeScale > 0) {
-				Collider[] cols = Physics.OverlapSphere(transform.position, charge*10f);
+				Collider[] cols = Physics.OverlapSphere(transform.position, NEUTRALIZE_DIST);
 				foreach(Collider col in cols) {
 					if(col.GetComponent<PhysicsModifyable>() != null && Mathf.Sign(col.GetComponent<PhysicsModifyable>().charge) != Mathf.Sign(charge)
-					   && col.GetComponent<PhysicsModifyable>().charge != 0) {
-						col.GetComponent<PhysicsModifyable>().NegateCharge();
-						NegateCharge();
+					   && col.GetComponent<PhysicsModifyable>().charge != 0 && charge != 0) {
+						col.GetComponent<PhysicsModifyable>().NeutralizeCharge();
+						NeutralizeCharge();
 						GameObject temp = (GameObject)GameObject.Instantiate(lightning, (transform.position + col.transform.position)/2, Quaternion.LookRotation(col.transform.position - transform.position));
 						temp.transform.localScale = Vector3.one*Vector3.Distance(transform.position, col.transform.position)/30f;
+						SplitElementsBetween(transform.position, col.transform.position);
 					}
 				}
 			}
@@ -248,21 +250,31 @@ public class PhysicsModifyable : MonoBehaviour {
 		}
 
 		if(player.timeReversed) {
-			antiMatterAnhilated = false;
+			antiMatterAnnihilated = false;
 		}
 
 	}
+	
+	public void SplitElementsBetween(Vector3 pos1, Vector3 pos2) {
+		RaycastHit[] rh = Physics.RaycastAll(pos1, pos2 - pos1, Vector3.Distance(pos1, pos2));
+		for(int i = 0; i < rh.Length; i++) {
+			if(rh[i].transform.position != pos1 && rh[i].transform.position != pos2 && rh[i].transform.gameObject.GetComponent<Goal>() != null) {
+				Goal g = rh[i].transform.gameObject.GetComponent<Goal>();
+				g.Split();
+			}
+		}
+	}
 
-	public void NegateCharge() {
+	public void NeutralizeCharge() {
 		charge = 0;
 		chargeLockTimer = 1f;
 	}
 
 	void OnCollisionEnter(Collision other) {
 		if(antiMatter && other.gameObject.GetComponent<PhysicsModifyable>() != null && !other.gameObject.GetComponent<PhysicsModifyable>().antiMatter
-		   && Player.instance.timeScale > 0 && !antiMatterAnhilated) {
+		   && Player.instance.timeScale > 0 && !antiMatterAnnihilated) {
 			GameObject.Instantiate(antiMatterExplosion,transform.position, transform.rotation);
-			antiMatterAnhilated = true;
+			antiMatterAnnihilated = true;
 			//other.transform.position -= (transform.position - other.transform.position);
 		}
 	}
