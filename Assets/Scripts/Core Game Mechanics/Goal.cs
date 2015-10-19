@@ -7,6 +7,7 @@ public class Goal : MonoBehaviour {
 	private static GameObject combineEffect;
 	private float combineCooldown = 0;
 
+	public Vector3 hydrogenScale = new Vector3(1f, 1f, 1f);
 	public int numElementsCombined = 1;
 	public Goal childPrefab;
 	
@@ -14,12 +15,6 @@ public class Goal : MonoBehaviour {
 	public Stack<Goal> Children {
 		get { return children; }
 		set { children = value; }
-	}
-
-	private Vector3 originalScale;
-	public Vector3 OriginalScale {
-		get { return originalScale; }
-		set { originalScale = value; }
 	}
 	
 	private bool combined = false;
@@ -43,8 +38,8 @@ public class Goal : MonoBehaviour {
 		if(numElementsCombined > 1) {
 			AddChildren();
 		}
-		Debug.Log(children.Count);
-		originalScale = transform.localScale / Mathf.Sqrt(numElementsCombined);
+
+		transform.localScale = hydrogenScale * Mathf.Sqrt(numElementsCombined);
 	}
 
 	public void AddChildren() {
@@ -52,11 +47,11 @@ public class Goal : MonoBehaviour {
 			for(int i = 1; i < numElementsCombined; i++) {
 				Goal child = Instantiate<Goal>(childPrefab);
 				child.numElementsCombined = i;
-				child.OriginalScale = originalScale;
+				child.hydrogenScale = hydrogenScale;
+				child.transform.localScale = hydrogenScale * Mathf.Sqrt(i);
 				child.childPrefab = childPrefab;
 				child.gameObject.AddComponent<PhysicsModifyable>();
 				child.gameObject.AddComponent<PhysicsAffected>();
-				child.gameObject.AddComponent<Rigidbody>();
 				child.AddChildren();
 				child.Combine();
 
@@ -107,7 +102,7 @@ public class Goal : MonoBehaviour {
 				combineCooldown = 0;
 			}
 
-			transform.localScale = originalScale * Mathf.Sqrt(numElementsCombined);
+			transform.localScale = hydrogenScale * Mathf.Sqrt(numElementsCombined);
 			transform.GetChild(0).GetComponent<TextMesh>().text = System.Enum.GetNames(typeof(Element))[numElementsCombined-1];
 			if(GetComponent<PhysicsAffected>() != null) {
 				GetComponent<PhysicsAffected>().Inertia = numElementsCombined / 2f;
