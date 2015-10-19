@@ -7,15 +7,21 @@ public class Goal : MonoBehaviour {
 	private static List<Goal> goals;
 	private static GameObject combineEffect;
 	private float combineCooldown = 0;
+	
+	[HideInInspector]
+	public Stack<Goal> children = new Stack<Goal>();
+
+	public int numElementsCombined = 1;
+	public Goal childPrefab;
+
+	private Vector3 originalScale;
+	public Vector3 OriginalScale {
+		get { return originalScale; }
+		set { originalScale = value; }
+	}
 
 	[HideInInspector]
 	public bool combined = false;
-	[HideInInspector]
-	public Stack<Goal> children = new Stack<Goal>();
-	public int numElementsCombined = 1;
-
-	private Vector3 originalScale;
-
 	public bool Combined {
 		get { return combined; }
 	}
@@ -25,12 +31,37 @@ public class Goal : MonoBehaviour {
 		if(goals == null) {
 			goals = new List<Goal>();
 			goals.AddRange(GameObject.FindObjectsOfType<Goal>());
+		} else if(!goals.Contains(this)) {
+			goals.Add(this);
 		}
+
 		if(combineEffect == null) {
 			combineEffect = Resources.Load<GameObject>("CombineEffect");
 		}
 
-		originalScale = transform.localScale;
+		if(numElementsCombined > 1) {
+			AddChildren();
+		}
+		Debug.Log(children.Count);
+		originalScale = transform.localScale / Mathf.Sqrt(numElementsCombined);
+	}
+
+	public void AddChildren() {
+		if(children.Count == 0 && numElementsCombined > 1) {
+			for(int i = 1; i < numElementsCombined; i++) {
+				Goal child = Instantiate<Goal>(childPrefab);
+				child.numElementsCombined = i;
+				child.OriginalScale = originalScale;
+				child.childPrefab = childPrefab;
+				child.gameObject.AddComponent<PhysicsModifyable>();
+				child.gameObject.AddComponent<PhysicsAffected>();
+				child.gameObject.AddComponent<Rigidbody>();
+				child.AddChildren();
+				child.Combine();
+
+				children.Push(child);
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -81,7 +112,7 @@ public class Goal : MonoBehaviour {
 				GetComponent<PhysicsAffected>().Inertia = numElementsCombined / 2f;
 			}
 			
-			if((int)LevelManager.instance.goalElement == (numElementsCombined-1)) {
+			if((int)LevelManager.instance.goalElement <= (numElementsCombined-1)) {
 				Player.instance.LoadNextLevel();
 			}
 		}
