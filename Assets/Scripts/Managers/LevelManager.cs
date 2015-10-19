@@ -4,10 +4,9 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
 	public static LevelManager instance;
+	public static Dictionary<PhysicsModifyable, Stack> stateStacks = new Dictionary<PhysicsModifyable, Stack>();
 
 	public Element goalElement;
-
-	public static Dictionary<PhysicsModifyable, Stack> stateStacks = new Dictionary<PhysicsModifyable, Stack>();
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +30,7 @@ public class LevelManager : MonoBehaviour {
 					if (timeFrozenForBoth || myState.Equals((State) states.Peek())) {
 						states.Pop ();
 					} else {
-						player.noStateChangesThisFrame = false;
+						player.NoStateChangesThisFrame = false;
 					}
 				}
 
@@ -75,27 +74,27 @@ public class LevelManager : MonoBehaviour {
 				}
 
 				g.numElementsCombined = state.numElementsCombined;
-				if(!g.children.Equals(state.children)) {
+				if(!g.Children.Equals(state.children)) {
 					Stack<Goal> newChildren = new Stack<Goal>();
 					while(state.children.Count > 0) {
 						state.children.Peek().Combine();
 						newChildren.Push(state.children.Pop());
 					}
-					while(g.children.Count > 0) {
-						if(!newChildren.Contains(g.children.Peek())) {
-							g.children.Peek().UnCombine();
+					while(g.Children.Count > 0) {
+						if(!newChildren.Contains(g.Children.Peek())) {
+							g.Children.Peek().UnCombine();
 						}
-						g.children.Pop();
+						g.Children.Pop();
 					}
 
-					g.children = ReverseClone(newChildren);
+					g.Children = ReverseClone(newChildren);
 				}
 			}
 
 			if(state.activated.Length > 0) {
 				foreach (Switch s in pM.GetComponents<Switch>()) {
-					s.activated = state.activated[s.switchIndex];
-					s.transform.FindChild("SwitchParticles" + s.switchIndex).gameObject.SetActive(s.activated);
+					s.activated = state.activated[s.SwitchIndex];
+					s.transform.FindChild("SwitchParticles" + s.SwitchIndex).gameObject.SetActive(s.activated);
 				}
 			}
 		}
@@ -123,14 +122,14 @@ public class LevelManager : MonoBehaviour {
 			if (pM.GetComponent<Goal>() != null) {
 				myState.combined = pM.GetComponent<Goal>().Combined;
 				myState.numElementsCombined = pM.GetComponent<Goal>().numElementsCombined;
-				myState.children = Clone(pM.GetComponent<Goal>().children);
+				myState.children = Clone(pM.GetComponent<Goal>().Children);
 			}
 			
 			Switch[] switches = pM.GetComponents<Switch>();
 			myState.activated = new bool[switches.Length];
 			for(int i = 0; i < switches.Length; i++) {
 				Switch s = switches[i];
-				myState.activated[s.switchIndex] = s.activated;
+				myState.activated[s.SwitchIndex] = s.activated;
 			}
 		}
 		

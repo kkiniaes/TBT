@@ -9,8 +9,10 @@ public class Switch : MonoBehaviour {
 	// Whether the switch is on or off.
 	public bool activated = false;
 	// The index of the switch (used if the switch has multiple switch components).
-	[HideInInspector]
-	public int switchIndex;
+	private int switchIndex;
+	public int SwitchIndex {
+		get { return switchIndex; }
+	}
 
 	static Color[] particleColors = new Color[]{
 		new Color(0.047f, 0.522f, 0.914f),
@@ -27,7 +29,7 @@ public class Switch : MonoBehaviour {
 
 	// Set switch indices before a state is initialized.
 	void Awake () {
-		switchIndex = GetComponent<PhysicsModifyable> ().switchCounter++;
+		switchIndex = GetComponent<PhysicsModifyable> ().SwitchCounter++;
 	}
 
 	// Use this for initialization

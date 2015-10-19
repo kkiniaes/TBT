@@ -4,7 +4,6 @@ using System.Collections;
 using UnityStandardAssets.ImageEffects;
 
 public class Player : MonoBehaviour {
-
 	private enum PhysicMode {
 		Mass,
 		Charge,
@@ -15,12 +14,6 @@ public class Player : MonoBehaviour {
 	public float sensitivityX, sensitivityY;
 	public float moveSpeed;
 	public float timeScale = 1;
-
-
-	[HideInInspector]
-	public GameObject lookingAtObject;
-	[HideInInspector]
-	public bool noStateChangesThisFrame = true;
 
 	public static Player instance;
 
@@ -33,8 +26,18 @@ public class Player : MonoBehaviour {
 	private PhysicsModifyable entangleSelected;
 	private bool wireframeMode;
 
-
 	private const float REVERSE_TIME_SCALE = -3;
+
+	private GameObject lookingAtObject;
+	public GameObject LookingAtObject {
+		get { return lookingAtObject; }
+	}
+
+	private bool noStateChangesThisFrame = true;
+	public bool NoStateChangesThisFrame {
+		get { return noStateChangesThisFrame; }
+		set { noStateChangesThisFrame = value; }
+	}
 
 	// Use this for initialization
 	void Start () {

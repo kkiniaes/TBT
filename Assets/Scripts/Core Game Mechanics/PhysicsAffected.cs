@@ -7,9 +7,8 @@ public class PhysicsAffected : MonoBehaviour {
 
 	//note: attraction is linear (stuff / radius instead of stuff / radius^2) to simplify things
 	private const float G = 20f; //gravitational constant
-	
-	private Vector3 velocity, angularVelocity;
 
+	private Vector3 velocity;
 	public Vector3 Velocity {
 		get { return velocity; }
 		set { 
@@ -18,6 +17,7 @@ public class PhysicsAffected : MonoBehaviour {
 		}
 	}
 
+	private Vector3 angularVelocity;
 	public Vector3 AngularVelocity {
 		get { return angularVelocity; }
 		set { 

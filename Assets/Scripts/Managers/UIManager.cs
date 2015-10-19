@@ -29,20 +29,20 @@ public class UIManager : MonoBehaviour {
 
 		//detailGroup.transform.localScale = Vector3.one*Screen.width/1024f*4f;
 
-		if(Player.instance.lookingAtObject != null) {
+		if(Player.instance.LookingAtObject != null) {
 			detailGroup.GetComponent<Animator>().SetBool("PaneOpen", true);
-			massText.GetComponent<Text>().text = (((int)(((int)(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().mass*1000f))/600f)*10f)/10f) + "kg";
-			chargeText.GetComponent<Text>().text = (Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().charge > 0) ? "+" : (Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().charge < 0 ? "-" : "0");
-			if(Player.instance.lookingAtObject.GetComponent<Goal>() != null) {
-				headTitle.GetComponent<Text>().text = System.Enum.GetNames(typeof(VerboseElement))[Player.instance.lookingAtObject.GetComponent<Goal>().numElementsCombined-1];
+			massText.GetComponent<Text>().text = (((int)(((int)(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().mass*1000f))/600f)*10f)/10f) + "kg";
+			chargeText.GetComponent<Text>().text = (Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().charge > 0) ? "+" : (Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().charge < 0 ? "-" : "0");
+			if(Player.instance.LookingAtObject.GetComponent<Goal>() != null) {
+				headTitle.GetComponent<Text>().text = System.Enum.GetNames(typeof(VerboseElement))[Player.instance.LookingAtObject.GetComponent<Goal>().numElementsCombined-1];
 			} else {
-				if(Player.instance.lookingAtObject.GetComponent<PhysicsAffected>() != null) {
+				if(Player.instance.LookingAtObject.GetComponent<PhysicsAffected>() != null) {
 					headTitle.GetComponent<Text>().text = "Gravity Affected";
 				} else {
 					headTitle.GetComponent<Text>().text = "Static";
 				}
-				if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>() != null) {
-					if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().antiMatter) {
+				if(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>() != null) {
+					if(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().antiMatter) {
 						headTitle.GetComponent<Text>().text += " Antimatter";
 					}
 				}

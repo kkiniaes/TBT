@@ -16,10 +16,13 @@ public class PhysicsModifyable : MonoBehaviour {
 	public float charge;
 	public PhysicsModifyable entangled;
 
-	[HideInInspector]
-	public int switchCounter = 0;
-	
 	private const float NEUTRALIZE_DIST = 7.5f;
+
+	private int switchCounter = 0;
+	public int SwitchCounter {
+		get { return switchCounter; }
+		set { switchCounter = value; }
+	}
 	
 	public Vector3 Position {
 		get { return transform.position; }
@@ -105,17 +108,17 @@ public class PhysicsModifyable : MonoBehaviour {
 				myState.position = Position;
 				myState.rotation = Rotation;
 			}
-			
+
 			if(GetComponent<Goal>() != null) {
 				myState.combined = GetComponent<Goal>().Combined;
 				myState.numElementsCombined = GetComponent<Goal>().numElementsCombined;
-				myState.children = LevelManager.Clone(GetComponent<Goal>().children);
+				myState.children = LevelManager.Clone(GetComponent<Goal>().Children);
 			}
 
 			Switch[] switches = GetComponents<Switch>();
 			myState.activated = new bool[switches.Length];
 			foreach (Switch s in switches) {
-				myState.activated[s.switchIndex] = s.activated;
+				myState.activated[s.SwitchIndex] = s.activated;
 			}
 		}
 		

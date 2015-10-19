@@ -3,25 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Goal : MonoBehaviour {
-
 	private static List<Goal> goals;
 	private static GameObject combineEffect;
 	private float combineCooldown = 0;
-	
-	[HideInInspector]
-	public Stack<Goal> children = new Stack<Goal>();
 
 	public int numElementsCombined = 1;
 	public Goal childPrefab;
+	
+	private Stack<Goal> children = new Stack<Goal>();
+	public Stack<Goal> Children {
+		get { return children; }
+		set { children = value; }
+	}
 
 	private Vector3 originalScale;
 	public Vector3 OriginalScale {
 		get { return originalScale; }
 		set { originalScale = value; }
 	}
-
-	[HideInInspector]
-	public bool combined = false;
+	
+	private bool combined = false;
 	public bool Combined {
 		get { return combined; }
 	}

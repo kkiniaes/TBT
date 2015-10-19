@@ -32,7 +32,7 @@ public class SwitchMove : Switch {
 			Vector3 destination = activated ? end : start;
 			attachedObject.transform.position = Vector3.MoveTowards (attachedObject.transform.position, destination, speed * Time.deltaTime);
 		}
-		LineRenderer line = gameObject.transform.FindChild ("LineRenderer" + switchIndex).GetComponent<LineRenderer> ();
+		LineRenderer line = gameObject.transform.FindChild ("LineRenderer" + SwitchIndex).GetComponent<LineRenderer> ();
 		line.SetPosition (1, attachedObject.transform.position);
 	}
 }
