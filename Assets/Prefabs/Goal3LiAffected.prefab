@@ -177,7 +177,6 @@ MonoBehaviour:
   mass: 0
   charge: 0
   entangled: {fileID: 0}
-  switchCounter: 0
 --- !u!114 &11425094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,8 +199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935e9842d231246eb9c0eab5a675fb20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combined: 0
+  hydrogenScale: {x: 1, y: 1, z: 1}
   numElementsCombined: 3
+  childPrefab: {fileID: 11492848, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
 --- !u!114 &11431482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -252,6 +252,11 @@ Prefab:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: childPrefab
+      value: 
+      objectReference: {fileID: 11492848, guid: feba474352e6f4e6eb1945c00e727928,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 107108}
