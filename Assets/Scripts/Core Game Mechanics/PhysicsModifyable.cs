@@ -63,7 +63,7 @@ public class PhysicsModifyable : MonoBehaviour {
 	private static GameObject negativeCharge;
 	private static GameObject positiveCharge;
 	private static GameObject lightning;
-	private static GameObject blackHole;
+	//private static GameObject blackHole;
 	private static GameObject entangledFX;
 	private static GameObject antiMatterExplosion;
 
@@ -75,7 +75,7 @@ public class PhysicsModifyable : MonoBehaviour {
 	void Start () {
 		if(gravityWell == null) {
 			gravityWell = Resources.Load<GameObject>("GravityWell");
-			blackHole = Resources.Load<GameObject>("BlackHole");
+			//blackHole = Resources.Load<GameObject>("BlackHole");
 			negativeCharge = Resources.Load<GameObject>("NegativeCharge");
 			positiveCharge = Resources.Load<GameObject>("PositiveCharge");
 			lightning = Resources.Load<GameObject>("Lightning");
