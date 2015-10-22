@@ -53,7 +53,7 @@ public class PhysicsAffected : MonoBehaviour {
 	void Update () {
 		Player player = Player.instance;
 		Rigidbody myRB = GetComponent<Rigidbody>();
-		PhysicsModifyable myPM = GetComponent<PhysicsModifyable>();
+		//PhysicsModifyable myPM = GetComponent<PhysicsModifyable>();
 
 		if (Mathf.Abs(player.timeScale) == 1) {
 			velocity = myRB.velocity;

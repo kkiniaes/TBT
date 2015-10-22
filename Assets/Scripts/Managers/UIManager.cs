@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour {
 	private GameObject headTitle;
 	private GameObject massText;
 	private GameObject chargeText;
-	private GameObject quantamEntangleText;
+	//private GameObject quantamEntangleText;
 	private GameObject selectedToolHighlight;
 
 	private int selectedTool = 1;
@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour {
 		headTitle = detailGroup.transform.FindChild("Head").FindChild("HeadTitleContainer").FindChild("HeadTitle").gameObject;
 		massText = detailGroup.transform.FindChild("Head").FindChild("Detail1").FindChild("MassTextContainer").FindChild("MassText").gameObject;
 		chargeText = detailGroup.transform.FindChild("Head").FindChild("Detail2").FindChild("ChargeTextContainer").FindChild("ChargeText").gameObject;
-		quantamEntangleText = detailGroup.transform.FindChild("Head").FindChild("Detail3").FindChild("QuantamEntangleTextContainer").FindChild("QuantamEntangleText").gameObject;
+		//quantamEntangleText = detailGroup.transform.FindChild("Head").FindChild("Detail3").FindChild("QuantamEntangleTextContainer").FindChild("QuantamEntangleText").gameObject;
 		selectedToolHighlight = transform.FindChild("Canvas").FindChild("Tools").FindChild("SelectedTool").gameObject;
 	}
 	

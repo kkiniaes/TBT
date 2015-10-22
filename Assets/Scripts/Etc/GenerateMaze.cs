@@ -137,7 +137,7 @@ public class GenerateMaze : MonoBehaviour {
 		}
 
 		if (addGoals) {
-			float ySign = Mathf.Sign(origin.y);
+			//float ySign = Mathf.Sign(origin.y);
 
 			float posX1 = origin.x + extraBorderSpace * blockSize.x / 2;
 			float posY1 = origin.y;// + blockSize.y / 2 * ySign;
