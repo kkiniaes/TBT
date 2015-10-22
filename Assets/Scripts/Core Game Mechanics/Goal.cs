@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Goal : MonoBehaviour {
-	private static List<Goal> goals;
+	private static List<Goal> goals = new List<Goal>();
 	private static GameObject combineEffect;
 	private float combineCooldown = 0;
 
@@ -22,21 +22,30 @@ public class Goal : MonoBehaviour {
 		get { return combined; }
 	}
 
-	// Use this for initialization
-	void Start () {
-		if(goals == null) {
-			goals = new List<Goal>();
-			goals.AddRange(GameObject.FindObjectsOfType<Goal>());
-		} else if(!goals.Contains(this)) {
+	void Awake() {
+		if(!goals.Contains(this)) {
 			goals.Add(this);
 		}
+	}
 
+	// Use this for initialization
+	void Start () {
 		if(combineEffect == null) {
 			combineEffect = Resources.Load<GameObject>("CombineEffect");
 		}
 
-		if(numElementsCombined > 1) {
+		if(numElementsCombined > 1 && children.Count <= 0) {
+			PhysicsModifyable pM = GetComponent<PhysicsModifyable>();
+			if(LevelManager.stateStacks.ContainsKey(pM)) {
+				LevelManager.stateStacks.Remove(pM);
+			}
+
 			AddChildren();
+
+			Stack initStackState = new Stack();
+			State initState = State.GetState(pM);
+			initStackState.Push(initState);
+			LevelManager.stateStacks.Add (pM, initStackState);
 		}
 
 		transform.localScale = hydrogenScale * Mathf.Sqrt(numElementsCombined);
@@ -56,12 +65,21 @@ public class Goal : MonoBehaviour {
 				child.Combine();
 
 				children.Push(child);
+
+				PhysicsModifyable pM = child.GetComponent<PhysicsModifyable>();
+				if(LevelManager.stateStacks.ContainsKey(pM)) {
+					LevelManager.stateStacks.Remove(pM);
+				}
+				Stack initStackState = new Stack();
+				State initState = State.GetState(pM);
+				initStackState.Push(initState);
+				LevelManager.stateStacks.Add (pM, initStackState);
 			}
 		}
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {if(numElementsCombined > 1 && children.Count != 1) Debug.Log(children.Count);
 		if(!combined) {
 			if(Player.instance.timeScale > 0) {
 				combineCooldown = Mathf.Max(0, combineCooldown - Time.deltaTime);
@@ -149,7 +167,7 @@ public class Goal : MonoBehaviour {
 
 	public void Split() {
 		if(numElementsCombined > 1) {
-			Goal child = children.Peek();
+			Goal child = children.Pop();
 			child.combineCooldown = 0.5f;
 			combineCooldown = 0.5f;
 			numElementsCombined--;
@@ -165,8 +183,6 @@ public class Goal : MonoBehaviour {
 					GetComponent<Rigidbody>().AddExplosionForce(25, midPoint, distance, 0, ForceMode.Impulse);
 				}
 			}
-
-			children.Pop();
 		}
 	}
 

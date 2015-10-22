@@ -83,46 +83,12 @@ public class PhysicsModifyable : MonoBehaviour {
 			antiMatterExplosion = Resources.Load<GameObject>("AntiMatterExplosion");
 		}
 
-		Stack initStackState = new Stack();
-		State initState = GetInitState (GetComponent<PhysicsAffected> ());
-		initStackState.Push (initState);
-		
-		LevelManager.stateStacks.Add (this, initStackState);
-	}
-
-	private State GetInitState(PhysicsAffected pA) {
-		State myState = new State ();
-		myState.timeElapsed = 0;
-		myState.active = gameObject.activeSelf;
-		if (gameObject.activeSelf) {
-			myState.mass = mass;
-			myState.charge = charge;
-			myState.entangled = entangled;
-			
-			if (pA != null) {
-				myState.velocity = pA.Velocity;
-				myState.angularVelocity = pA.AngularVelocity;
-				myState.position = pA.Position;
-				myState.rotation = pA.Rotation;
-			} else {
-				myState.position = Position;
-				myState.rotation = Rotation;
-			}
-
-			if(GetComponent<Goal>() != null) {
-				myState.combined = GetComponent<Goal>().Combined;
-				myState.numElementsCombined = GetComponent<Goal>().numElementsCombined;
-				myState.children = LevelManager.Clone(GetComponent<Goal>().Children);
-			}
-
-			Switch[] switches = GetComponents<Switch>();
-			myState.activated = new bool[switches.Length];
-			foreach (Switch s in switches) {
-				myState.activated[s.SwitchIndex] = s.activated;
-			}
+		if(!LevelManager.stateStacks.ContainsKey(this)) {
+			Stack initStackState = new Stack();
+			State initState = State.GetState(this);
+			initStackState.Push(initState);
+			LevelManager.stateStacks.Add (this, initStackState);
 		}
-		
-		return myState;
 	}
 	
 	// Update is called once per frame

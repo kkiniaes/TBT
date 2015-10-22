@@ -39,9 +39,12 @@ public class Player : MonoBehaviour {
 		set { noStateChangesThisFrame = value; }
 	}
 
+	void Awake() {
+		instance = this;
+	}
+
 	// Use this for initialization
 	void Start () {
-		instance = this;
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 
