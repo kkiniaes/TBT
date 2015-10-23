@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour {
 	private GameObject headTitle;
 	private GameObject massText;
 	private GameObject chargeText;
-	private GameObject quantamEntangleText;
+	//private GameObject quantamEntangleText;
 	private GameObject selectedToolHighlight;
 
 	private Color defaultGray;
@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour {
 		headTitle = detailGroup.transform.FindChild("Head").FindChild("HeadTitleContainer").FindChild("HeadTitle").gameObject;
 		massText = detailGroup.transform.FindChild("Head").FindChild("Detail1").FindChild("MassTextContainer").FindChild("MassText").gameObject;
 		chargeText = detailGroup.transform.FindChild("Head").FindChild("Detail2").FindChild("ChargeTextContainer").FindChild("ChargeText").gameObject;
-		quantamEntangleText = detailGroup.transform.FindChild("Head").FindChild("Detail3").FindChild("QuantamEntangleTextContainer").FindChild("QuantamEntangleText").gameObject;
+		//quantamEntangleText = detailGroup.transform.FindChild("Head").FindChild("Detail3").FindChild("QuantamEntangleTextContainer").FindChild("QuantamEntangleText").gameObject;
 		selectedToolHighlight = transform.FindChild("Canvas").FindChild("Tools").FindChild("SelectedTool").gameObject;
 		defaultGray = detailBack1.GetComponent<Image>().color;
 	}
@@ -38,32 +38,32 @@ public class UIManager : MonoBehaviour {
 
 		//detailGroup.transform.localScale = Vector3.one*Screen.width/1024f*4f;
 
-		if(Player.instance.lookingAtObject != null) {
+		if(Player.instance.LookingAtObject != null) {
 			detailGroup.GetComponent<Animator>().SetBool("PaneOpen", true);
-			massText.GetComponent<Text>().text = (((int)(((int)(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().mass*1000f))/600f)*10f)/10f) + "kg";
-			if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().specificallyImmutable.mass) {
+			massText.GetComponent<Text>().text = (((int)(((int)(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().mass*1000f))/600f)*10f)/10f) + "kg";
+			if(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().specificallyImmutable.mass) {
 				detailBack1.GetComponent<Image>().color = Color.red;
 			} else {
 				detailBack1.GetComponent<Image>().color = defaultGray;
 			}
-			chargeText.GetComponent<Text>().text = (Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().charge > 0) ? "+" : (Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().charge < 0 ? "-" : "0");
-			if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().specificallyImmutable.charge) {
+			chargeText.GetComponent<Text>().text = (Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().charge > 0) ? "+" : (Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().charge < 0 ? "-" : "0");
+			if(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().specificallyImmutable.charge) {
 				detailBack2.GetComponent<Image>().color = Color.red;
 			} else {
 				detailBack2.GetComponent<Image>().color = defaultGray;
 			}
-			if(Player.instance.lookingAtObject.GetComponent<Goal>() != null) {
-				headTitle.GetComponent<Text>().text = System.Enum.GetNames(typeof(VerboseElement))[Player.instance.lookingAtObject.GetComponent<Goal>().numElementsCombined-1];
+			if(Player.instance.LookingAtObject.GetComponent<Goal>() != null) {
+				headTitle.GetComponent<Text>().text = System.Enum.GetNames(typeof(VerboseElement))[Player.instance.LookingAtObject.GetComponent<Goal>().numElementsCombined-1];
 			} else {
-				if(Player.instance.lookingAtObject.GetComponent<Switch>() != null) {
+				if(Player.instance.LookingAtObject.GetComponent<Switch>() != null) {
 					headTitle.GetComponent<Text>().text = "Switch";
-				} else if(Player.instance.lookingAtObject.GetComponent<PhysicsAffected>() != null) {
+				} else if(Player.instance.LookingAtObject.GetComponent<PhysicsAffected>() != null) {
 					headTitle.GetComponent<Text>().text = "Gravity Affected";
 				} else {
 					headTitle.GetComponent<Text>().text = "Static";
 				}
-				if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>() != null) {
-					if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().antiMatter) {
+				if(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>() != null) {
+					if(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().antiMatter) {
 						headTitle.GetComponent<Text>().text += " Antimatter";
 					} else {
 						headTitle.GetComponent<Text>().text += " Object";

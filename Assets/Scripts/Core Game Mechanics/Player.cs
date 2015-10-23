@@ -4,7 +4,6 @@ using System.Collections;
 using UnityStandardAssets.ImageEffects;
 
 public class Player : MonoBehaviour {
-
 	private enum PhysicMode {
 		Mass,
 		Charge,
@@ -15,12 +14,6 @@ public class Player : MonoBehaviour {
 	public float sensitivityX, sensitivityY;
 	public float moveSpeed;
 	public float timeScale = 1;
-
-
-	[HideInInspector]
-	public GameObject lookingAtObject;
-	[HideInInspector]
-	public bool noStateChangesThisFrame = true;
 
 	public static Player instance;
 
@@ -33,12 +26,25 @@ public class Player : MonoBehaviour {
 	private PhysicsModifyable entangleSelected;
 	private bool wireframeMode;
 
-
 	private const float REVERSE_TIME_SCALE = -3;
+
+	private GameObject lookingAtObject;
+	public GameObject LookingAtObject {
+		get { return lookingAtObject; }
+	}
+
+	private bool noStateChangesThisFrame = true;
+	public bool NoStateChangesThisFrame {
+		get { return noStateChangesThisFrame; }
+		set { noStateChangesThisFrame = value; }
+	}
+
+	void Awake() {
+		instance = this;
+	}
 
 	// Use this for initialization
 	void Start () {
-		instance = this;
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 
@@ -81,7 +87,6 @@ public class Player : MonoBehaviour {
 				timeElapsed = Mathf.Max(0, timeElapsed + timeScale);
 				noStateChangesThisFrame = true;
 			}
-			//Debug.Log ("Time Elapsed: " + timeElapsed);
 
 			GetComponent<MotionBlur>().blurAmount = Mathf.MoveTowards(GetComponent<MotionBlur>().blurAmount, 0f, Time.deltaTime*3f);
 		}
@@ -130,18 +135,19 @@ public class Player : MonoBehaviour {
 						} else if(delta != 0) {
 							pM.Charge = Mathf.Sign(delta);
 						}
-					}// Quantam Entangle objects
+					}// Quantum Entangle objects
 					else if(!pM.specificallyImmutable.entangled && currentMode == PhysicMode.Entangle) {
 						if(Input.GetMouseButtonDown(0)) {
-							if(pM.entangled != null && !pM.entangled.immutable) {
+							if(pM.entangled != null) {
 								//Debug.Log("Detangle");
-								pM.entangled.entangled = null;
-								pM.entangled = null;
+								pM.entangled.Entangled = null;
+								pM.Entangled = null;
 								entangleSelected = null;
 							} else if(entangleSelected != null) {
 								//Debug.Log("Entangle " + pM + ":" + entangleSelected);
-								pM.entangled = entangleSelected;
-								entangleSelected.entangled = pM;
+								pM.Entangled = entangleSelected;
+								entangleSelected.Entangled = pM;
+								entangleSelected = null;
 							} else {
 								//Debug.Log("Entangle " + pM);
 								entangleSelected = pM;
@@ -209,7 +215,6 @@ public class Player : MonoBehaviour {
 
 			if (!timeFrozen) {
 				if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-					//Debug.Log("HERE");
 					timeReversed = true;
 				} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
 					timeReversed = false;

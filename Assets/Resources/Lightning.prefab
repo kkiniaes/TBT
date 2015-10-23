@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 488124}
   - 198: {fileID: 19836726}
   - 199: {fileID: 19974254}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 412236}
   - 123: {fileID: 12308322}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Flare1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 65: {fileID: 6543884}
   - 54: {fileID: 5455908}
   - 114: {fileID: 11492356}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 451966}
   - 123: {fileID: 12366892}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Flare1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - 114: {fileID: 11430158}
   - 82: {fileID: 8256274}
   - 114: {fileID: 11481000}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - 4: {fileID: 405146}
   - 33: {fileID: 3329776}
   - 23: {fileID: 2355632}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 457624}
   - 123: {fileID: 12388722}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Flare1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,6 +314,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 10
@@ -1548,6 +1549,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: UVModule.tilesX
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -3,22 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PhysicsAffected : MonoBehaviour {
-	private static List<PhysicsModifyable> objs;
+	private static List<PhysicsModifyable> objs = new List<PhysicsModifyable>();
 
 	//note: attraction is linear (stuff / radius instead of stuff / radius^2) to simplify things
 	private const float G = 20f; //gravitational constant
-	private const float K = 50f; //Coulomb's constant
-	
-	private Vector3 velocity, angularVelocity;
 
+	private Vector3 velocity;
 	public Vector3 Velocity {
 		get { return velocity; }
-		set { velocity = value; }
+		set { 
+			velocity = value; 
+			GetComponent<Rigidbody>().velocity = value;
+		}
 	}
 
+	private Vector3 angularVelocity;
 	public Vector3 AngularVelocity {
 		get { return angularVelocity; }
-		set { angularVelocity = value; }
+		set { 
+			angularVelocity = value; 
+			GetComponent<Rigidbody>().angularVelocity = value;
+		}
 	}
 
 	public Vector3 Position {
@@ -30,20 +35,22 @@ public class PhysicsAffected : MonoBehaviour {
 		get { return GetComponent<Rigidbody>().rotation; }
 		set { GetComponent<Rigidbody>().rotation = value; }
 	}
+	
+	public float Inertia {
+		get { return GetComponent<Rigidbody>().mass; }
+		set { GetComponent<Rigidbody>().mass = value; }
+	}
 
 	// Use this for initialization
 	void Start () {
-		if(objs == null) {
-			objs = new List<PhysicsModifyable>();
-			objs.AddRange(GameObject.FindObjectsOfType<PhysicsModifyable>());
-		}
+
 	}
 
 	// Update is called once per frame
 	void Update () {
 		Player player = Player.instance;
 		Rigidbody myRB = GetComponent<Rigidbody>();
-		PhysicsModifyable myPM = GetComponent<PhysicsModifyable>();
+		//PhysicsModifyable myPM = GetComponent<PhysicsModifyable>();
 
 		if (Mathf.Abs(player.timeScale) == 1) {
 			velocity = myRB.velocity;
@@ -83,12 +90,9 @@ public class PhysicsAffected : MonoBehaviour {
 		}
 	}
 
-	public static void AddPM(PhysicsModifyable pm) {
-		if (objs == null) {
-			objs = new List<PhysicsModifyable> ();
-			objs.AddRange (GameObject.FindObjectsOfType<PhysicsModifyable> ());
-		} else {
-			objs.Add (pm);
+	public static void TryAddPM(PhysicsModifyable pM) {
+		if(!objs.Contains(pM)) {
+			objs.Add(pM);
 		}
 	}
 }

@@ -25,6 +25,12 @@ public class AutoWireframeWorld : MonoBehaviour {
 		}
 		temp.GetComponent<MeshRenderer>().material = wireframeMat;
 		temp.gameObject.layer = 11;
+		if (temp.GetComponentInChildren<LineRenderer>()) {
+			temp.GetComponentInChildren<LineRenderer>().enabled = false;
+		}
+		if (temp.GetComponentInChildren<TextMesh>()) {
+			Destroy(temp.GetComponentInChildren<TextMesh>());
+		}
 	}
 	
 	// Update is called once per frame

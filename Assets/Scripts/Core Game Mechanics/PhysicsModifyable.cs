@@ -16,10 +16,13 @@ public class PhysicsModifyable : MonoBehaviour {
 	public float charge;
 	public PhysicsModifyable entangled;
 
-	[HideInInspector]
-	public int switchCounter = 0;
-	
 	private const float NEUTRALIZE_DIST = 7.5f;
+
+	private int switchCounter = 0;
+	public int SwitchCounter {
+		get { return switchCounter; }
+		set { switchCounter = value; }
+	}
 	
 	public Vector3 Position {
 		get { return transform.position; }
@@ -53,26 +56,44 @@ public class PhysicsModifyable : MonoBehaviour {
 	
 	public PhysicsModifyable Entangled {
 		get { return entangled; }
-		set { entangled = value; }
+		set {
+			if(value == this) {
+				value = null;
+			}
+
+			if(value != entangled) {
+				if(entangled != null) {
+					UnBind(this, entangled);
+					entangled.entangled = null;
+				}
+
+				if(value != null) {
+					Bind(this, value);
+					value.entangled = this;
+				}
+
+				entangled = value;
+			}
+		}
 	}
 	
 	private static GameObject gravityWell;
 	private static GameObject negativeCharge;
 	private static GameObject positiveCharge;
 	private static GameObject lightning;
-	private static GameObject blackHole;
+	//private static GameObject blackHole;
 	private static GameObject entangledFX;
 	private static GameObject antiMatterExplosion;
 
 	private float chargeLockTimer = 0;
-	private bool antiMatterAnhilated;
+	private bool antiMatterAnnihilated;
 	private Vector3 entangledOffset;
 
 	// Use this for initialization
 	void Start () {
 		if(gravityWell == null) {
 			gravityWell = Resources.Load<GameObject>("GravityWell");
-			blackHole = Resources.Load<GameObject>("BlackHole");
+			//blackHole = Resources.Load<GameObject>("BlackHole");
 			negativeCharge = Resources.Load<GameObject>("NegativeCharge");
 			positiveCharge = Resources.Load<GameObject>("PositiveCharge");
 			lightning = Resources.Load<GameObject>("Lightning");
@@ -80,45 +101,14 @@ public class PhysicsModifyable : MonoBehaviour {
 			antiMatterExplosion = Resources.Load<GameObject>("AntiMatterExplosion");
 		}
 
-		Stack initStackState = new Stack();
-		State initState = GetInitState (GetComponent<PhysicsAffected> ());
-		initStackState.Push (initState);
-		
-		LevelManager.stateStacks.Add (this, initStackState);
-	}
+		PhysicsAffected.TryAddPM(this);
 
-	private State GetInitState(PhysicsAffected pA) {
-		State myState = new State ();
-		myState.timeElapsed = 0;
-		myState.active = gameObject.activeSelf;
-		if (gameObject.activeSelf) {
-			myState.mass = mass;
-			myState.charge = charge;
-			myState.entangled = entangled;
-			
-			if (pA != null) {
-				myState.velocity = pA.Velocity;
-				myState.angularVelocity = pA.AngularVelocity;
-				myState.position = pA.Position;
-				myState.rotation = pA.Rotation;
-			} else {
-				myState.position = Position;
-				myState.rotation = Rotation;
-			}
-			
-			if(GetComponent<Goal>() != null) {
-				myState.combined = GetComponent<Goal>().Combined;
-				myState.numElementsCombined = GetComponent<Goal>().NumElementsCombined;
-			}
-
-			Switch[] switches = GetComponents<Switch>();
-			myState.activated = new bool[switches.Length];
-			foreach (Switch s in switches) {
-				myState.activated[s.switchIndex] = s.activated;
-			}
+		if(!LevelManager.stateStacks.ContainsKey(this)) {
+			Stack initStackState = new Stack();
+			State initState = State.GetState(this);
+			initStackState.Push(initState);
+			LevelManager.stateStacks.Add (this, initStackState);
 		}
-		
-		return myState;
 	}
 	
 	// Update is called once per frame
@@ -130,6 +120,8 @@ public class PhysicsModifyable : MonoBehaviour {
 		}
 
 		Player player = Player.instance;
+
+		Entangled = entangled;
 
 		GetComponent<Renderer>().material.SetFloat("_Power", 1f);
 
@@ -211,14 +203,15 @@ public class PhysicsModifyable : MonoBehaviour {
 			}
 
 			if(player.timeScale > 0) {
-				Collider[] cols = Physics.OverlapSphere(transform.position, charge*10f);
+				Collider[] cols = Physics.OverlapSphere(transform.position, NEUTRALIZE_DIST);
 				foreach(Collider col in cols) {
 					if(col.GetComponent<PhysicsModifyable>() != null && Mathf.Sign(col.GetComponent<PhysicsModifyable>().charge) != Mathf.Sign(charge)
-					   && col.GetComponent<PhysicsModifyable>().charge != 0) {
-						col.GetComponent<PhysicsModifyable>().NegateCharge();
-						NegateCharge();
+					   && col.GetComponent<PhysicsModifyable>().charge != 0 && charge != 0) {
+						col.GetComponent<PhysicsModifyable>().NeutralizeCharge();
+						NeutralizeCharge();
 						GameObject temp = (GameObject)GameObject.Instantiate(lightning, (transform.position + col.transform.position)/2, Quaternion.LookRotation(col.transform.position - transform.position));
 						temp.transform.localScale = Vector3.one*Vector3.Distance(transform.position, col.transform.position)/30f;
+						SplitElementsBetween(transform.position, col.transform.position);
 					}
 				}
 			}
@@ -248,21 +241,83 @@ public class PhysicsModifyable : MonoBehaviour {
 		}
 
 		if(player.timeReversed) {
-			antiMatterAnhilated = false;
+			antiMatterAnnihilated = false;
 		}
 
 	}
 
-	public void NegateCharge() {
+	public static void Bind(PhysicsModifyable pM1, PhysicsModifyable pM2) {
+		PhysicsAffected pA1 = pM1.GetComponent<PhysicsAffected>();
+		PhysicsAffected pA2 = pM2.GetComponent<PhysicsAffected>();
+		if(pA1 != null && pA2 != null) {
+			FixedJoint j1 = pA1.GetComponent<FixedJoint>();
+			if(j1 == null || j1.connectedBody != pA2.GetComponent<Rigidbody>()) {
+				if(j1 != null) {
+					Destroy(j1);
+				}
+
+				j1 = pA1.gameObject.AddComponent<FixedJoint>();
+				j1.connectedBody = pA2.GetComponent<Rigidbody>();
+			}
+
+			FixedJoint j2 = pA2.GetComponent<FixedJoint>();
+			if(j2 == null || j2.connectedBody != pA1.GetComponent<Rigidbody>()) {
+				if(j2 != null) {
+					Destroy(j2);
+				}
+
+				j2 = pA2.gameObject.AddComponent<FixedJoint>();
+				j2.connectedBody = pA1.GetComponent<Rigidbody>();
+			}
+		} else if(pA1 != null || pA2 != null) {
+			if(pA1 != null) {
+				pA1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			} else if(pA2 != null) {
+				pA2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			}
+		}
+	}
+
+	public static void UnBind(PhysicsModifyable pM1, PhysicsModifyable pM2) {
+		PhysicsAffected pA1 = pM1.GetComponent<PhysicsAffected>();
+		PhysicsAffected pA2 = pM2.GetComponent<PhysicsAffected>();
+		if(pA1 != null && pA2 != null) {
+			if(pA1.GetComponent<FixedJoint>() != null) {
+				Destroy(pA1.GetComponent<FixedJoint>());
+			}
+
+			if(pA2.GetComponent<FixedJoint>() != null) {
+				Destroy(pA2.GetComponent<FixedJoint>());
+			}
+		} else if(pA1 != null || pA2 != null) {
+			if(pA1 != null) {
+				pA1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			} else if(pA2 != null) {
+				pA2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			}
+		}
+	}
+
+	public void SplitElementsBetween(Vector3 pos1, Vector3 pos2) {
+		RaycastHit[] rh = Physics.RaycastAll(pos1, pos2 - pos1, Vector3.Distance(pos1, pos2));
+		for(int i = 0; i < rh.Length; i++) {
+			if(rh[i].transform.position != pos1 && rh[i].transform.position != pos2 && rh[i].transform.gameObject.GetComponent<Goal>() != null) {
+				Goal g = rh[i].transform.gameObject.GetComponent<Goal>();
+				g.Split();
+			}
+		}
+	}
+
+	public void NeutralizeCharge() {
 		charge = 0;
 		chargeLockTimer = 1f;
 	}
 
 	void OnCollisionEnter(Collision other) {
 		if(antiMatter && other.gameObject.GetComponent<PhysicsModifyable>() != null && !other.gameObject.GetComponent<PhysicsModifyable>().antiMatter
-		   && Player.instance.timeScale > 0 && !antiMatterAnhilated) {
+		   && Player.instance.timeScale > 0 && !antiMatterAnnihilated) {
 			GameObject.Instantiate(antiMatterExplosion,transform.position, transform.rotation);
-			antiMatterAnhilated = true;
+			antiMatterAnnihilated = true;
 			//other.transform.position -= (transform.position - other.transform.position);
 		}
 	}
