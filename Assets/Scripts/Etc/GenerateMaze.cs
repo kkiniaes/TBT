@@ -131,7 +131,7 @@ public class GenerateMaze : MonoBehaviour {
 					float posZ = origin.z + y * blockSize.z;
 					blocks.Add(Instantiate(blockPrefab, new Vector3(posX, posY, posZ), Quaternion.identity) as GameObject);
 					blocks[blocks.Count - 1].transform.localScale = blockSize;
-					PhysicsAffected.AddPM(blocks[blocks.Count - 1].GetComponent<PhysicsModifyable>());
+					PhysicsAffected.TryAddPM(blocks[blocks.Count - 1].GetComponent<PhysicsModifyable>());
 				}
 			}
 		}

@@ -135,18 +135,19 @@ public class Player : MonoBehaviour {
 						} else if(delta != 0) {
 							pM.Charge = Mathf.Sign(delta);
 						}
-					}// Quantam Entangle objects
+					}// Quantum Entangle objects
 					else if(!pM.specificallyImmutable.entangled && currentMode == PhysicMode.Entangle) {
 						if(Input.GetMouseButtonDown(0)) {
-							if(pM.entangled != null && !pM.entangled.immutable) {
+							if(pM.entangled != null) {
 								//Debug.Log("Detangle");
-								pM.entangled.entangled = null;
-								pM.entangled = null;
+								pM.entangled.Entangled = null;
+								pM.Entangled = null;
 								entangleSelected = null;
 							} else if(entangleSelected != null) {
 								//Debug.Log("Entangle " + pM + ":" + entangleSelected);
-								pM.entangled = entangleSelected;
-								entangleSelected.entangled = pM;
+								pM.Entangled = entangleSelected;
+								entangleSelected.Entangled = pM;
+								entangleSelected = null;
 							} else {
 								//Debug.Log("Entangle " + pM);
 								entangleSelected = pM;

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PhysicsAffected : MonoBehaviour {
-	private static List<PhysicsModifyable> objs;
+	private static List<PhysicsModifyable> objs = new List<PhysicsModifyable>();
 
 	//note: attraction is linear (stuff / radius instead of stuff / radius^2) to simplify things
 	private const float G = 20f; //gravitational constant
@@ -43,10 +43,7 @@ public class PhysicsAffected : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if(objs == null) {
-			objs = new List<PhysicsModifyable>();
-			objs.AddRange(GameObject.FindObjectsOfType<PhysicsModifyable>());
-		}
+
 	}
 
 	// Update is called once per frame
@@ -86,12 +83,9 @@ public class PhysicsAffected : MonoBehaviour {
 		}
 	}
 
-	public static void AddPM(PhysicsModifyable pm) {
-		if (objs == null) {
-			objs = new List<PhysicsModifyable> ();
-			objs.AddRange (GameObject.FindObjectsOfType<PhysicsModifyable> ());
-		} else {
-			objs.Add (pm);
+	public static void TryAddPM(PhysicsModifyable pM) {
+		if(!objs.Contains(pM)) {
+			objs.Add(pM);
 		}
 	}
 }

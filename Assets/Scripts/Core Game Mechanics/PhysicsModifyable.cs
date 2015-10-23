@@ -56,7 +56,25 @@ public class PhysicsModifyable : MonoBehaviour {
 	
 	public PhysicsModifyable Entangled {
 		get { return entangled; }
-		set { entangled = value; }
+		set {
+			if(value == this) {
+				value = null;
+			}
+
+			if(value != entangled) {
+				if(entangled != null) {
+					UnBind(this, entangled);
+					entangled.entangled = null;
+				}
+
+				if(value != null) {
+					Bind(this, value);
+					value.entangled = this;
+				}
+
+				entangled = value;
+			}
+		}
 	}
 	
 	private static GameObject gravityWell;
@@ -83,6 +101,8 @@ public class PhysicsModifyable : MonoBehaviour {
 			antiMatterExplosion = Resources.Load<GameObject>("AntiMatterExplosion");
 		}
 
+		PhysicsAffected.TryAddPM(this);
+
 		if(!LevelManager.stateStacks.ContainsKey(this)) {
 			Stack initStackState = new Stack();
 			State initState = State.GetState(this);
@@ -100,6 +120,8 @@ public class PhysicsModifyable : MonoBehaviour {
 		}
 
 		Player player = Player.instance;
+
+		Entangled = entangled;
 
 		GetComponent<Renderer>().material.SetFloat("_Power", 1f);
 
@@ -223,7 +245,59 @@ public class PhysicsModifyable : MonoBehaviour {
 		}
 
 	}
-	
+
+	public static void Bind(PhysicsModifyable pM1, PhysicsModifyable pM2) {
+		PhysicsAffected pA1 = pM1.GetComponent<PhysicsAffected>();
+		PhysicsAffected pA2 = pM2.GetComponent<PhysicsAffected>();
+		if(pA1 != null && pA2 != null) {
+			FixedJoint j1 = pA1.GetComponent<FixedJoint>();
+			if(j1 == null || j1.connectedBody != pA2.GetComponent<Rigidbody>()) {
+				if(j1 != null) {
+					Destroy(j1);
+				}
+
+				j1 = pA1.gameObject.AddComponent<FixedJoint>();
+				j1.connectedBody = pA2.GetComponent<Rigidbody>();
+			}
+
+			FixedJoint j2 = pA2.GetComponent<FixedJoint>();
+			if(j2 == null || j2.connectedBody != pA1.GetComponent<Rigidbody>()) {
+				if(j2 != null) {
+					Destroy(j2);
+				}
+
+				j2 = pA2.gameObject.AddComponent<FixedJoint>();
+				j2.connectedBody = pA1.GetComponent<Rigidbody>();
+			}
+		} else if(pA1 != null || pA2 != null) {
+			if(pA1 != null) {
+				pA1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			} else if(pA2 != null) {
+				pA2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			}
+		}
+	}
+
+	public static void UnBind(PhysicsModifyable pM1, PhysicsModifyable pM2) {
+		PhysicsAffected pA1 = pM1.GetComponent<PhysicsAffected>();
+		PhysicsAffected pA2 = pM2.GetComponent<PhysicsAffected>();
+		if(pA1 != null && pA2 != null) {
+			if(pA1.GetComponent<FixedJoint>() != null) {
+				Destroy(pA1.GetComponent<FixedJoint>());
+			}
+
+			if(pA2.GetComponent<FixedJoint>() != null) {
+				Destroy(pA2.GetComponent<FixedJoint>());
+			}
+		} else if(pA1 != null || pA2 != null) {
+			if(pA1 != null) {
+				pA1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			} else if(pA2 != null) {
+				pA2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			}
+		}
+	}
+
 	public void SplitElementsBetween(Vector3 pos1, Vector3 pos2) {
 		RaycastHit[] rh = Physics.RaycastAll(pos1, pos2 - pos1, Vector3.Distance(pos1, pos2));
 		for(int i = 0; i < rh.Length; i++) {
