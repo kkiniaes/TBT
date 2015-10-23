@@ -4,7 +4,7 @@
 
 Shader "HeatDistort" {
 Properties {
-	_BumpAmt  ("Distortion", range (0,128)) = 10
+	_BumpAmt  ("Distortion", range (0,1280)) = 10
 	_MainTex ("Tint Color (RGB)", 2D) = "white" {}
 	_BumpMap ("Normalmap", 2D) = "bump" {}
 }
@@ -37,8 +37,8 @@ half4 frag( v2f i ) : COLOR
 	i.uvgrab.xy = offset * i.uvgrab.z + i.uvgrab.xy;
 	
 	half4 col = tex2Dproj( _GrabTexture, i.uvgrab.xywz );
-	half4 tint = tex2D( _MainTex, i.uvmain );
-	return col * tint;
+//	half4 tint = tex2D( _MainTex, i.uvmain );
+	return col;
 }
 ENDCG
 
@@ -81,7 +81,7 @@ v2f vert (appdata_t v)
 	#else
 	float scale = 1.0;
 	#endif
-	o.uvgrab.xy = (float2(o.vertex.x, o.vertex.y*scale) + o.vertex.w) * 0.5;
+	o.uvgrab.xy = (float2(o.vertex.x, o.vertex.y) + o.vertex.w) * 0.5;
 	o.uvgrab.zw = o.vertex.zw;
 	o.uvbump = MultiplyUV( UNITY_MATRIX_TEXTURE1, v.texcoord );
 	o.uvmain = MultiplyUV( UNITY_MATRIX_TEXTURE2, v.texcoord );

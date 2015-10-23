@@ -123,7 +123,7 @@ public class PhysicsModifyable : MonoBehaviour {
 
 		Entangled = entangled;
 
-		GetComponent<Renderer>().material.SetFloat("_Power", 1f);
+//		GetComponent<Renderer>().material.SetFloat("_Power", 1f);
 
 		if(chargeLockTimer > 0 && player.timeScale > 0) {
 			chargeLockTimer -= Time.deltaTime * player.timeScale;
