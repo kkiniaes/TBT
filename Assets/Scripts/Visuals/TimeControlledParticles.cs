@@ -10,6 +10,6 @@ public class TimeControlledParticles : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		GetComponent<ParticleSystem>().playbackSpeed = Player.instance.timeScale;
+		GetComponent<ParticleSystem>().playbackSpeed = Mathf.Abs(Player.instance.timeScale);
 	}
 }

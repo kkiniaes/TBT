@@ -44,7 +44,6 @@ public class DynamicAudioTrigger : MonoBehaviour {
 				}
 				break;
 			case DynaAudioType.Velocity:
-				Debug.Log(obj1.GetComponent<Rigidbody>().velocity.magnitude);
 				switch(operation) {
 					
 				case Comparison.GreaterThan:

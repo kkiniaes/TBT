@@ -58,7 +58,14 @@ public class PhysicsAffected : MonoBehaviour {
 
 				if(player.timeScale > 0) {
 					//Handles Gravity
-					if(pM.gameObject.activeSelf && pM.mass > 0) {
+					if(pM.gameObject.activeSelf && pM.mass > 0 && pM.antiMatter) {
+						float forceMagnitude = -player.timeScale * G * pM.mass * myRB.mass / Vector3.Distance(transform.position, pM.transform.position);
+						myRB.AddForce(Vector3.Normalize(pM.transform.position - transform.position) * forceMagnitude);
+						
+						if(pM.GetComponent<PhysicsAffected>() != null) {
+							pM.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(transform.position - pM.transform.position) * forceMagnitude);
+						}
+					} else if(pM.gameObject.activeSelf && pM.mass > 0) {
 						float forceMagnitude = player.timeScale * G * pM.mass * myRB.mass / Vector3.Distance(transform.position, pM.transform.position);
 						myRB.AddForce(Vector3.Normalize(pM.transform.position - transform.position) * forceMagnitude);
 

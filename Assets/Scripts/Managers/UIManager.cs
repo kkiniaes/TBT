@@ -6,22 +6,31 @@ public class UIManager : MonoBehaviour {
 
 
 	private GameObject detailGroup;
+	private GameObject detailBack1;
+	private GameObject detailBack2;
+	private GameObject detailBack3;
 	private GameObject headTitle;
 	private GameObject massText;
 	private GameObject chargeText;
 	private GameObject quantamEntangleText;
 	private GameObject selectedToolHighlight;
 
+	private Color defaultGray;
+
 	private int selectedTool = 1;
 
 	// Use this for initialization
 	void Start () {
 		detailGroup = transform.FindChild("Canvas").FindChild("DetailGroup").gameObject;
+		detailBack1 = detailGroup.transform.FindChild("Head").FindChild("Detail1").gameObject;
+		detailBack2 = detailGroup.transform.FindChild("Head").FindChild("Detail2").gameObject;
+		detailBack3 = detailGroup.transform.FindChild("Head").FindChild("Detail3").gameObject;
 		headTitle = detailGroup.transform.FindChild("Head").FindChild("HeadTitleContainer").FindChild("HeadTitle").gameObject;
 		massText = detailGroup.transform.FindChild("Head").FindChild("Detail1").FindChild("MassTextContainer").FindChild("MassText").gameObject;
 		chargeText = detailGroup.transform.FindChild("Head").FindChild("Detail2").FindChild("ChargeTextContainer").FindChild("ChargeText").gameObject;
 		quantamEntangleText = detailGroup.transform.FindChild("Head").FindChild("Detail3").FindChild("QuantamEntangleTextContainer").FindChild("QuantamEntangleText").gameObject;
 		selectedToolHighlight = transform.FindChild("Canvas").FindChild("Tools").FindChild("SelectedTool").gameObject;
+		defaultGray = detailBack1.GetComponent<Image>().color;
 	}
 	
 	// Update is called once per frame
@@ -32,11 +41,23 @@ public class UIManager : MonoBehaviour {
 		if(Player.instance.lookingAtObject != null) {
 			detailGroup.GetComponent<Animator>().SetBool("PaneOpen", true);
 			massText.GetComponent<Text>().text = (((int)(((int)(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().mass*1000f))/600f)*10f)/10f) + "kg";
+			if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().specificallyImmutable.mass) {
+				detailBack1.GetComponent<Image>().color = Color.red;
+			} else {
+				detailBack1.GetComponent<Image>().color = defaultGray;
+			}
 			chargeText.GetComponent<Text>().text = (Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().charge > 0) ? "+" : (Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().charge < 0 ? "-" : "0");
+			if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().specificallyImmutable.charge) {
+				detailBack2.GetComponent<Image>().color = Color.red;
+			} else {
+				detailBack2.GetComponent<Image>().color = defaultGray;
+			}
 			if(Player.instance.lookingAtObject.GetComponent<Goal>() != null) {
 				headTitle.GetComponent<Text>().text = System.Enum.GetNames(typeof(VerboseElement))[Player.instance.lookingAtObject.GetComponent<Goal>().numElementsCombined-1];
 			} else {
-				if(Player.instance.lookingAtObject.GetComponent<PhysicsAffected>() != null) {
+				if(Player.instance.lookingAtObject.GetComponent<Switch>() != null) {
+					headTitle.GetComponent<Text>().text = "Switch";
+				} else if(Player.instance.lookingAtObject.GetComponent<PhysicsAffected>() != null) {
 					headTitle.GetComponent<Text>().text = "Gravity Affected";
 				} else {
 					headTitle.GetComponent<Text>().text = "Static";
@@ -44,6 +65,8 @@ public class UIManager : MonoBehaviour {
 				if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>() != null) {
 					if(Player.instance.lookingAtObject.GetComponent<PhysicsModifyable>().antiMatter) {
 						headTitle.GetComponent<Text>().text += " Antimatter";
+					} else {
+						headTitle.GetComponent<Text>().text += " Object";
 					}
 				}
 			}

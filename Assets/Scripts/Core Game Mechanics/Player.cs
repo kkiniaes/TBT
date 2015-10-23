@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 			} else {
 				timeScale = Mathf.MoveTowards (timeScale, 0, Time.deltaTime * 3f);
 			}
-			GetComponent<MotionBlur>().blurAmount = Mathf.MoveTowards(GetComponent<MotionBlur>().blurAmount, 0.8f, Time.deltaTime*3f);
+			GetComponent<MotionBlur>().blurAmount = Mathf.MoveTowards(GetComponent<MotionBlur>().blurAmount, 0.5f, Time.deltaTime*3f);
 		} else {
 			if(timeReversed) {
 				if(timeElapsed <= 0) {
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour {
 		Debug.DrawRay(transform.position, Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).direction*10f); 
 		if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).origin,Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).direction, out rh, 100000, ~(1 << 10))) {
 			GetComponent<DepthOfField>().focalLength = Vector3.Distance(transform.position, rh.point);
-			GetComponent<DepthOfField>().aperture = Mathf.MoveTowards(GetComponent<DepthOfField>().aperture, 10/(Vector3.Distance(transform.position, rh.point)), Time.deltaTime*10f);
+//			GetComponent<DepthOfField>().aperture = Mathf.MoveTowards(GetComponent<DepthOfField>().aperture, 10/(Vector3.Distance(transform.position, rh.point)), Time.deltaTime*10f);
 
 			if(rh.transform.gameObject.GetComponent<PhysicsModifyable>() != null) {
 				lookingAtObject = rh.transform.gameObject;

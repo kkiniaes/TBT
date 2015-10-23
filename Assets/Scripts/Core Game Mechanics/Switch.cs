@@ -58,6 +58,11 @@ public class Switch : MonoBehaviour {
 	protected void Update () {
 		LineRenderer line = transform.FindChild ("LineRenderer" + switchIndex).GetComponent<LineRenderer> ();
 		line.SetPosition (1, attachedObject.transform.position);
+		if(!activated) {
+			line.SetColors(Color.black, Color.black);
+		} else {
+			line.SetColors(new Color(1,0,1), new Color(1,0,1));
+		}
 	}
 
 	// Turns the switch on or off.

@@ -224,7 +224,7 @@ public class PhysicsModifyable : MonoBehaviour {
 			}
 		}
 
-		if(entangled != null) {
+		if(entangled != null && !Player.instance.timeFrozen) {
 			Transform fx = transform.FindChild("EntangledFX(Clone)");
 			if(fx == null) {
 				GameObject fxObject = Instantiate(entangledFX, transform.position, transform.rotation) as GameObject;
