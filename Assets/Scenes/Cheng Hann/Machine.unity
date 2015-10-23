@@ -317,7 +317,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedObject: {fileID: 134842828}
   activated: 1
-  switchIndex: 0
   mode: 1
   target: 1
 --- !u!114 &225418219
@@ -333,7 +332,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedObject: {fileID: 1192770803}
   activated: 1
-  switchIndex: 0
   mode: 1
   target: 1
 --- !u!1 &295825248
@@ -1486,7 +1484,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedObject: {fileID: 1092941869}
   activated: 1
-  switchIndex: 0
   mode: 1
   target: 1
 --- !u!114 &2094429622
@@ -1502,6 +1499,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedObject: {fileID: 1335207395}
   activated: 1
-  switchIndex: 0
   mode: 1
   target: 1
