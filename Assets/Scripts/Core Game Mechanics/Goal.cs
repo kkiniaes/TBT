@@ -79,7 +79,8 @@ public class Goal : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {if(numElementsCombined > 1 && children.Count != 1) Debug.Log(children.Count);
+	void Update () {
+		//if(numElementsCombined > 1 && children.Count != 1) Debug.Log(children.Count);
 		if(!combined) {
 			if(Player.instance.timeScale > 0) {
 				combineCooldown = Mathf.Max(0, combineCooldown - Time.deltaTime);
@@ -126,7 +127,7 @@ public class Goal : MonoBehaviour {
 				GetComponent<PhysicsAffected>().Inertia = numElementsCombined / 2f;
 			}
 			
-			if((int)LevelManager.instance.goalElement <= (numElementsCombined-1)) {
+			if(!AntiMatterExplosion.exists && (int)LevelManager.instance.goalElement <= (numElementsCombined-1)) {
 				Player.instance.LoadNextLevel();
 			}
 		}

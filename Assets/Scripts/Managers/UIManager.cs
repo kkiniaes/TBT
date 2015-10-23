@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour {
 	private GameObject detailGroup;
 	private GameObject detailBack1;
 	private GameObject detailBack2;
-	private GameObject detailBack3;
+	//private GameObject detailBack3;
 	private GameObject headTitle;
 	private GameObject massText;
 	private GameObject chargeText;
@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour {
 		detailGroup = transform.FindChild("Canvas").FindChild("DetailGroup").gameObject;
 		detailBack1 = detailGroup.transform.FindChild("Head").FindChild("Detail1").gameObject;
 		detailBack2 = detailGroup.transform.FindChild("Head").FindChild("Detail2").gameObject;
-		detailBack3 = detailGroup.transform.FindChild("Head").FindChild("Detail3").gameObject;
+		//detailBack3 = detailGroup.transform.FindChild("Head").FindChild("Detail3").gameObject;
 		headTitle = detailGroup.transform.FindChild("Head").FindChild("HeadTitleContainer").FindChild("HeadTitle").gameObject;
 		massText = detailGroup.transform.FindChild("Head").FindChild("Detail1").FindChild("MassTextContainer").FindChild("MassText").gameObject;
 		chargeText = detailGroup.transform.FindChild("Head").FindChild("Detail2").FindChild("ChargeTextContainer").FindChild("ChargeText").gameObject;

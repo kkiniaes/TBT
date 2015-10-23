@@ -5,9 +5,11 @@ public class AntiMatterExplosion : MonoBehaviour {
 
 	private bool destroyMe;
 
+	public static bool exists = false;
+
 	// Use this for initialization
 	void Start () {
-	
+		exists = true;
 	}
 	
 	// Update is called once per frame
@@ -16,7 +18,7 @@ public class AntiMatterExplosion : MonoBehaviour {
 			if(Player.instance.timeScale < 0) {
 				transform.localScale -= Vector3.one*Time.deltaTime;
 				if(transform.localScale.x <= 0) {
-					Destroy(this.gameObject);
+					DestroyExplosion();
 				}
 			} else if(!destroyMe) {
 				transform.FindChild("Flare").GetComponent<LensFlare>().brightness -= Time.deltaTime/2f;
@@ -30,9 +32,15 @@ public class AntiMatterExplosion : MonoBehaviour {
 			} else {
 				transform.localScale -= Vector3.one*Time.deltaTime;
 				if(transform.localScale.x <= 0) {
-					Destroy(this.gameObject);
+					DestroyExplosion();
 				}
 			}
 		}
+	}
+
+	// Removes the explosion from the scene.
+	void DestroyExplosion() {
+		Destroy(this.gameObject);
+		exists = false;
 	}
 }
