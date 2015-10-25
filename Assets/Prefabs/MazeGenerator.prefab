@@ -46,7 +46,7 @@ MonoBehaviour:
   origin: {x: 18, y: -8, z: -8}
   blockSize: {x: 2, y: 2, z: 2}
   blockPrefab: {fileID: 103252, guid: b21f3af63e5624e058421f378640fc27, type: 2}
-  goalPrefab: {fileID: 152508, guid: a43e4362603f74038859d36032ccb7a4, type: 2}
+  goalPrefab: {fileID: 106228, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -61,7 +61,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: goalPrefab
       value: 
-      objectReference: {fileID: 156194, guid: 9aa396013c0b14feb8a5fae4b808e847, type: 2}
+      objectReference: {fileID: 106228, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.x
       value: 0
