@@ -109,8 +109,12 @@ public class Player : MonoBehaviour {
 		}
 
 		RaycastHit rh = new RaycastHit();
-		Debug.DrawRay(transform.position, Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).direction*10f); 
-		if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).origin,Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)).direction, out rh, 100000, ~(1 << 10))) {
+		float clipPlane = Camera.main.nearClipPlane;
+		Camera.main.nearClipPlane = 0.1f;
+		Ray cameraRay = Camera.main.ViewportPointToRay (new Vector3 (0.5f, 0.5f));
+		Camera.main.nearClipPlane = clipPlane;
+		Debug.DrawRay(transform.position, cameraRay.direction*10f);
+		if(Physics.Raycast(cameraRay.origin,cameraRay.direction, out rh, 100000, ~(1 << 10))) {
 			GetComponent<DepthOfField>().focalLength = Vector3.Distance(transform.position, rh.point);
 //			GetComponent<DepthOfField>().aperture = Mathf.MoveTowards(GetComponent<DepthOfField>().aperture, 10/(Vector3.Distance(transform.position, rh.point)), Time.deltaTime*10f);
 
