@@ -24,6 +24,11 @@ public class LevelManager : MonoBehaviour {
 			if(stateStacks[pM] == null) {
 				stateStacks[pM] = new Stack();
 			}
+
+			if(pM == null) {
+				return;
+			}
+
 			Stack states = stateStacks[pM];
 			PhysicsAffected pA = pM.GetComponent<PhysicsAffected>();
 			

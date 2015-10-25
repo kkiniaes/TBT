@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
 	private float loadNextLevelTimer;
 	private PhysicsModifyable entangleSelected;
 	private bool wireframeMode;
+	private GameObject starField;
 
 	private const float REVERSE_TIME_SCALE = -3;
 
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
-
+		starField = transform.FindChild("Starfield").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -170,7 +171,7 @@ public class Player : MonoBehaviour {
 		if(loadNextLevel) {
 			loadNextLevelTimer += Time.deltaTime;
 				if(loadNextLevelTimer > 2f) {
-
+				starField.GetComponent<ParticleSystemRenderer>().lengthScale = Mathf.MoveTowards(starField.GetComponent<ParticleSystemRenderer>().lengthScale, 100, Time.deltaTime*50f);
 				Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, 179f, Time.deltaTime*30f);
 				transform.Translate(transform.forward*Time.deltaTime*Camera.main.fieldOfView/2f, Space.World);
 				if(Camera.main.fieldOfView > 170) {
@@ -178,7 +179,11 @@ public class Player : MonoBehaviour {
 				}
 			}
 		} else {
+			starField.GetComponent<ParticleSystemRenderer>().lengthScale = Mathf.MoveTowards(starField.GetComponent<ParticleSystemRenderer>().lengthScale, 1, Time.deltaTime*50f);
 			Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, 90f, Time.deltaTime*Camera.main.fieldOfView/3f);
+			if(Camera.main.fieldOfView > 90f) {
+				transform.Translate(transform.forward*Time.deltaTime*10f);
+			}
 		}
 
 	}
