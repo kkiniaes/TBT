@@ -176,7 +176,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11499544, guid: 79b99bd7e6b32408bae8ddede88f8c4e, type: 2}
       propertyPath: goalElement
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79b99bd7e6b32408bae8ddede88f8c4e, type: 2}
@@ -221,53 +221,9 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: blockPrefab
-      value: 
-      objectReference: {fileID: 103252, guid: b21f3af63e5624e058421f378640fc27, type: 2}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
       propertyPath: goalPrefab
       value: 
       objectReference: {fileID: 106228, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: addGoals
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: border
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: origin.x
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: origin.z
-      value: -8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: origin.y
-      value: -8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: blockSize.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: blockSize.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: blockSize.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: columns
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440158, guid: 062a78d173039324881d800b45f88bf7, type: 2}
-      propertyPath: rows
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062a78d173039324881d800b45f88bf7, type: 2}
   m_IsPrefabParent: 0

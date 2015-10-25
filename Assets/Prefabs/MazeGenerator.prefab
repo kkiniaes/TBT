@@ -41,12 +41,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 10
   rows: 10
-  addGoals: 0
-  border: 0
-  origin: {x: 0, y: -2, z: 0}
-  blockSize: {x: 1, y: 1, z: 1}
+  addGoals: 1
+  border: 1
+  origin: {x: 18, y: -8, z: -8}
+  blockSize: {x: 2, y: 2, z: 2}
   blockPrefab: {fileID: 103252, guid: b21f3af63e5624e058421f378640fc27, type: 2}
-  goalPrefab: {fileID: 156194, guid: 9aa396013c0b14feb8a5fae4b808e847, type: 2}
+  goalPrefab: {fileID: 152508, guid: a43e4362603f74038859d36032ccb7a4, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -136,6 +136,9 @@ public class Goal : MonoBehaviour {
 	private bool touching(Goal g) {
 		float myRadius = GetComponent<SphereCollider>().radius * transform.localScale.x;
 		float gRadius = GetComponent<SphereCollider>().radius * g.transform.localScale.x;
+		if (g.name.Contains ("(Clone)(Clone)")) {
+			return false;
+		}
 		return Vector3.Distance(transform.position, g.transform.position) <= myRadius + gRadius;
 	}
 
