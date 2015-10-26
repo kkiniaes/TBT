@@ -175,7 +175,7 @@ public class AnimationHierarchyEditor : EditorWindow {
 		
 		try {
 			if (obj != newObj) {
-				UpdatePath(path, ChildPath(newObj));
+				UpdatePath(path, ChildPath(newObj, false));
 			}
 			
 			if (newPath != path) {
@@ -354,7 +354,7 @@ public class AnimationHierarchyEditor : EditorWindow {
 		}
 	}
 	
-	string ChildPath(GameObject obj, bool sep = false) {
+	string ChildPath(GameObject obj, bool sep) {
 		if (animatorObject == null) {
 			throw new UnityException("Please assign Referenced Animator (Root) first!");
 		}
