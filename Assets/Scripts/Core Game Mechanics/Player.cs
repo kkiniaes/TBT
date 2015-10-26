@@ -4,12 +4,12 @@ using System.Collections;
 using UnityStandardAssets.ImageEffects;
 
 public class Player : MonoBehaviour {
-	private enum PhysicMode {
+	private enum PhysicsMode {
 		Mass,
 		Charge,
 		Entangle,
 	}
-	private PhysicMode currentMode = PhysicMode.Mass;
+	private PhysicsMode currentMode = PhysicsMode.Mass;
 
 	public float sensitivityX, sensitivityY;
 	public float moveSpeed;
@@ -67,6 +67,7 @@ public class Player : MonoBehaviour {
 			GetComponent<MotionBlur>().blurAmount = Mathf.MoveTowards(GetComponent<MotionBlur>().blurAmount, 0.5f, Time.deltaTime*3f);
 		} else {
 			if(timeReversed) {
+				entangleSelected = null;
 				if(timeElapsed <= 0) {
 					timeReversed = false;
 					timeElapsed = 0;
@@ -101,11 +102,11 @@ public class Player : MonoBehaviour {
 	
 		//switching skills
 		if(Input.GetKeyDown(KeyCode.Alpha1)) {
-			currentMode = PhysicMode.Mass;
+			currentMode = PhysicsMode.Mass;
 		} else if(Input.GetKeyDown(KeyCode.Alpha2)) {
-			currentMode = PhysicMode.Charge;
+			currentMode = PhysicsMode.Charge;
 		} else if(Input.GetKeyDown(KeyCode.Alpha3)) {
-			currentMode = PhysicMode.Entangle;
+			currentMode = PhysicsMode.Entangle;
 		}
 
 		RaycastHit rh = new RaycastHit();
@@ -131,24 +132,24 @@ public class Player : MonoBehaviour {
 
 				if(!timeReversed && !pM.immutable) {
 					//Increases/Decreases mass of object
-					if(!pM.specificallyImmutable.mass && currentMode == PhysicMode.Mass && pM.mass <= 6) {
+					if(!pM.specificallyImmutable.mass && currentMode == PhysicsMode.Mass && pM.mass <= 6) {
 						pM.Mass = Mathf.Max(0, pM.Mass + delta);
 					}// Increase/Decrease charge of object 
-					else if(!pM.specificallyImmutable.charge && currentMode == PhysicMode.Charge) {
+					else if(!pM.specificallyImmutable.charge && currentMode == PhysicsMode.Charge) {
 						if((pM.Charge == -1 && delta > 0) || (pM.Charge == 1 && delta < 0)) {
 							pM.Charge = 0;
 						} else if(delta != 0) {
 							pM.Charge = Mathf.Sign(delta);
 						}
 					}// Quantum Entangle objects
-					else if(!pM.specificallyImmutable.entangled && currentMode == PhysicMode.Entangle) {
+					else if(!pM.specificallyImmutable.entangled && currentMode == PhysicsMode.Entangle) {
 						if(Input.GetMouseButtonDown(0)) {
 							if(pM.entangled != null) {
 								//Debug.Log("Detangle");
 								pM.entangled.Entangled = null;
 								pM.Entangled = null;
 								entangleSelected = null;
-							} else if(entangleSelected != null) {
+							} else if(entangleSelected != null && entangleSelected != pM) {
 								//Debug.Log("Entangle " + pM + ":" + entangleSelected);
 								pM.Entangled = entangleSelected;
 								entangleSelected.Entangled = pM;
@@ -158,6 +159,10 @@ public class Player : MonoBehaviour {
 								entangleSelected = pM;
 							}
 						}
+					}
+
+					if(currentMode == PhysicsMode.Mass || currentMode == PhysicsMode.Charge) {
+						entangleSelected = null;
 					}
 				}
 			} else {
