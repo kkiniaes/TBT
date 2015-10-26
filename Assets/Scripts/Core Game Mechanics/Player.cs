@@ -17,7 +17,6 @@ public class Player : MonoBehaviour {
 
 	public static Player instance;
 
-	private float timeElapsed = 0;
 	private Vector3 velocityVector;
 	public bool timeFrozen;
 	public bool timeReversed;
@@ -27,7 +26,16 @@ public class Player : MonoBehaviour {
 	private bool wireframeMode;
 	private GameObject starField;
 
-	private const float REVERSE_TIME_SCALE = -3;
+	private float antimatterResetTime = 0;
+	public float AntimatterResetTime {
+		get { return antimatterResetTime; }
+		set { antimatterResetTime = value; }
+	}
+
+	private float timeElapsed = 0;
+	public float TimeElapsed { 
+		get { return timeElapsed; } 
+	}
 
 	private GameObject lookingAtObject;
 	public GameObject LookingAtObject {
@@ -39,6 +47,8 @@ public class Player : MonoBehaviour {
 		get { return noStateChangesThisFrame; }
 		set { noStateChangesThisFrame = value; }
 	}
+
+	private const float REVERSE_TIME_SCALE = -3;
 
 	void Awake() {
 		instance = this;
@@ -53,6 +63,10 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(timeElapsed <= antimatterResetTime) {
+			antimatterResetTime = -1;
+		}
+
 		GetMovementInput();
 		GetTimeManipInput();
 		GetVisualModeInput();
@@ -223,14 +237,16 @@ public class Player : MonoBehaviour {
 	private void GetTimeManipInput() {
 		if (!loadNextLevel) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				timeReversed = false;
-				timeFrozen = !timeFrozen;
+				if(antimatterResetTime == -1 || timeReversed == false) {
+					timeReversed = false;
+					timeFrozen = !timeFrozen;
+				}
 			}
 
 			if (!timeFrozen) {
 				if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 					timeReversed = true;
-				} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				} else if (Input.GetKeyDown (KeyCode.RightArrow) && antimatterResetTime == -1) {
 					timeReversed = false;
 				}
 			}
@@ -248,8 +264,6 @@ public class Player : MonoBehaviour {
 		}
 		transform.FindChild("WireframeCam").GetComponent<Camera>().farClipPlane = GetComponent<Camera>().nearClipPlane;
 	}
-
-	public float TimeElapsed { get { return timeElapsed; } }
 
 	public void LoadNextLevel() {
 		loadNextLevel = true;

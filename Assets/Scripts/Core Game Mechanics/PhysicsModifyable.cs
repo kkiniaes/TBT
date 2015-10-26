@@ -316,6 +316,7 @@ public class PhysicsModifyable : MonoBehaviour {
 	void OnCollisionEnter(Collision other) {
 		if(antiMatter && other.gameObject.GetComponent<PhysicsModifyable>() != null && !other.gameObject.GetComponent<PhysicsModifyable>().antiMatter
 		   && Player.instance.timeScale > 0 && !antiMatterAnnihilated) {
+			Player.instance.AntimatterResetTime = Mathf.Max(0, Player.instance.TimeElapsed - 1);
 			GameObject.Instantiate(antiMatterExplosion,transform.position, transform.rotation);
 			antiMatterAnnihilated = true;
 			//other.transform.position -= (transform.position - other.transform.position);
