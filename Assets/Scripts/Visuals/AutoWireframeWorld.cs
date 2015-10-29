@@ -12,14 +12,20 @@ public class AutoWireframeWorld : MonoBehaviour {
 			collider.enabled = false;
 		}
 		GameObject temp = (GameObject)GameObject.Instantiate(this.gameObject, transform.position, transform.rotation);
-		temp.transform.parent = this.transform;
 		Destroy(temp.GetComponent<AutoWireframeWorld>());
 		Component[] comps = temp.GetComponents<Component>();
 		for(int i = 0; i < comps.Length; i++) {
-			if(!comps[i].GetType().Equals(typeof(MeshRenderer)) && !comps[i].GetType().Equals(typeof(MeshFilter)) && !comps[i].GetType().Equals(typeof(Transform))) {
+			if(!(comps[i] is MeshRenderer) && !(comps[i] is MeshFilter) && !(comps[i] is Transform)) {
 				Destroy(comps[i]);
 			}
 		}
+		foreach (Transform child in temp.transform) {
+			if (child.GetComponent<PhysicsModifyable> ()) {
+				child.gameObject.SetActive(false);
+				Destroy (child.gameObject);
+			}
+		}
+		temp.transform.parent = this.transform;
 		if (collider != null) {
 			collider.enabled = true;
 		}
@@ -31,6 +37,7 @@ public class AutoWireframeWorld : MonoBehaviour {
 		if (temp.GetComponentInChildren<TextMesh>()) {
 			Destroy(temp.GetComponentInChildren<TextMesh>());
 		}
+		temp.transform.localScale = Vector3.one;
 	}
 	
 	// Update is called once per frame

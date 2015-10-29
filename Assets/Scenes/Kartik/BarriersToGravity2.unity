@@ -37,9 +37,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -68,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 112000000, guid: 96bdb5827c51a4b6083f9d0b36ab1d54,
     type: 2}
   m_RuntimeCPUUsage: 25
@@ -470,19 +468,19 @@ Prefab:
     m_Modifications:
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .0291004181
+      value: 1.21000004
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalScale.x
-      value: 3.66595364
+      value: 5.84425831
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalScale.y
-      value: 2.37916946
+      value: .49000001
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalScale.z
-      value: 4.76958704
+      value: 6.40854931
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalPosition.x
@@ -504,7 +502,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2078950907}
+    m_TransformParent: {fileID: 1179969280}
     m_Modifications:
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalPosition.x
@@ -512,7 +510,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.21000004
+      value: -2.41000009
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalPosition.z
@@ -520,27 +518,33 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalScale.x
-      value: 5.84425831
+      value: .627274394
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalScale.y
-      value: .49000001
+      value: 4.85544777
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_LocalScale.z
-      value: 6.40854931
+      value: .744253874
       objectReference: {fileID: 0}
     - target: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5457000, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403414, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5457000, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
+    - {fileID: 11403414, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &2076255044 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 459784, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
-  m_PrefabInternal: {fileID: 2076255043}
 --- !u!1 &2078950906
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +571,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1179969280}
-  - {fileID: 2076255044}
   m_Father: {fileID: 0}
   m_RootOrder: 5
 --- !u!1001 &2103870929
