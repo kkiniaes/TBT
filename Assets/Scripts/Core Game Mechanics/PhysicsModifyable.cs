@@ -134,12 +134,15 @@ public class PhysicsModifyable : MonoBehaviour {
 			if(transform.FindChild("GravityWell(Clone)") != null) {
 				transform.FindChild("GravityWell(Clone)").gameObject.SetActive(false);
 			}
-		} else if (mass < 6) {
+		} else {
 			if(transform.FindChild("GravityWell(Clone)") != null) {
 				transform.FindChild("GravityWell(Clone)").gameObject.SetActive(true);
 			} else {
 				GameObject temp = (GameObject)GameObject.Instantiate(gravityWell, transform.position, Quaternion.identity);
 				temp.transform.parent = transform;
+			}
+			if (mass > 6) {
+				mass = 6;
 			}
 			//following lines just handle the gravitywell particles
 			transform.FindChild("GravityWell(Clone)").localRotation = Quaternion.identity;
@@ -147,8 +150,6 @@ public class PhysicsModifyable : MonoBehaviour {
 			transform.FindChild("GravityWell(Clone)").GetComponent<ParticleSystem>().startLifetime = 1.5f - mass/10f;
 			transform.FindChild("GravityWell(Clone)").GetComponent<ParticleSystem>().emissionRate = 300 + (mass/2f);
 			transform.FindChild("GravityWell(Clone)").localScale = (new Vector3(1/transform.localScale.x,1/transform.localScale.y,1/transform.localScale.z))*(1 + mass/10f);
-		} else {
-			mass = 6;
 		}
 //		else if(GetComponent<MeshRenderer>().enabled) {
 //			if(transform.localScale.x < 0.1f || transform.localScale.y < 0.1f || transform.localScale.z < 0.1f) {
