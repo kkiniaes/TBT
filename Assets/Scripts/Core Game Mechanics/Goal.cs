@@ -139,7 +139,7 @@ public class Goal : MonoBehaviour {
 		if (g.gameObject.layer == LayerMask.NameToLayer ("Wireframe")) {
 			return false;
 		}
-		return Vector3.Distance(transform.position, g.transform.position) <= myRadius + gRadius;
+		return Vector3.Distance(transform.position, g.transform.position) <= myRadius + gRadius + 0.1f;
 	}
 
 	public void Combine() {
