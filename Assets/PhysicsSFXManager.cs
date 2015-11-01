@@ -12,12 +12,18 @@ public class PhysicsSFXManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		instance = this;
+	}
+	
+	// Use this for initialization
+	void Start () {
 		GetComponent<AudioSource>().clip = clips[2];
-		GetComponent<AudioSource>().time = clips[2].length - 0.01f;
-		GetComponent<AudioSource>().pitch = -4f;
-		GetComponent<AudioSource>().volume = 1;
-		GetComponent<AudioSource>().loop = false;
-		GetComponent<AudioSource>().Play();
+		if (clips[2] != null) {
+			GetComponent<AudioSource>().time = clips [2].length - 0.01f;
+			GetComponent<AudioSource>().pitch = -4f;
+			GetComponent<AudioSource>().volume = 1;
+			GetComponent<AudioSource>().loop = false;
+			GetComponent<AudioSource>().Play();
+		}
 	}
 	
 	// Update is called once per frame
