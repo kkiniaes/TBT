@@ -3,11 +3,12 @@ using System.Collections;
 
 public class CombineEffect : MonoBehaviour {
 
+	private const int RENDERQUEUEVALUE = 3100;
 	private float timer = 2f;
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame

@@ -837,7 +837,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 461510}
@@ -1156,7 +1156,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: -1.38999999
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -2510,6 +2510,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 5798d90c60fee40e3b85f5a2de2d4e28, type: 3}
   - {fileID: 8300000, guid: c75361729915442cab291dcc56019888, type: 3}
+  - {fileID: 8300000, guid: 411f2471c53384f969f964c4c3c02d15, type: 3}
 --- !u!114 &11499766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3915,11 +3916,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22412678}
+  - {fileID: 22470696}
+  - {fileID: 22475322}
   - {fileID: 22441052}
   - {fileID: 22487302}
-  - {fileID: 22475322}
   - {fileID: 22444046}
-  - {fileID: 22470696}
   m_Father: {fileID: 22404216}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
@@ -4061,7 +4062,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22417712}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 65}
@@ -4096,7 +4097,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22417712}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 134.800003, y: 30}
@@ -4199,7 +4200,7 @@ RectTransform:
   m_LocalScale: {x: 2.37818575, y: .651156127, z: 1}
   m_Children: []
   m_Father: {fileID: 22417712}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
   m_AnchoredPosition: {x: 17.1299992, y: 30.2000008}
@@ -4258,7 +4259,7 @@ RectTransform:
   m_LocalScale: {x: 2.02684259, y: .651156127, z: 1}
   m_Children: []
   m_Father: {fileID: 22417712}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 124.900002, y: 30.2000008}
@@ -4310,7 +4311,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22417712}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -134.699997, y: 29.8999996}

@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
 	private bool wireframeMode;
 	private GameObject starField;
 	private GameObject timeSFXManager, physicsSFXManager;
+	private AsyncOperation loadingNextLevel;
 
 	private float antimatterResetTime = 0;
 	public float AntimatterResetTime {
@@ -205,11 +206,16 @@ public class Player : MonoBehaviour {
 		if(loadNextLevel) {
 			loadNextLevelTimer += Time.deltaTime;
 				if(loadNextLevelTimer > 2f) {
+				if(loadingNextLevel == null) {
+					loadingNextLevel = Application.LoadLevelAsync(Application.loadedLevel + 1);
+					loadingNextLevel.allowSceneActivation = false;
+					physicsSFXManager.GetComponent<PhysicsSFXManager>().PlayWarpingSFX();
+				}
 				starField.GetComponent<ParticleSystemRenderer>().lengthScale = Mathf.MoveTowards(starField.GetComponent<ParticleSystemRenderer>().lengthScale, 100, Time.deltaTime*50f);
 				Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, 179f, Time.deltaTime*30f);
 				transform.Translate(transform.forward*Time.deltaTime*Camera.main.fieldOfView/2f, Space.World);
-				if(Camera.main.fieldOfView > 170) {
-					Application.LoadLevel(Application.loadedLevel + 1);
+				if(!physicsSFXManager.GetComponent<AudioSource>().isPlaying) {
+					loadingNextLevel.allowSceneActivation = true;
 				}
 			}
 		} else {

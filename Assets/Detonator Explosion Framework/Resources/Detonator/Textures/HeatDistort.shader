@@ -81,7 +81,13 @@ v2f vert (appdata_t v)
 	#else
 	float scale = 1.0;
 	#endif
-	o.uvgrab.xy = (float2(o.vertex.x, o.vertex.y) + o.vertex.w) * 0.5;
+	
+	#if SHADER_API_OPENGL
+		o.uvgrab.xy = (float2(o.vertex.x, o.vertex.y) + o.vertex.w) * 0.5;
+	#else
+		o.uvgrab.xy = (float2(o.vertex.x, -o.vertex.y) + o.vertex.w) * 0.5;
+	#endif
+	
 	o.uvgrab.zw = o.vertex.zw;
 	o.uvbump = MultiplyUV( UNITY_MATRIX_TEXTURE1, v.texcoord );
 	o.uvmain = MultiplyUV( UNITY_MATRIX_TEXTURE2, v.texcoord );
