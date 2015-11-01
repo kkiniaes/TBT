@@ -17,7 +17,7 @@ public class AudioLooper : MonoBehaviour {
 
 
 		if(Player.instance.BeatLevel) {
-			GetComponent<AudioSource>().pitch = Mathf.MoveTowards(GetComponent<AudioSource>().pitch, 3f, Time.deltaTime/3f);
+//			GetComponent<AudioSource>().pitch = Mathf.MoveTowards(GetComponent<AudioSource>().pitch, 3f, Time.deltaTime/3f);
 			GetComponent<AudioSource>().volume = Mathf.MoveTowards(GetComponent<AudioSource>().volume, 0f, Time.deltaTime/5f);
 		} else {
 			GetComponent<AudioSource>().pitch = Mathf.Clamp(Player.instance.timeScale, -1f, 1f)*startingPitch;

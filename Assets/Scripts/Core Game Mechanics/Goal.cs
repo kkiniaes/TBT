@@ -108,6 +108,19 @@ public class Goal : MonoBehaviour {
 								} else if(parentPA != null) {
 									parentPA.Velocity /= 2f;
 								}
+
+								PhysicsModifyable parentPM = parent.GetComponent<PhysicsModifyable>();
+								PhysicsModifyable childPM = child.GetComponent<PhysicsModifyable>();
+								if(parentPM.Entangled == null && childPM.Entangled != null) {
+									parentPM.Entangled = childPM.Entangled;
+									parentPM.entangled.Entangled = parentPM;
+									childPM.Entangled = null;
+								}
+
+								parentPM.Mass = 0;
+								childPM.Mass = 0;
+								parentPM.Charge = 0;
+								childPM.Charge = 0;
 								
 								parent.children.Push(child);
 								parent.numElementsCombined++;

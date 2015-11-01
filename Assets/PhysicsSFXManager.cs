@@ -12,11 +12,24 @@ public class PhysicsSFXManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		instance = this;
+		GetComponent<AudioSource>().clip = clips[2];
+		GetComponent<AudioSource>().time = clips[2].length - 0.01f;
+		GetComponent<AudioSource>().pitch = -4f;
+		GetComponent<AudioSource>().volume = 1;
+		GetComponent<AudioSource>().loop = false;
+		GetComponent<AudioSource>().Play();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		audioRepeatTimer -=	Time.deltaTime;
+		if(GetComponent<AudioSource>().clip != null
+		   && GetComponent<AudioSource>().clip.Equals(clips[2])
+		   && GetComponent<AudioSource>().pitch == -2f
+		   && GetComponent<AudioSource>().time < 4f) {
+			GetComponent<AudioSource>().Stop();
+			GetComponent<AudioSource>().clip = null;
+		}
 	}
 
 	public void PlayGravityChangeSFX(float delta) {
@@ -39,5 +52,14 @@ public class PhysicsSFXManager : MonoBehaviour {
 		GetComponent<AudioSource>().pitch = 2f;
 //		GetComponent<AudioSource>().volume = 1f;
 		GetComponent<AudioSource>().PlayOneShot(clips[1]);
+	}
+
+	public void PlayWarpingSFX() {
+		GetComponent<AudioSource>().clip = clips[2];
+		GetComponent<AudioSource>().time = 7f;
+		GetComponent<AudioSource>().pitch = 0.8f;
+		GetComponent<AudioSource>().volume = 1;
+		GetComponent<AudioSource>().loop = false;
+		GetComponent<AudioSource>().Play();
 	}
 }
