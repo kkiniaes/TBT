@@ -204,7 +204,7 @@ public class Player : MonoBehaviour {
 		//Loading next level with cool transition
 		if(loadNextLevel) {
 			loadNextLevelTimer += Time.deltaTime;
-				if(loadNextLevelTimer > 2f) {
+			if(loadNextLevelTimer > 2f) {
 				starField.GetComponent<ParticleSystemRenderer>().lengthScale = Mathf.MoveTowards(starField.GetComponent<ParticleSystemRenderer>().lengthScale, 100, Time.deltaTime*50f);
 				Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, 179f, Time.deltaTime*30f);
 				transform.Translate(transform.forward*Time.deltaTime*Camera.main.fieldOfView/2f, Space.World);

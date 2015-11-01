@@ -95,7 +95,6 @@ MonoBehaviour:
   mass: 0
   charge: 0
   entangled: {fileID: 0}
-  switchCounter: 0
 --- !u!114 &11499058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,7 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac49b509336c407db7cbbc55511b7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  wireframeMat: {fileID: 2100000, guid: a3a6913300818428eb0671db1b02bcd2, type: 2}
+  originalChildren: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -135,6 +135,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: a3a6913300818428eb0671db1b02bcd2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 136186}

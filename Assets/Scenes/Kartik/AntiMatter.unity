@@ -37,9 +37,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -68,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -232,6 +230,10 @@ Prefab:
       propertyPath: antiMatter
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11472888, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: a3a6913300818428eb0671db1b02bcd2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
   m_IsPrefabParent: 0
@@ -302,6 +304,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11472888, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: a3a6913300818428eb0671db1b02bcd2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
   m_IsPrefabParent: 0
@@ -370,6 +376,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -499,6 +506,10 @@ Prefab:
       propertyPath: antiMatter
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11472888, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: a3a6913300818428eb0671db1b02bcd2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
   m_IsPrefabParent: 0
@@ -565,6 +576,10 @@ Prefab:
       propertyPath: antiMatter
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11472888, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: a3a6913300818428eb0671db1b02bcd2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
   m_IsPrefabParent: 0
@@ -631,6 +646,10 @@ Prefab:
       propertyPath: antiMatter
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11472888, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: a3a6913300818428eb0671db1b02bcd2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
   m_IsPrefabParent: 0
@@ -726,6 +745,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -874,6 +894,10 @@ Prefab:
       propertyPath: antiMatter
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11472888, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: a3a6913300818428eb0671db1b02bcd2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4651e0fe337c464182310d2e2ab20b3, type: 2}
   m_IsPrefabParent: 0
@@ -1010,6 +1034,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1

@@ -168,7 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac49b509336c407db7cbbc55511b7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  wireframeMat: {fileID: 2100000, guid: e3742e8ba17774532af978c5de49607c, type: 2}
+  originalChildren: []
 --- !u!114 &11406262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,7 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hydrogenScale: {x: 1, y: 1, z: 1}
   numElementsCombined: 4
-  childPrefab: {fileID: 11492848, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
+  childPrefab: {fileID: 11426930, guid: ac63204eba70e4ac28fd80036e8cdd23, type: 2}
 --- !u!114 &11469716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,7 +256,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: childPrefab
       value: 
-      objectReference: {fileID: 11492848, guid: feba474352e6f4e6eb1945c00e727928,
+      objectReference: {fileID: 11426930, guid: ac63204eba70e4ac28fd80036e8cdd23,
         type: 2}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
@@ -269,6 +270,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: e3742e8ba17774532af978c5de49607c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 123306}

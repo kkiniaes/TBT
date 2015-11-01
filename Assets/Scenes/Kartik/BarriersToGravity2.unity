@@ -460,6 +460,10 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -.769999981
       objectReference: {fileID: 0}
+    - target: {fileID: 2397614, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d7fc40036f7c4fd6927c4edc98981d4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
   m_IsPrefabParent: 0
@@ -506,6 +510,10 @@ Prefab:
       propertyPath: originalChildren.Array.data[0]
       value: 
       objectReference: {fileID: 639366291}
+    - target: {fileID: 11495900, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: ffe8463c810e04493ba02019e11be28e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f4d063c8ca2b499cbf95b60ed203269, type: 2}
   m_IsPrefabParent: 0

@@ -180,7 +180,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 103252, guid: b21f3af63e5624e058421f378640fc27, type: 2}
       propertyPath: m_Name
-      value: Cube (1)
+      value: Cube
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b21f3af63e5624e058421f378640fc27, type: 2}
@@ -310,7 +310,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 166696, guid: 035cf85a0b9f74aba97caefe0c767c12, type: 2}
       propertyPath: m_Name
-      value: Goal1H (1)
+      value: Goal1H
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 035cf85a0b9f74aba97caefe0c767c12, type: 2}

@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1 &20356579 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 103252, guid: b21f3af63e5624e058421f378640fc27, type: 2}
@@ -117,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1001 &112404922
 Prefab:
   m_ObjectHideFlags: 0
@@ -187,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1001 &270583730
 Prefab:
   m_ObjectHideFlags: 0
@@ -249,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1001 &523486874
 Prefab:
   m_ObjectHideFlags: 0
@@ -323,6 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1001 &563385348
 Prefab:
   m_ObjectHideFlags: 0
@@ -459,6 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1 &699462797 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 103252, guid: b21f3af63e5624e058421f378640fc27, type: 2}
@@ -475,6 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1001 &791526129
 Prefab:
   m_ObjectHideFlags: 0
@@ -727,6 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1001 &1387871127
 Prefab:
   m_ObjectHideFlags: 0
@@ -882,6 +890,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 461510, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -41.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
   m_IsPrefabParent: 0
@@ -951,6 +963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []
 --- !u!1001 &1907223926
 Prefab:
   m_ObjectHideFlags: 0
@@ -1021,3 +1034,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  originalChildren: []

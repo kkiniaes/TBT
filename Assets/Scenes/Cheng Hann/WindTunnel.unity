@@ -269,7 +269,6 @@ MonoBehaviour:
   mass: 0
   charge: 0
   entangled: {fileID: 0}
-  switchCounter: 0
 --- !u!23 &694993315
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -383,7 +382,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461510, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -31.2999992
+      value: -59.4000015
       objectReference: {fileID: 0}
     - target: {fileID: 461510, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_LocalPosition.y

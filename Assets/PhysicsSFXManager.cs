@@ -10,7 +10,7 @@ public class PhysicsSFXManager : MonoBehaviour {
 	private float audioRepeatTimer = 0.1f;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		instance = this;
 	}
 	
