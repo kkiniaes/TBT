@@ -144,6 +144,7 @@ public class Goal : MonoBehaviour {
 
 	public void Combine() {
 		if (!combined) {
+			PhysicsSFXManager.instance.PlayElementCombineSFX();
 			combined = true;
 			gameObject.SetActive (false);
 			GetComponent<MeshRenderer> ().enabled = false;

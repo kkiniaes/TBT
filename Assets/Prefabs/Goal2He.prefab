@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac49b509336c407db7cbbc55511b7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wireframeMat: {fileID: 2100000, guid: fef999173956141f28502580c5c5f386, type: 2}
+  wireframeMat: {fileID: 2100000, guid: 96eb857f6df984de6957f6791b0f1994, type: 2}
 --- !u!114 &11496388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -265,6 +265,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.41400003
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wireframeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 96eb857f6df984de6957f6791b0f1994, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178658}

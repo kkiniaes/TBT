@@ -51,7 +51,6 @@ public class MainMenuPlayer : MonoBehaviour {
 //		if(GetComponent<AudioSource>().time >= (GetComponent<AudioSource>().clip.length-0.01f)) {
 //			GetComponent<AudioSource>().time = 62.4f;
 //		}
-		Debug.Log(GetComponent<AudioSource>().isPlaying);
 		if(!GetComponent<AudioSource>().isPlaying) {
 			GetComponent<AudioSource>().time = 62.4f;
 			GetComponent<AudioSource>().Play();

@@ -8,6 +8,7 @@ public class MainMenuBlackHole : MonoBehaviour {
 	private static MainMenuPlayer player;
 	private static GameObject blackHolesController;
 	private AsyncOperation loading;
+	private string levelToLoad = "NA";
 
 	private float timeOffset;
 
@@ -43,6 +44,12 @@ public class MainMenuBlackHole : MonoBehaviour {
 				loading.allowSceneActivation = true;
 			}
 		}
+
+		if(Input.GetKeyDown(KeyCode.Alpha1)) {
+			if(gameObject.name.Contains("5")) {
+
+			}
+		}
 	}
 
 	public void OnPointerEnter() {
@@ -56,7 +63,19 @@ public class MainMenuBlackHole : MonoBehaviour {
 	public void LoadLevel(int num) {
 		player.GetComponent<Animator>().SetInteger("LoadLevel", num);
 		blackHolesController.GetComponent<Animator>().SetInteger("LoadLevel", num);
-		loading = Application.LoadLevelAsync(1);
+		if(levelToLoad.Equals("NA")) {
+			if(gameObject.name.Contains("5")) {
+				loading = Application.LoadLevelAsync("Switches");
+			} else if(gameObject.name.Contains("4")) {
+				loading = Application.LoadLevelAsync("Finale");
+			} else if(gameObject.name.Contains("2")) {
+				loading = Application.LoadLevelAsync("WeightWatching");
+			} else if(gameObject.name.Contains("1")) {
+				loading = Application.LoadLevelAsync("TugOfWar");
+			} else {
+				loading = Application.LoadLevelAsync("IntroToGravity");
+			}
+		}
 		loading.allowSceneActivation = false;
 		timeOffset = 1;
 	}

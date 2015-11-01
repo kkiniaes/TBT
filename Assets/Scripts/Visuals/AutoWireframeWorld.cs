@@ -4,9 +4,12 @@ using System.Collections;
 public class AutoWireframeWorld : MonoBehaviour {
 
 	public Material wireframeMat;
+	private GameObject childRef;
+	public GameObject[] originalChildren;
 
 	// Use this for initialization
 	void Start () {
+
 		Collider collider = GetComponent<Collider>();
 		if (collider != null) {
 			collider.enabled = false;
@@ -38,10 +41,25 @@ public class AutoWireframeWorld : MonoBehaviour {
 			Destroy(temp.GetComponentInChildren<TextMesh>());
 		}
 		temp.transform.localScale = Vector3.one;
+		childRef = temp;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		childRef.layer = 11;
+		childRef.transform.localScale = Vector3.one;
+		foreach(GameObject g in originalChildren) {
+			g.GetComponent<AutoWireframeWorld>().childRef.layer = 11;
+			g.GetComponent<AutoWireframeWorld>().childRef.transform.localScale = Vector3.one;
+		}
+	}
+
+	public void HighlightObject () {
+		childRef.layer = 0;
+		childRef.transform.localScale = Vector3.one*1.05f;
+		foreach(GameObject g in originalChildren) {
+			g.GetComponent<AutoWireframeWorld>().childRef.layer = 0;
+			g.GetComponent<AutoWireframeWorld>().childRef.transform.localScale = Vector3.one*1.05f;
+		}
 	}
 }

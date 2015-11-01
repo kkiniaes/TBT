@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
 	private PhysicsModifyable entangleSelected;
 	private bool wireframeMode;
 	private GameObject starField;
+	private GameObject timeSFXManager, physicsSFXManager;
 
 	private float antimatterResetTime = 0;
 	public float AntimatterResetTime {
@@ -59,6 +60,8 @@ public class Player : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		starField = transform.FindChild("Starfield").gameObject;
+		timeSFXManager = transform.FindChild("TimeSFXManager").gameObject;
+		physicsSFXManager = transform.FindChild("PhysicsSFXManager").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -136,6 +139,10 @@ public class Player : MonoBehaviour {
 			if(rh.transform.gameObject.GetComponent<PhysicsModifyable>() != null) {
 				lookingAtObject = rh.transform.gameObject;
 
+				if(!wireframeMode) {
+					lookingAtObject.GetComponent<AutoWireframeWorld>().HighlightObject();
+				}
+
 				PhysicsModifyable pM = rh.transform.gameObject.GetComponent<PhysicsModifyable>();
 				rh.transform.gameObject.GetComponent<Renderer>().material.SetFloat("_Power", 0.3f);
 
@@ -147,7 +154,11 @@ public class Player : MonoBehaviour {
 				if(!timeReversed && !pM.immutable) {
 					//Increases/Decreases mass of object
 					if(!pM.specificallyImmutable.mass && currentMode == PhysicsMode.Mass && pM.mass <= 6) {
+						float tempVal = pM.Mass;
 						pM.Mass = Mathf.Max(0, pM.Mass + delta);
+						if(pM.Mass != tempVal) {
+							physicsSFXManager.GetComponent<PhysicsSFXManager>().PlayGravityChangeSFX(delta);
+						}
 					}// Increase/Decrease charge of object 
 					else if(!pM.specificallyImmutable.charge && currentMode == PhysicsMode.Charge) {
 						if((pM.Charge == -1 && delta > 0) || (pM.Charge == 1 && delta < 0)) {
@@ -240,6 +251,18 @@ public class Player : MonoBehaviour {
 				if(antimatterResetTime == -1 || timeReversed == false) {
 					timeReversed = false;
 					timeFrozen = !timeFrozen;
+				}
+			}
+
+			if(timeReversed) {
+				timeSFXManager.GetComponent<AudioSource>().pitch = -0.5f;
+				timeSFXManager.GetComponent<AudioSource>().volume = 1;
+			} else {
+				timeSFXManager.GetComponent<AudioSource>().pitch = timeScale + 0.5f;
+				if(timeScale != 1 && timeScale != 0) {
+					timeSFXManager.GetComponent<AudioSource>().volume = Mathf.MoveTowards(timeSFXManager.GetComponent<AudioSource>().volume, 1f, Time.deltaTime*10f);
+				} else {
+					timeSFXManager.GetComponent<AudioSource>().volume = Mathf.MoveTowards(timeSFXManager.GetComponent<AudioSource>().volume, 0.1f-Mathf.Abs(timeScale), Time.deltaTime);
 				}
 			}
 

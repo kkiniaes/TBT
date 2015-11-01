@@ -14,7 +14,7 @@ SceneSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 2
   m_FogDensity: .0500000007
@@ -176,15 +176,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 422300, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2093472, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
-      propertyPath: field of view
-      value: 179
-      objectReference: {fileID: 0}
-    - target: {fileID: 191528, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
@@ -405,6 +397,10 @@ Prefab:
     - target: {fileID: 454408, guid: 035cf85a0b9f74aba97caefe0c767c12, type: 2}
       propertyPath: m_LocalPosition.z
       value: 37.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407332, guid: 035cf85a0b9f74aba97caefe0c767c12, type: 2}
+      propertyPath: specificallyImmutable.mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 035cf85a0b9f74aba97caefe0c767c12, type: 2}
