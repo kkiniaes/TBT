@@ -37,7 +37,7 @@ public class PhysicsModifyable : MonoBehaviour {
 	public float Mass { 
 		get { return mass; }
 		set {
-			if(entangled != null) {
+			if(entangled != null && !entangled.specificallyImmutable.mass) {
 				entangled.mass = value;
 			}
 			mass = value;
@@ -47,7 +47,7 @@ public class PhysicsModifyable : MonoBehaviour {
 	public float Charge { 
 		get { return charge; }
 		set {
-			if(entangled != null) {
+			if(entangled != null && !entangled.specificallyImmutable.charge) {
 				entangled.charge = value;
 			}
 			charge = value;
@@ -57,7 +57,7 @@ public class PhysicsModifyable : MonoBehaviour {
 	public PhysicsModifyable Entangled {
 		get { return entangled; }
 		set {
-			if(value == this) {
+			if(value == this || value == null || value.specificallyImmutable.entangled) {
 				value = null;
 			}
 
@@ -310,8 +310,12 @@ public class PhysicsModifyable : MonoBehaviour {
 	}
 
 	public void NeutralizeCharge() {
-		charge = 0;
+		Charge = 0;
+
 		chargeLockTimer = 1f;
+		if(entangled != null) {
+			entangled.chargeLockTimer = 1f;
+		}
 	}
 
 	void OnCollisionEnter(Collision other) {
