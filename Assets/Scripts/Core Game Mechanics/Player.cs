@@ -214,7 +214,7 @@ public class Player : MonoBehaviour {
 				starField.GetComponent<ParticleSystemRenderer>().lengthScale = Mathf.MoveTowards(starField.GetComponent<ParticleSystemRenderer>().lengthScale, 100, Time.deltaTime*50f);
 				Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, 179f, Time.deltaTime*30f);
 				transform.Translate(transform.forward*Time.deltaTime*Camera.main.fieldOfView/2f, Space.World);
-				if(!physicsSFXManager.GetComponent<AudioSource>().isPlaying) {
+				if(physicsSFXManager.GetComponent<AudioSource>().time/physicsSFXManager.GetComponent<AudioSource>().clip.length > 0.98f) {
 					loadingNextLevel.allowSceneActivation = true;
 				}
 			}

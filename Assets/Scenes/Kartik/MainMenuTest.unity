@@ -1429,7 +1429,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 56888632}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 194102070}
+        m_MethodName: DecreaseQuality
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1600069412}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &56888632
@@ -4935,7 +4946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5300,6 +5311,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 194102068}
   - 225: {fileID: 194102069}
+  - 114: {fileID: 194102070}
   m_Layer: 2
   m_Name: OptionsMenu
   m_TagString: Untagged
@@ -5337,6 +5349,17 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &194102070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 194102067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52a0af82e1f944f0b2947a1843344c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &199142470
 GameObject:
   m_ObjectHideFlags: 0
@@ -6480,7 +6503,8 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 3.70156574
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11438616, guid: d1db069d512c34c89b08b840c6bb080c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d1db069d512c34c89b08b840c6bb080c, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &353555869 stripped
@@ -7845,7 +7869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -9361,7 +9385,8 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 3.70156574
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11438616, guid: d1db069d512c34c89b08b840c6bb080c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d1db069d512c34c89b08b840c6bb080c, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &870808927 stripped
@@ -13334,7 +13359,8 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: .624750197
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11438616, guid: d1db069d512c34c89b08b840c6bb080c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d1db069d512c34c89b08b840c6bb080c, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1335221999 stripped
@@ -14969,7 +14995,8 @@ Prefab:
       propertyPath: m_Name
       value: EntangledFX (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11438616, guid: d1db069d512c34c89b08b840c6bb080c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d1db069d512c34c89b08b840c6bb080c, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1696994255 stripped
@@ -15240,7 +15267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -20602,7 +20629,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2139791443}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 194102070}
+        m_MethodName: IncreaseQuality
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1600069412}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2139791443
