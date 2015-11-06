@@ -65,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -84,9 +85,6 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!127 &5
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!1 &27333259
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +558,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11408854, guid: 003d4f328aa1b4e9c8989710a5d889d7, type: 2}
       propertyPath: immutable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2399424, guid: 003d4f328aa1b4e9c8989710a5d889d7, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -586,7 +584,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 452024, guid: b21f3af63e5624e058421f378640fc27, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 27.0499992
+      value: 26.3700008
       objectReference: {fileID: 0}
     - target: {fileID: 452024, guid: b21f3af63e5624e058421f378640fc27, type: 2}
       propertyPath: m_LocalPosition.y
@@ -680,7 +678,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11408854, guid: 003d4f328aa1b4e9c8989710a5d889d7, type: 2}
       propertyPath: immutable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2399424, guid: 003d4f328aa1b4e9c8989710a5d889d7, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -908,6 +906,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7f19676bbaa9042fd8ddacedcbf5bda9, type: 2}
+    - target: {fileID: 484308, guid: eab934b7111ea40da81f5513079c7002, type: 2}
+      propertyPath: m_LocalScale.y
+      value: .5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eab934b7111ea40da81f5513079c7002, type: 2}
   m_IsPrefabParent: 0
@@ -962,11 +964,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461510, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 19
+      value: 15.3000002
       objectReference: {fileID: 0}
     - target: {fileID: 461510, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -57
+      value: -68
       objectReference: {fileID: 0}
     - target: {fileID: 461510, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_LocalRotation.y
@@ -978,7 +980,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461510, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6.19999981
+      value: -4.4000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
@@ -1030,6 +1032,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7f19676bbaa9042fd8ddacedcbf5bda9, type: 2}
+    - target: {fileID: 484308, guid: eab934b7111ea40da81f5513079c7002, type: 2}
+      propertyPath: m_LocalScale.y
+      value: .5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eab934b7111ea40da81f5513079c7002, type: 2}
   m_IsPrefabParent: 0
@@ -1318,7 +1324,7 @@ Prefab:
       objectReference: {fileID: 412980147}
     - target: {fileID: 11444580, guid: 43b9f56a78f324b8d97770213726f85c, type: 2}
       propertyPath: speed
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 124594, guid: 43b9f56a78f324b8d97770213726f85c, type: 2}
       propertyPath: m_IsActive
@@ -1394,7 +1400,7 @@ Prefab:
       objectReference: {fileID: 2033310502}
     - target: {fileID: 11444580, guid: 43b9f56a78f324b8d97770213726f85c, type: 2}
       propertyPath: speed
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 124594, guid: 43b9f56a78f324b8d97770213726f85c, type: 2}
       propertyPath: m_IsActive

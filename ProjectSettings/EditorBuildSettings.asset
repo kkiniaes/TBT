@@ -36,13 +36,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Taylor/Funnel.unity
   - enabled: 1
-    path: Assets/Scenes/Cheng Hann/IntroAntimatter.unity
-  - enabled: 1
-    path: Assets/Scenes/Cheng Hann/ThreadTheNeedle.unity
-  - enabled: 1
     path: Assets/Scenes/Kartik/IntroToQE.unity
   - enabled: 1
     path: Assets/Scenes/Seth Triplett/IntroToQuantumEntanglement.unity
+  - enabled: 1
+    path: Assets/Scenes/Cheng Hann/IntroAntimatter.unity
+  - enabled: 1
+    path: Assets/Scenes/Cheng Hann/ThreadTheNeedle.unity
   - enabled: 1
     path: Assets/Scenes/Cheng Hann/TugOfWar.unity
   - enabled: 1
