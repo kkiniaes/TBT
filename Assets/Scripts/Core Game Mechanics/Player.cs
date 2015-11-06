@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
 	private GameObject starField;
 	private GameObject timeSFXManager, physicsSFXManager;
 	private AsyncOperation loadingNextLevel;
+	private GameObject entangleLine;
 
 	private float antimatterResetTime = 0;
 	public float AntimatterResetTime {
@@ -175,14 +176,27 @@ public class Player : MonoBehaviour {
 								pM.entangled.Entangled = null;
 								pM.Entangled = null;
 								entangleSelected = null;
+								if(entangleLine != null) {
+									Destroy(entangleLine.gameObject);
+								}
 							} else if(entangleSelected != null && entangleSelected != pM) {
 								//Debug.Log("Entangle " + pM + ":" + entangleSelected);
 								pM.Entangled = entangleSelected;
 								entangleSelected.Entangled = pM;
 								entangleSelected = null;
+								if(entangleLine != null) {
+									Destroy(entangleLine.gameObject);
+								}
 							} else {
 								//Debug.Log("Entangle " + pM);
 								entangleSelected = pM;
+								if(entangleLine == null) {
+									entangleLine = new GameObject("EntangleLine", typeof(LineRenderer));
+									entangleLine.GetComponent<LineRenderer>().useWorldSpace = true;
+									entangleLine.GetComponent<LineRenderer>().sharedMaterial = Resources.Load<GameObject>("SwitchLine").GetComponent<LineRenderer>().material;
+									entangleLine.GetComponent<LineRenderer>().material.color = Color.white;
+									entangleLine.GetComponent<LineRenderer>().SetPosition(0,pM.transform.position);
+								}
 							}
 						}
 					}
@@ -197,8 +211,21 @@ public class Player : MonoBehaviour {
 		} else if(Input.GetMouseButtonDown(0)) {
 			// handles canceling entanglement
 			entangleSelected = null;
+			if(entangleLine != null) {
+				Destroy(entangleLine.gameObject);
+			}
 		} else {
 			lookingAtObject = null;
+		}
+
+		//Handles entangle indicator
+		if(entangleLine != null) {
+			entangleLine.GetComponent<LineRenderer>().SetWidth(Vector3.Distance(transform.position,entangleSelected.transform.position)/30f,Vector3.Distance(transform.position,entangleSelected.transform.position)/30f);
+		}
+		if(entangleLine != null && lookingAtObject == null) {
+			entangleLine.GetComponent<LineRenderer>().SetPosition(1,transform.position + (transform.forward*Vector3.Distance(transform.position, entangleSelected.transform.position)));
+		} else if(entangleLine != null && lookingAtObject != null && lookingAtObject.GetComponent<PhysicsModifyable>() != null) {
+			entangleLine.GetComponent<LineRenderer>().SetPosition(1,lookingAtObject.transform.position);
 		}
 
 
