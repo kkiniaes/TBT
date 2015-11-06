@@ -57,7 +57,11 @@ public class PhysicsModifyable : MonoBehaviour {
 	public PhysicsModifyable Entangled {
 		get { return entangled; }
 		set {
-			if(value == this || value == null || value.specificallyImmutable.entangled) {
+			if (value != null && value.specificallyImmutable.entangled || specificallyImmutable.entangled ||
+			    entangled != null && entangled.specificallyImmutable.entangled) {
+				return;
+			}
+			if(value == this || value == null) {
 				value = null;
 			}
 

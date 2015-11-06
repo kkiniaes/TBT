@@ -193,7 +193,7 @@ public class Player : MonoBehaviour {
 								if(entangleLine == null) {
 									entangleLine = new GameObject("EntangleLine", typeof(LineRenderer));
 									entangleLine.GetComponent<LineRenderer>().useWorldSpace = true;
-									entangleLine.GetComponent<LineRenderer>().sharedMaterial = Resources.Load<GameObject>("SwitchLine").GetComponent<LineRenderer>().material;
+									entangleLine.GetComponent<LineRenderer>().sharedMaterial = Resources.Load<GameObject>("SwitchLine").GetComponent<LineRenderer>().sharedMaterial;
 									entangleLine.GetComponent<LineRenderer>().material.color = Color.white;
 									entangleLine.GetComponent<LineRenderer>().SetPosition(0,pM.transform.position);
 								}
@@ -220,12 +220,15 @@ public class Player : MonoBehaviour {
 
 		//Handles entangle indicator
 		if(entangleLine != null) {
-			entangleLine.GetComponent<LineRenderer>().SetWidth(Vector3.Distance(transform.position,entangleSelected.transform.position)/30f,Vector3.Distance(transform.position,entangleSelected.transform.position)/30f);
-		}
-		if(entangleLine != null && lookingAtObject == null) {
-			entangleLine.GetComponent<LineRenderer>().SetPosition(1,transform.position + (transform.forward*Vector3.Distance(transform.position, entangleSelected.transform.position)));
-		} else if(entangleLine != null && lookingAtObject != null && lookingAtObject.GetComponent<PhysicsModifyable>() != null) {
-			entangleLine.GetComponent<LineRenderer>().SetPosition(1,lookingAtObject.transform.position);
+			LineRenderer entangleRenderer = entangleLine.GetComponent<LineRenderer>();
+			if(entangleSelected != null) {
+				entangleRenderer.SetWidth(Vector3.Distance(transform.position,entangleSelected.transform.position)/30f,Vector3.Distance(transform.position,entangleSelected.transform.position)/30f);
+				if(lookingAtObject == null) {
+					entangleRenderer.SetPosition(1,transform.position + (transform.forward*Vector3.Distance(transform.position, entangleSelected.transform.position)));
+				} else if(lookingAtObject != null && lookingAtObject.GetComponent<PhysicsModifyable>() != null) {
+					entangleRenderer.SetPosition(1,lookingAtObject.transform.position);
+				}
+			}
 		}
 
 
