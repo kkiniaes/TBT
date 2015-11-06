@@ -92,6 +92,7 @@ public class PhysicsModifyable : MonoBehaviour {
 	private float chargeLockTimer = 0;
 	private bool antiMatterAnnihilated;
 	private Vector3 entangledOffset;
+	private bool willBind = false;
 
 	// Use this for initialization
 	void Start () {
@@ -113,10 +114,16 @@ public class PhysicsModifyable : MonoBehaviour {
 			initStackState.Push(initState);
 			LevelManager.stateStacks.Add (this, initStackState);
 		}
+		if (entangled) {
+			willBind = true;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (willBind && entangled != null) {
+			Bind(this, entangled);
+		}
 		if(immutable) {
 			specificallyImmutable.mass = true;
 			specificallyImmutable.charge = true;
