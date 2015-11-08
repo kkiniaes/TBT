@@ -108,11 +108,11 @@ public class PhysicsModifyable : MonoBehaviour {
 
 		PhysicsAffected.TryAddPM(this);
 
-		if(!LevelManager.stateStacks.ContainsKey(this)) {
+		if(!LevelManager.instance.stateStacks.ContainsKey(this)) {
 			Stack initStackState = new Stack();
 			State initState = State.GetState(this);
 			initStackState.Push(initState);
-			LevelManager.stateStacks.Add (this, initStackState);
+			LevelManager.instance.stateStacks.Add (this, initStackState);
 		}
 		if (entangled) {
 			willBind = true;
