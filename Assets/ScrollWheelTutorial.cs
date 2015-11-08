@@ -17,10 +17,18 @@ public class ScrollWheelTutorial : MonoBehaviour {
 	void Update () {
 		if(transform.parent.childCount > 1) {
 			GetComponent<Image>().color = new Color(1,1,1,0);
+			transform.GetChild(0).GetComponent<Text>().enabled = false;
+			transform.GetChild(1).GetComponent<Text>().enabled = false;
 		} else {
 			GetComponent<Image>().color = Color.white;
+			transform.GetChild(0).GetComponent<Text>().enabled = true;
+			transform.GetChild(1).GetComponent<Text>().enabled = true;
 		}
 
+
+		if(aim.GetComponent<PhysicsModifyable>().mass > 0) {
+			Destroy(this.gameObject);
+		}
 
 //		transform.GetChild(0).right = (Vector2)((-RectTransformUtility.WorldToScreenPoint(Camera.main,transform.GetChild(0).position)) + (Vector2)Camera.main.WorldToScreenPoint(aim.transform.position));
 
@@ -29,11 +37,14 @@ public class ScrollWheelTutorial : MonoBehaviour {
 //		transform.GetChild(0).LookAt(aim.transform);
 //		transform.GetChild(0).eulerAngles = new Vector3(0,0,transform.GetChild(0).eulerAngles.z);
 
-//		float angle = Vector2.Angle(Camera.main.WorldToScreenPoint(aim.transform.position) - Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)),
-//		                        Camera.main.WorldToScreenPoint(aim.transform.position) - Camera.main.WorldToScreenPoint(transform.GetChild(0).position));
-//		if(angle > 0) {
-//			transform.GetChild(0).RotateAround(transform.position, transform.forward, Time.deltaTime*20f);
-//		}
+//		float angle = Vector2.Angle(Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)) - Camera.main.WorldToScreenPoint(aim.transform.position),
+//		                            (Vector2)Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)) - (Vector2)RectTransformUtility.WorldToScreenPoint(Camera.main,transform.GetChild(0).position));
+////		if(angle > 0) {
+////			transform.GetChild(0).RotateAround(transform.position, transform.forward, Time.deltaTime*20f);
+////		}
+//		Debug.Log(angle);
+//		Debug.DrawLine(Camera.main.ScreenToWorldPoint(Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f))), aim.transform.position);
+//		Debug.Log(Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)));
 //		Debug.Log(Camera.main.WorldToScreenPoint(aim.transform.position));
 //		Debug.Log(Vector2.Angle(Camera.main.WorldToScreenPoint(aim.transform.position), Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f))));
 	}

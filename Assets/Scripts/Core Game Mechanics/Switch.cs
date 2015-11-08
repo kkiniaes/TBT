@@ -39,12 +39,12 @@ public class Switch : MonoBehaviour {
 			switchLine = Resources.Load<GameObject> ("SwitchLine");
 		}
 
-		GameObject particleObject = Instantiate (switchParticles, transform.position, transform.rotation) as GameObject;
-		particleObject.transform.parent = transform;
-		particleObject.name = "SwitchParticles" + switchIndex;
-		ParticleSystem particles = particleObject.GetComponent<ParticleSystem> ();
-		particles.startColor = particleColors [switchIndex % particleColors.Length];
-		particles.gameObject.SetActive (activated);
+//		GameObject particleObject = Instantiate (switchParticles, transform.position, transform.rotation) as GameObject;
+//		particleObject.transform.parent = transform;
+//		particleObject.name = "SwitchParticles" + switchIndex;
+//		ParticleSystem particles = particleObject.GetComponent<ParticleSystem> ();
+//		particles.startColor = particleColors [switchIndex % particleColors.Length];
+//		particles.gameObject.SetActive (activated);
 
 		// Draw a line between the switch and its attached object.
 		GameObject lineObject = Instantiate (switchLine) as GameObject;
@@ -53,7 +53,7 @@ public class Switch : MonoBehaviour {
 		LineRenderer line = lineObject.GetComponent<LineRenderer> ();
 		line.SetPosition (0, transform.position);
 		line.SetPosition (1, attachedObject.transform.position);
-		line.SetColors (particles.startColor, particles.startColor);
+//		line.SetColors (particles.startColor, particles.startColor);
 	}
 
 	// Update is called once per frame
@@ -70,6 +70,6 @@ public class Switch : MonoBehaviour {
 	// Turns the switch on or off.
 	public virtual void Toggle () {
 		activated = !activated;
-		transform.FindChild ("SwitchParticles" + switchIndex).gameObject.SetActive (activated);
+//		transform.FindChild ("SwitchParticles" + switchIndex).gameObject.SetActive (activated);
 	}
 }

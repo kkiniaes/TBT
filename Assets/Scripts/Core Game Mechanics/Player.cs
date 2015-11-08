@@ -194,7 +194,7 @@ public class Player : MonoBehaviour {
 									entangleLine = new GameObject("EntangleLine", typeof(LineRenderer));
 									entangleLine.GetComponent<LineRenderer>().useWorldSpace = true;
 									entangleLine.GetComponent<LineRenderer>().sharedMaterial = Resources.Load<GameObject>("SwitchLine").GetComponent<LineRenderer>().sharedMaterial;
-									entangleLine.GetComponent<LineRenderer>().material.color = Color.white;
+									entangleLine.GetComponent<LineRenderer>().material.color = Color.black;
 									entangleLine.GetComponent<LineRenderer>().SetPosition(0,pM.transform.position);
 								}
 							}
