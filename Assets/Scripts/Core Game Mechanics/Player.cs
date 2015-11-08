@@ -155,9 +155,9 @@ public class Player : MonoBehaviour {
 
 				if(!timeReversed && !pM.immutable) {
 					//Increases/Decreases mass of object
-					if(!pM.specificallyImmutable.mass && currentMode == PhysicsMode.Mass && pM.mass <= 6) {
+					if(!pM.specificallyImmutable.mass && currentMode == PhysicsMode.Mass) {
 						float tempVal = pM.Mass;
-						pM.Mass = Mathf.Max(0, pM.Mass + delta);
+						pM.Mass = Mathf.Min(6, Mathf.Max(0, pM.Mass + delta));
 						if(pM.Mass != tempVal) {
 							physicsSFXManager.GetComponent<PhysicsSFXManager>().PlayGravityChangeSFX(delta);
 						}
