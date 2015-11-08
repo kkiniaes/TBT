@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
 	public static LevelManager instance;
-	public static Dictionary<PhysicsModifyable, Stack> stateStacks = new Dictionary<PhysicsModifyable, Stack>();
 
+	public Dictionary<PhysicsModifyable, Stack> stateStacks = new Dictionary<PhysicsModifyable, Stack>();
 	public Element goalElement;
 
 	void Awake() {

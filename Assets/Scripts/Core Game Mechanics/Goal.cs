@@ -36,8 +36,8 @@ public class Goal : MonoBehaviour {
 
 		if(numElementsCombined > 1 && children.Count <= 0) {
 			PhysicsModifyable pM = GetComponent<PhysicsModifyable>();
-			if(LevelManager.stateStacks.ContainsKey(pM)) {
-				LevelManager.stateStacks.Remove(pM);
+			if(LevelManager.instance.stateStacks.ContainsKey(pM)) {
+				LevelManager.instance.stateStacks.Remove(pM);
 			}
 
 			AddChildren();
@@ -45,7 +45,7 @@ public class Goal : MonoBehaviour {
 			Stack initStackState = new Stack();
 			State initState = State.GetState(pM);
 			initStackState.Push(initState);
-			LevelManager.stateStacks.Add (pM, initStackState);
+			LevelManager.instance.stateStacks.Add (pM, initStackState);
 		}
 
 		transform.localScale = hydrogenScale * Mathf.Sqrt(numElementsCombined);
@@ -67,13 +67,13 @@ public class Goal : MonoBehaviour {
 				children.Push(child);
 
 				PhysicsModifyable pM = child.GetComponent<PhysicsModifyable>();
-				if(LevelManager.stateStacks.ContainsKey(pM)) {
-					LevelManager.stateStacks.Remove(pM);
+				if(LevelManager.instance.stateStacks.ContainsKey(pM)) {
+					LevelManager.instance.stateStacks.Remove(pM);
 				}
 				Stack initStackState = new Stack();
 				State initState = State.GetState(pM);
 				initStackState.Push(initState);
-				LevelManager.stateStacks.Add (pM, initStackState);
+				LevelManager.instance.stateStacks.Add (pM, initStackState);
 			}
 		}
 	}
