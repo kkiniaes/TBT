@@ -169,7 +169,7 @@ public class Player : MonoBehaviour {
 							pM.Charge = Mathf.Sign(delta);
 						}
 					}// Quantum Entangle objects
-					else if(!pM.specificallyImmutable.entangled && currentMode == PhysicsMode.Entangle) {
+					else{// if(!pM.specificallyImmutable.entangled && currentMode == PhysicsMode.Entangle) {
 						if(Input.GetMouseButtonDown(0)) {
 							if(pM.entangled != null) {
 								//Debug.Log("Detangle");
@@ -187,7 +187,7 @@ public class Player : MonoBehaviour {
 								if(entangleLine != null) {
 									Destroy(entangleLine.gameObject);
 								}
-							} else {
+							} else if(!pM.specificallyImmutable.entangled){
 								//Debug.Log("Entangle " + pM);
 								entangleSelected = pM;
 								if(entangleLine == null) {

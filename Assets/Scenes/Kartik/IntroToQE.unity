@@ -136,9 +136,19 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 37.9000015
       objectReference: {fileID: 0}
+    - target: {fileID: 11476908, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
+      propertyPath: specificallyImmutable.entangled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: feba474352e6f4e6eb1945c00e727928, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &97506895 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11473834, guid: 408f8ebf13648496f9e548b25525c836,
+    type: 2}
+  m_PrefabInternal: {fileID: 1377144085}
+  m_Script: {fileID: 11500000, guid: cf96b1f6a4cc8456b9f67480443dfa77, type: 3}
 --- !u!1001 &192568962
 Prefab:
   m_ObjectHideFlags: 0
@@ -177,6 +187,10 @@ Prefab:
     - target: {fileID: 422300, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 176198, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
@@ -402,6 +416,10 @@ Prefab:
       propertyPath: specificallyImmutable.mass
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11407332, guid: 035cf85a0b9f74aba97caefe0c767c12, type: 2}
+      propertyPath: entangled
+      value: 
+      objectReference: {fileID: 97506895}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 035cf85a0b9f74aba97caefe0c767c12, type: 2}
   m_IsPrefabParent: 0
