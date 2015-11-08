@@ -14,6 +14,7 @@ public class Switch : MonoBehaviour {
 		get { return switchIndex; }
 	}
 
+	/*
 	static Color[] particleColors = new Color[]{
 		new Color(0.047f, 0.522f, 0.914f),
 		new Color(0.1f, 0, 0),
@@ -21,6 +22,7 @@ public class Switch : MonoBehaviour {
 		new Color(0.1f, 0.1f, 0),
 		new Color(0.1f, 0, 0.1f)
 	};
+	*/
 
 	// Particles emitted when the switch is on.
 	private static GameObject switchParticles;

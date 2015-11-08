@@ -254,6 +254,18 @@ Prefab:
       propertyPath: immutable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11484596, guid: eab934b7111ea40da81f5513079c7002, type: 2}
+      propertyPath: specificallyImmutable.mass
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11484596, guid: eab934b7111ea40da81f5513079c7002, type: 2}
+      propertyPath: specificallyImmutable.entangled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11484596, guid: eab934b7111ea40da81f5513079c7002, type: 2}
+      propertyPath: specificallyImmutable.charge
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eab934b7111ea40da81f5513079c7002, type: 2}
   m_IsPrefabParent: 0

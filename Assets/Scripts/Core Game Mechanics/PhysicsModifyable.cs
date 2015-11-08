@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PhysicsModifyable : MonoBehaviour {
 	[System.Serializable]
@@ -216,15 +217,20 @@ public class PhysicsModifyable : MonoBehaviour {
 
 			if(player.timeScale > 0) {
 				Collider[] cols = Physics.OverlapSphere(transform.position, NEUTRALIZE_DIST);
+				List<PhysicsModifyable> toNeutralize = new List<PhysicsModifyable>();
 				foreach(Collider col in cols) {
-					if(col.GetComponent<PhysicsModifyable>() != null && Mathf.Sign(col.GetComponent<PhysicsModifyable>().charge) != Mathf.Sign(charge)
-					   && col.GetComponent<PhysicsModifyable>().charge != 0 && charge != 0) {
-						col.GetComponent<PhysicsModifyable>().NeutralizeCharge();
-						NeutralizeCharge();
+					PhysicsModifyable colModifyable = col.GetComponent<PhysicsModifyable>();
+					if(colModifyable != null && Mathf.Sign(colModifyable.charge) != Mathf.Sign(charge)
+					   && colModifyable.charge != 0 && charge != 0) {
+						toNeutralize.Add(colModifyable);
+						toNeutralize.Add(this);
 						GameObject temp = (GameObject)GameObject.Instantiate(lightning, (transform.position + col.transform.position)/2, Quaternion.LookRotation(col.transform.position - transform.position));
 						temp.transform.localScale = Vector3.one*Vector3.Distance(transform.position, col.transform.position)/30f;
 						SplitElementsBetween(transform.position, col.transform.position);
 					}
+				}
+				foreach(PhysicsModifyable modifyable in toNeutralize) {
+					modifyable.NeutralizeCharge();
 				}
 			}
 		}
