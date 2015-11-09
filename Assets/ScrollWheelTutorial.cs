@@ -16,13 +16,9 @@ public class ScrollWheelTutorial : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(transform.parent.childCount > 1) {
-			GetComponent<Image>().color = new Color(1,1,1,0);
-			transform.GetChild(0).GetComponent<Text>().enabled = false;
-			transform.GetChild(1).GetComponent<Text>().enabled = false;
+			GetComponent<CanvasGroup>().alpha = 0;
 		} else {
-			GetComponent<Image>().color = Color.white;
-			transform.GetChild(0).GetComponent<Text>().enabled = true;
-			transform.GetChild(1).GetComponent<Text>().enabled = true;
+			GetComponent<CanvasGroup>().alpha = Mathf.MoveTowards(GetComponent<CanvasGroup>().alpha, 1f, Time.deltaTime/2f);
 		}
 
 
