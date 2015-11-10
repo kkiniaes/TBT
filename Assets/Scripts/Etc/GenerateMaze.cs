@@ -95,6 +95,7 @@ public class GenerateMaze : MonoBehaviour {
 
 	public int columns;
 	public int rows;
+	public float loopingAmount = 0.01f; //%, between 0 & 1
 	public bool addGoals;
 	public bool border;
 	public Vector3 origin;
@@ -113,13 +114,21 @@ public class GenerateMaze : MonoBehaviour {
 		int extraBorderSpace = (border) ? 2 : 0;
 		Point size = new Point (columns * 2 + extraBorderSpace - 1, rows * 2 + extraBorderSpace - 1);
 		bool[,] maze = initializedBoolArray (size, true);
+		int offset = (border) ? 1 : 0;
 		foreach (Edge e in connections) {
-			int offset = (border) ? 1 : 0;
 			int betweenX = Mathf.Min(e.P1.x * 2 + offset, e.P2.x * 2 + offset) + Mathf.Abs((e.P2.x * 2 + offset) - (e.P1.x * 2 + offset)) / 2;
 			int betweenY = Mathf.Min(e.P1.y * 2 + offset, e.P2.y * 2 + offset) + Mathf.Abs((e.P2.y * 2 + offset) - (e.P1.y * 2 + offset)) / 2;
 			maze[e.P1.x * 2 + offset, e.P1.y * 2 + offset] = false;
 			maze[betweenX, betweenY] = false;
 			maze[e.P2.x * 2 + offset, e.P2.y * 2 + offset] = false;
+		}
+
+		for (int x = offset; x < maze.GetLength(0) - offset; x++) {
+			for (int y = offset; y < maze.GetLength(1) - offset; y++) {
+				if(!((x - offset) % 2 != 0 && (y - offset) % 2 != 0) && rand.NextDouble() < loopingAmount) {
+					maze[x, y] = false;
+				}
+			}
 		}
 
 		blocks = new List<GameObject> ();
