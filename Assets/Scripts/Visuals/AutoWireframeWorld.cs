@@ -10,7 +10,10 @@ public class AutoWireframeWorld : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		Collider collider = GetComponent<Collider>();
+		Collider collider = null;
+		if (GetComponent<PhysicsAffected>() != null) {
+			collider = GetComponent<Collider>();
+		}
 		if (collider != null) {
 			collider.enabled = false;
 		}

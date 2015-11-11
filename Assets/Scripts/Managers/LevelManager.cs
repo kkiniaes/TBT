@@ -101,7 +101,7 @@ public class LevelManager : MonoBehaviour {
 			if(state.activated.Length > 0) {
 				foreach (Switch s in pM.GetComponents<Switch>()) {
 					s.activated = state.activated[s.SwitchIndex];
-					s.transform.FindChild("SwitchParticles" + s.SwitchIndex).gameObject.SetActive(s.activated);
+					// s.transform.FindChild("SwitchParticles" + s.SwitchIndex).gameObject.SetActive(s.activated);
 				}
 			}
 		}

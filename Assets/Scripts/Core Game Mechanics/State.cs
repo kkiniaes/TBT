@@ -33,7 +33,13 @@ public class State {
 		bool pmEqual = mass == s.mass && charge == s.charge && entangled == s.entangled;
 		bool paEqual = velocity == s.velocity && angularVelocity == s.angularVelocity && position == s.position && rotation == s.rotation;
 		bool goalEqual = combined == s.combined && numElementsCombined == s.numElementsCombined;
-		return pmEqual && paEqual && goalEqual;
+		bool switchEqual = false;
+		if (activated != null) {
+			for (int i = 0; i < activated.Length; i++) {
+				switchEqual = switchEqual || activated [i] == s.activated [i];
+			}
+		}
+		return pmEqual && paEqual && goalEqual && switchEqual;
 	}
 
 	public static State GetState(PhysicsModifyable pM) {

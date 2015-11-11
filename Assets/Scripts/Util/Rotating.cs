@@ -40,8 +40,4 @@ public class Rotating : MonoBehaviour {
 			}
 		}
 	}
-
-	void OnCollisionEnter(Collision other) {
-		other.gameObject.GetComponent<Rotating>().rotationAxis = Axis.Y;
-	}
 }
