@@ -83,10 +83,6 @@ public class Player : MonoBehaviour {
 			timeScale = 1;
 		}
 
-		if(Input.GetKeyDown(KeyCode.Q)) {
-			Reset();
-		}
-
 		if(timeElapsed <= antimatterResetTime) {
 			antimatterResetTime = -1;
 		}
@@ -326,6 +322,11 @@ public class Player : MonoBehaviour {
 	public void Reset() {
 		timeReversed = false;
 		timeResetting = true;
+		gamePaused = false;
+		timeFrozen = false;
+		pauseMenu.GetComponent<Animator>().SetBool("GamePaused",gamePaused);
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	//movement input
