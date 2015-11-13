@@ -3,6 +3,9 @@ using System.Collections;
 
 public class MainMenuPlayer : MonoBehaviour {
 
+	public GameObject lines;
+	public static bool LINES_ARE_LOADED;
+
 	private enum MenuState {
 		Splash,
 		Main,
@@ -15,6 +18,9 @@ public class MainMenuPlayer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		state = MenuState.Splash;
+		if(!LINES_ARE_LOADED) {
+			GameObject.Instantiate(lines,Vector3.zero,Quaternion.identity);
+		}
 	}
 	
 	// Update is called once per frame

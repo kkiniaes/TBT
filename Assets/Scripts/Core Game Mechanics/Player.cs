@@ -28,6 +28,11 @@ public class Player : MonoBehaviour {
 	private GameObject timeSFXManager, physicsSFXManager;
 	private AsyncOperation loadingNextLevel;
 	private GameObject entangleLine;
+	private bool gamePaused;
+	private GameObject pauseMenu;
+	private bool loadMainMenu;
+
+	private static GameObject mainMenuLines;
 
 	private float antimatterResetTime = 0;
 	public float AntimatterResetTime {
@@ -64,6 +69,10 @@ public class Player : MonoBehaviour {
 		starField = transform.FindChild("Starfield").gameObject;
 		timeSFXManager = transform.FindChild("TimeSFXManager").gameObject;
 		physicsSFXManager = transform.FindChild("PhysicsSFXManager").gameObject;
+		pauseMenu = transform.parent.FindChild("Canvas").FindChild("PauseMenu").gameObject;
+		if(mainMenuLines == null) {
+			mainMenuLines = Resources.Load<GameObject>("Lines");
+		}
 	}
 	
 	// Update is called once per frame
@@ -75,6 +84,23 @@ public class Player : MonoBehaviour {
 		GetMovementInput();
 		GetTimeManipInput();
 		GetVisualModeInput();
+
+		if(!loadNextLevel && GetComponent<Camera>().fieldOfView <= 90 && (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))) {
+			gamePaused = !gamePaused;
+			pauseMenu.GetComponent<Animator>().SetBool("GamePaused",gamePaused);
+			if(gamePaused) {
+				pauseMenu.transform.FindChild("PauseTitle").GetComponent<LevelIntroText>().Start();
+				timeReversed = false;
+				timeFrozen = true;
+				Cursor.visible = true;
+				Cursor.lockState = CursorLockMode.None;
+			} else {
+				timeReversed = false;
+				timeFrozen = false;
+				Cursor.visible = false;
+				Cursor.lockState = CursorLockMode.Locked;
+			}
+		}
 
 		//time manipulation code
 		if(timeFrozen) {
@@ -115,17 +141,21 @@ public class Player : MonoBehaviour {
 		//First person controls
 		float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
 		float rotationY = transform.localEulerAngles.x - Input.GetAxis("Mouse Y") * sensitivityY;
-		transform.localEulerAngles = new Vector3(rotationY, rotationX, 0);
-		transform.Translate(velocityVector*Time.deltaTime, Space.World);
-		velocityVector = Vector3.MoveTowards(velocityVector, Vector3.zero, Time.deltaTime*2f);
+		if(Camera.main.fieldOfView <= 90f && !gamePaused) {
+			transform.localEulerAngles = new Vector3(rotationY, rotationX, 0);
+			transform.Translate(velocityVector*Time.deltaTime, Space.World);
+			velocityVector = Vector3.MoveTowards(velocityVector, Vector3.zero, Time.deltaTime*2f);
+		}
 	
 		//switching skills
-		if(Input.GetKeyDown(KeyCode.Alpha1)) {
-			currentMode = PhysicsMode.Mass;
-		} else if(Input.GetKeyDown(KeyCode.Alpha2)) {
-			currentMode = PhysicsMode.Charge;
-		} else if(Input.GetKeyDown(KeyCode.Alpha3)) {
-			currentMode = PhysicsMode.Entangle;
+		if(!gamePaused) {
+			if(Input.GetKeyDown(KeyCode.Alpha1)) {
+				currentMode = PhysicsMode.Mass;
+			} else if(Input.GetKeyDown(KeyCode.Alpha2)) {
+				currentMode = PhysicsMode.Charge;
+			} else if(Input.GetKeyDown(KeyCode.Alpha3)) {
+				currentMode = PhysicsMode.Entangle;
+			}
 		}
 
 		RaycastHit rh = new RaycastHit();
@@ -134,7 +164,7 @@ public class Player : MonoBehaviour {
 		Ray cameraRay = Camera.main.ViewportPointToRay (new Vector3 (0.5f, 0.5f));
 		Camera.main.nearClipPlane = clipPlane;
 		Debug.DrawRay(transform.position, cameraRay.direction*10f);
-		if(Physics.Raycast(cameraRay.origin,cameraRay.direction, out rh, 100000, ~(1 << 10))) {
+		if(!gamePaused && Physics.Raycast(cameraRay.origin,cameraRay.direction, out rh, 100000, ~(1 << 10))) {
 			GetComponent<DepthOfField>().focalLength = Vector3.Distance(transform.position, rh.point);
 //			GetComponent<DepthOfField>().aperture = Mathf.MoveTowards(GetComponent<DepthOfField>().aperture, 10/(Vector3.Distance(transform.position, rh.point)), Time.deltaTime*10f);
 
@@ -233,7 +263,7 @@ public class Player : MonoBehaviour {
 
 
 		//Loading next level with cool transition
-		if(loadNextLevel) {
+		if(loadNextLevel && !loadMainMenu) {
 			loadNextLevelTimer += Time.deltaTime;
 			if(loadNextLevelTimer > 2f) {
 				if(loadingNextLevel == null) {
@@ -248,13 +278,31 @@ public class Player : MonoBehaviour {
 					loadingNextLevel.allowSceneActivation = true;
 				}
 			}
-		} else {
+		} else if (!loadNextLevel && !loadMainMenu) {
 			starField.GetComponent<ParticleSystemRenderer>().lengthScale = Mathf.MoveTowards(starField.GetComponent<ParticleSystemRenderer>().lengthScale, 1, Time.deltaTime*50f);
 			Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, 90f, Time.deltaTime*Camera.main.fieldOfView/3f);
 			if(Camera.main.fieldOfView > 90f) {
-				transform.Translate(transform.forward*Time.deltaTime*10f);
+				transform.Translate(transform.forward*Time.deltaTime*10f, Space.World);
+			}
+		} else if(loadNextLevel && loadMainMenu) {
+			lookingAtObject = null;
+			loadNextLevelTimer += Time.deltaTime;
+			if(loadNextLevelTimer > 0.2f) {
+				if(loadingNextLevel == null) {
+					StartCoroutine(LoadMainMenuSeamlessly());
+					loadingNextLevel.allowSceneActivation = false;
+					physicsSFXManager.GetComponent<PhysicsSFXManager>().PlayWarpingSFX();
+				}
+				starField.GetComponent<ParticleSystemRenderer>().lengthScale = Mathf.MoveTowards(starField.GetComponent<ParticleSystemRenderer>().lengthScale, 100, Time.deltaTime*50f);
+				starField.transform.localPosition = new Vector3(0f, 0f, -300f);
+				Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, 179f, Time.deltaTime*30f);
+				transform.Translate(-transform.forward*Time.deltaTime*Camera.main.fieldOfView/2f, Space.World);
+				if(physicsSFXManager.GetComponent<AudioSource>().time/physicsSFXManager.GetComponent<AudioSource>().clip.length > 0.98f) {
+					loadingNextLevel.allowSceneActivation = true;
+				}
 			}
 		}
+
 
 	}
 
@@ -332,6 +380,38 @@ public class Player : MonoBehaviour {
 		get {
 			return loadNextLevelTimer > 2f;
 		}
+	}
+
+	IEnumerator LoadMainMenuSeamlessly() {
+		loadingNextLevel = Application.LoadLevelAsync(0);
+		GameObject temp = new GameObject("Lines",typeof(MainMenuLines));
+		DontDestroyOnLoad(temp);
+		for(int i = 0; i < mainMenuLines.transform.childCount; i++) {
+			GameObject lineTemp = GameObject.Instantiate(mainMenuLines.transform.GetChild(i).gameObject);
+			lineTemp.transform.parent = temp.transform;
+			Debug.Log("HERE");
+			yield return null;
+		}
+	}
+
+	public void ResumeGame() {
+		gamePaused = !gamePaused;
+		pauseMenu.GetComponent<Animator>().SetBool("GamePaused",gamePaused);
+		timeReversed = false;
+		timeFrozen = false;
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	public void LoadMainMenu() {
+		loadNextLevel = true;
+		loadMainMenu = true;
+		timeReversed = false;
+		timeFrozen = false;
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		gamePaused = !gamePaused;
+		pauseMenu.GetComponent<Animator>().SetBool("GamePaused",gamePaused);
 	}
 }
 
