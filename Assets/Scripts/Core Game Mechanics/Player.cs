@@ -279,6 +279,9 @@ public class Player : MonoBehaviour {
 			if(loadNextLevelTimer > 2f) {
 				if(loadingNextLevel == null) {
 					loadingNextLevel = Application.LoadLevelAsync(Application.loadedLevel + 1);
+					if(loadingNextLevel == null) {
+						loadingNextLevel = Application.LoadLevelAsync(0);
+					}
 					loadingNextLevel.allowSceneActivation = false;
 					physicsSFXManager.GetComponent<PhysicsSFXManager>().PlayWarpingSFX();
 				}

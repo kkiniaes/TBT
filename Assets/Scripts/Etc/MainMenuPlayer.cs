@@ -76,4 +76,9 @@ public class MainMenuPlayer : MonoBehaviour {
 	public void QuitGame() {
 		Application.Quit();
 	}
+
+	public void GoToCredits() {
+		LINES_ARE_LOADED = false;
+		Application.LoadLevel("Credits");
+	}
 }
