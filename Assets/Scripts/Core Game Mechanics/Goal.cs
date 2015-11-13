@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class Goal : MonoBehaviour {
 	private static List<Goal> goals = new List<Goal>();
 	private static GameObject combineEffect;
+	private static int nextID = 0;
+
+	private int id;
 	private float combineCooldown = 0;
 
 	public Vector3 hydrogenScale = new Vector3(1f, 1f, 1f);
@@ -23,6 +26,8 @@ public class Goal : MonoBehaviour {
 	}
 
 	void Awake() {
+		id = nextID;
+		nextID++;
 		if(!goals.Contains(this)) {
 			goals.Add(this);
 		}
@@ -93,7 +98,7 @@ public class Goal : MonoBehaviour {
 								Goal child = null;
 								Goal parent = null;
 								
-								if(GetComponent<PhysicsAffected>() == null && g.GetComponent<PhysicsAffected>() != null) {
+								if(GetComponent<PhysicsAffected>() == null && g.GetComponent<PhysicsAffected>() != null || g.id < id) {
 									child = this;
 									parent = g;
 								} else {
