@@ -7,6 +7,12 @@ public class MainMenuLines : MonoBehaviour {
 		MainMenuPlayer.LINES_ARE_LOADED = true;
 	}
 
+	void OnLevelWasLoaded() {
+		if(Application.loadedLevel != 0) {
+			Destroy(this.gameObject);
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		

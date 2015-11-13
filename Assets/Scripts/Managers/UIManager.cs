@@ -8,11 +8,11 @@ public class UIManager : MonoBehaviour {
 	private GameObject detailGroup;
 	private GameObject detailBack1;
 	private GameObject detailBack2;
-	//private GameObject detailBack3;
+	private GameObject detailBack3;
 	private GameObject headTitle;
 	private GameObject massText;
 	private GameObject chargeText;
-	//private GameObject quantamEntangleText;
+	private GameObject entangleText;
 	private GameObject selectedToolHighlight;
 
 	private Color defaultGray;
@@ -24,11 +24,11 @@ public class UIManager : MonoBehaviour {
 		detailGroup = transform.FindChild("Canvas").FindChild("DetailGroup").gameObject;
 		detailBack1 = detailGroup.transform.FindChild("Head").FindChild("Detail1").gameObject;
 		detailBack2 = detailGroup.transform.FindChild("Head").FindChild("Detail2").gameObject;
-		//detailBack3 = detailGroup.transform.FindChild("Head").FindChild("Detail3").gameObject;
+		detailBack3 = detailGroup.transform.FindChild("Head").FindChild("Detail3").gameObject;
 		headTitle = detailGroup.transform.FindChild("Head").FindChild("HeadTitleContainer").FindChild("HeadTitle").gameObject;
 		massText = detailGroup.transform.FindChild("Head").FindChild("Detail1").FindChild("MassTextContainer").FindChild("MassText").gameObject;
 		chargeText = detailGroup.transform.FindChild("Head").FindChild("Detail2").FindChild("ChargeTextContainer").FindChild("ChargeText").gameObject;
-		//quantamEntangleText = detailGroup.transform.FindChild("Head").FindChild("Detail3").FindChild("QuantamEntangleTextContainer").FindChild("QuantamEntangleText").gameObject;
+		entangleText = detailGroup.transform.FindChild("Head").FindChild("Detail3").FindChild("QuantamEntangleTextContainer").FindChild("QuantamEntangleText").gameObject;
 		selectedToolHighlight = transform.FindChild("Canvas").FindChild("Tools").FindChild("SelectedTool").gameObject;
 		defaultGray = detailBack1.GetComponent<Image>().color;
 	}
@@ -51,6 +51,12 @@ public class UIManager : MonoBehaviour {
 				detailBack2.GetComponent<Image>().color = Color.red;
 			} else {
 				detailBack2.GetComponent<Image>().color = defaultGray;
+			}
+			entangleText.GetComponent<Text>().text = (Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().entangled != null) ? "Entangled" : "-------";
+			if(Player.instance.LookingAtObject.GetComponent<PhysicsModifyable>().specificallyImmutable.entangled) {
+				detailBack3.GetComponent<Image>().color = Color.red;
+			} else {
+				detailBack3.GetComponent<Image>().color = defaultGray;
 			}
 			if(Player.instance.LookingAtObject.GetComponent<Goal>() != null) {
 				headTitle.GetComponent<Text>().text = System.Enum.GetNames(typeof(VerboseElement))[Player.instance.LookingAtObject.GetComponent<Goal>().numElementsCombined-1];

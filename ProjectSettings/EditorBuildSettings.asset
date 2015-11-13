@@ -44,6 +44,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Seth Triplett/IntroToQuantumEntanglement.unity
   - enabled: 1
+    path: Assets/Scenes/Seth Triplett/CircuitSwitch.unity
+  - enabled: 1
     path: Assets/Scenes/Cheng Hann/IntroAntimatter.unity
   - enabled: 1
     path: Assets/Scenes/Cheng Hann/ThreadTheNeedle.unity

@@ -20,7 +20,7 @@ public class PhysicsSFXManager : MonoBehaviour {
 		if (clips[2] != null) {
 			GetComponent<AudioSource>().time = clips [2].length - 0.01f;
 			GetComponent<AudioSource>().pitch = -4f;
-			GetComponent<AudioSource>().volume = 0.4f;
+			GetComponent<AudioSource>().volume = 0.1f;
 			GetComponent<AudioSource>().loop = false;
 			GetComponent<AudioSource>().Play();
 		}

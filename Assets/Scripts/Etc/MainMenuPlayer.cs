@@ -20,6 +20,10 @@ public class MainMenuPlayer : MonoBehaviour {
 		state = MenuState.Splash;
 		if(!LINES_ARE_LOADED) {
 			GameObject.Instantiate(lines,Vector3.zero,Quaternion.identity);
+		} else {
+			GetComponent<Animator>().SetBool("SkipMainMenu", true);
+			GetComponent<AudioSource>().time = 62.4f;
+			state = MenuState.Main;
 		}
 	}
 	
