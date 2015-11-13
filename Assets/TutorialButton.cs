@@ -34,6 +34,9 @@ public class TutorialButton : MonoBehaviour {
 				transform.parent.GetComponent<CanvasGroup>().alpha = Mathf.MoveTowards(transform.parent.GetComponent<CanvasGroup>().alpha, 0.6f, Time.deltaTime/2f);
 			}
 			if(timeHeld >= 1f && holdForTime || (!holdForTime && Input.GetKey(buttonToPress))) {
+				if(timeFadeOffset == 1) {
+					twinkle.PlayTwinkle();
+				}
 				transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
 				GetComponent<Image>().color = new Color(0,0,0,0);
 				

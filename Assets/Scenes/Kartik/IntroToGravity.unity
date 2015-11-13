@@ -432,6 +432,10 @@ Prefab:
       propertyPath: transitionSpeed
       value: .100000001
       objectReference: {fileID: 0}
+    - target: {fileID: 8226948, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Volume
+      value: .400000006
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11495052, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}

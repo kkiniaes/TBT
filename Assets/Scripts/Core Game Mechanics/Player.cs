@@ -89,12 +89,14 @@ public class Player : MonoBehaviour {
 			gamePaused = !gamePaused;
 			pauseMenu.GetComponent<Animator>().SetBool("GamePaused",gamePaused);
 			if(gamePaused) {
+				pauseMenu.GetComponent<CanvasGroup>().interactable = true;
 				pauseMenu.transform.FindChild("PauseTitle").GetComponent<LevelIntroText>().Start();
 				timeReversed = false;
 				timeFrozen = true;
 				Cursor.visible = true;
 				Cursor.lockState = CursorLockMode.None;
 			} else {
+				pauseMenu.GetComponent<CanvasGroup>().interactable = false;
 				timeReversed = false;
 				timeFrozen = false;
 				Cursor.visible = false;
