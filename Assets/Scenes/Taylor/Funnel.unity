@@ -1339,6 +1339,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11417734, guid: 22414781cbde7470ea8f2ed7d6e1fa87, type: 2}
+      propertyPath: immutable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417734, guid: 22414781cbde7470ea8f2ed7d6e1fa87, type: 2}
+      propertyPath: specificallyImmutable.mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417734, guid: 22414781cbde7470ea8f2ed7d6e1fa87, type: 2}
+      propertyPath: specificallyImmutable.charge
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417734, guid: 22414781cbde7470ea8f2ed7d6e1fa87, type: 2}
+      propertyPath: specificallyImmutable.entangled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22414781cbde7470ea8f2ed7d6e1fa87, type: 2}
   m_IsPrefabParent: 0

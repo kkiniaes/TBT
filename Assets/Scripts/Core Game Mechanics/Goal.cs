@@ -64,8 +64,6 @@ public class Goal : MonoBehaviour {
 				child.hydrogenScale = hydrogenScale;
 				child.transform.localScale = hydrogenScale * Mathf.Sqrt(i);
 				child.childPrefab = childPrefab;
-				child.gameObject.AddComponent<PhysicsModifyable>();
-				child.gameObject.AddComponent<PhysicsAffected>();
 				child.AddChildren();
 				child.Combine();
 
