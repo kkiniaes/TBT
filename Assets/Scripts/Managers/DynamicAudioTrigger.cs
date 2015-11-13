@@ -52,6 +52,9 @@ public class DynamicAudioTrigger : MonoBehaviour {
 					
 				}
 				break;
+			case DynaAudioType.Distance:
+					GetComponent<AudioSource>().volume = Mathf.MoveTowards(GetComponent<AudioSource>().volume, Mathf.Min(1,value/(Vector3.Distance(obj1.transform.position, obj2.transform.position)+0.01f)), Time.deltaTime/transitionSpeed);
+				break;
 
 			}
 		}

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class TutorialButton : MonoBehaviour {
 
+	private static TwinklingSFX twinkle;
+
 	public KeyCode buttonToPress;
 	public bool holdForTime;
 
@@ -19,6 +21,9 @@ public class TutorialButton : MonoBehaviour {
 			transform.parent.GetComponent<CanvasGroup>().alpha = 0;
 			timeFadeIn = 3f;
 			parentController = true;
+		}
+		if(twinkle == null) {
+			twinkle = GameObject.FindObjectOfType<TwinklingSFX>();
 		}
 	}
 	

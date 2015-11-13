@@ -47,33 +47,32 @@ public class PhysicsAffected : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
-		Player player = Player.instance;
+	void FixedUpdate () {
 		Rigidbody myRB = GetComponent<Rigidbody>();
 		//PhysicsModifyable myPM = GetComponent<PhysicsModifyable>();
 
-		if (Mathf.Abs(player.timeScale) == 1) {
+		if (Mathf.Abs(Player.instance.timeScale) == 1) {
 			velocity = myRB.velocity;
 			angularVelocity = myRB.angularVelocity;
 		}
 
-		myRB.velocity = velocity * player.timeScale;
-		myRB.angularVelocity = angularVelocity * player.timeScale;
+		myRB.velocity = velocity * Player.instance.timeScale;
+		myRB.angularVelocity = angularVelocity * Player.instance.timeScale;
 
 		foreach(PhysicsModifyable pM in objs) {
 			if(pM != null && pM.gameObject != this.gameObject) {
 
-				if(player.timeScale > 0) {
+				if(Player.instance.timeScale > 0) {
 					//Handles Gravity
 					if(pM.gameObject.activeSelf && pM.mass > 0 && pM.antiMatter) {
-						float forceMagnitude = -player.timeScale * G * pM.mass * myRB.mass / Vector3.Distance(transform.position, pM.transform.position);
+						float forceMagnitude = -Player.instance.timeScale * G * pM.mass * myRB.mass / Vector3.Distance(transform.position, pM.transform.position);
 						myRB.AddForce(Vector3.Normalize(pM.transform.position - transform.position) * forceMagnitude);
 						
 						if(pM.GetComponent<PhysicsAffected>() != null) {
 							pM.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(transform.position - pM.transform.position) * forceMagnitude);
 						}
 					} else if(pM.gameObject.activeSelf && pM.mass > 0) {
-						float forceMagnitude = player.timeScale * G * pM.mass * myRB.mass / Vector3.Distance(transform.position, pM.transform.position);
+						float forceMagnitude = Player.instance.timeScale * G * pM.mass * myRB.mass / Vector3.Distance(transform.position, pM.transform.position);
 						myRB.AddForce(Vector3.Normalize(pM.transform.position - transform.position) * forceMagnitude);
 
 						if(pM.GetComponent<PhysicsAffected>() != null) {
