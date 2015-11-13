@@ -33,10 +33,12 @@ public class State {
 		bool pmEqual = mass == s.mass && charge == s.charge && entangled == s.entangled;
 		bool paEqual = velocity == s.velocity && angularVelocity == s.angularVelocity && position == s.position && rotation == s.rotation;
 		bool goalEqual = combined == s.combined && numElementsCombined == s.numElementsCombined;
-		bool switchEqual = false;
+		bool switchEqual = true;
 		if (activated != null) {
 			for (int i = 0; i < activated.Length; i++) {
-				switchEqual = switchEqual || activated [i] == s.activated [i];
+				if(activated [i] != s.activated [i]) {
+					switchEqual = false;
+				}
 			}
 		}
 		return pmEqual && paEqual && goalEqual && switchEqual;
