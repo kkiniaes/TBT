@@ -40,13 +40,13 @@ public class Goal : MonoBehaviour {
 		}
 
 		if(numElementsCombined > 1 && children.Count <= 0) {
-			PhysicsModifyable pM = GetComponent<PhysicsModifyable>();
-			if(LevelManager.instance.stateStacks.ContainsKey(pM)) {
-				LevelManager.instance.stateStacks.Remove(pM);
-			}
-
 			AddChildren();
 
+			PhysicsModifyable pM = GetComponent<PhysicsModifyable>();
+			while(LevelManager.instance.stateStacks.ContainsKey(pM)) {
+				LevelManager.instance.stateStacks.Remove(pM);
+			}
+			
 			Stack initStackState = new Stack();
 			State initState = State.GetState(pM);
 			initStackState.Push(initState);
@@ -64,16 +64,15 @@ public class Goal : MonoBehaviour {
 				child.hydrogenScale = hydrogenScale;
 				child.transform.localScale = hydrogenScale * Mathf.Sqrt(i);
 				child.childPrefab = childPrefab;
-				child.AddChildren();
 				child.Combine();
 
 				children.Push(child);
 
 				PhysicsModifyable pM = child.GetComponent<PhysicsModifyable>();
-				if(LevelManager.instance.stateStacks.ContainsKey(pM)) {
+				while(LevelManager.instance.stateStacks.ContainsKey(pM)) {
 					LevelManager.instance.stateStacks.Remove(pM);
 				}
-				Stack initStackState = new Stack();
+				Stack initStackState = new Stack();	
 				State initState = State.GetState(pM);
 				initStackState.Push(initState);
 				LevelManager.instance.stateStacks.Add (pM, initStackState);

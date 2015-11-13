@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
 	private Vector3 velocityVector;
 	public bool timeFrozen;
 	public bool timeReversed;
+	private bool timeResetting;
 	private bool loadNextLevel;
 	private float loadNextLevelTimer;
 	private PhysicsModifyable entangleSelected;
@@ -77,6 +78,15 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(timeElapsed <= 0 && timeResetting) {
+			timeResetting = false;
+			timeScale = 1;
+		}
+
+		if(Input.GetKeyDown(KeyCode.Q)) {
+			Reset();
+		}
+
 		if(timeElapsed <= antimatterResetTime) {
 			antimatterResetTime = -1;
 		}
@@ -117,12 +127,15 @@ public class Player : MonoBehaviour {
 				entangleSelected = null;
 				if(timeElapsed <= 0) {
 					timeReversed = false;
+					timeResetting = false;
 					timeElapsed = 0;
 					noStateChangesThisFrame = true;
 				} else {
 					timeScale = Mathf.MoveTowards(timeScale, REVERSE_TIME_SCALE, Time.deltaTime*3f*Math.Abs(REVERSE_TIME_SCALE));
 					GetComponent<VignetteAndChromaticAberration>().chromaticAberration = Mathf.MoveTowards(GetComponent<VignetteAndChromaticAberration>().chromaticAberration, -timeScale*30f, Time.deltaTime*10f*Math.Abs(REVERSE_TIME_SCALE));
 				}
+			} else if(timeResetting) {
+				timeScale = -100;
 			} else {
 				GetComponent<VignetteAndChromaticAberration>().chromaticAberration = Mathf.MoveTowards(GetComponent<VignetteAndChromaticAberration>().chromaticAberration, 0f, Time.deltaTime * 200f);
 				if(timeScale < 0) {
@@ -132,7 +145,7 @@ public class Player : MonoBehaviour {
 				}
 			}
 
-			if(!noStateChangesThisFrame || timeReversed) {
+			if(!noStateChangesThisFrame || timeReversed || timeResetting) {
 				timeElapsed = Mathf.Max(0, timeElapsed + timeScale);
 				noStateChangesThisFrame = true;
 			}
@@ -185,7 +198,7 @@ public class Player : MonoBehaviour {
 					delta = (Input.GetKeyDown(KeyCode.UpArrow) ? 0.5f : 0) + -1 * (Input.GetKeyDown(KeyCode.DownArrow) ? 0.5f : 0);
 				}
 
-				if(!timeReversed && !pM.immutable) {
+				if(!timeReversed && !timeResetting && !pM.immutable) {
 					//Increases/Decreases mass of object
 					if(!pM.specificallyImmutable.mass && currentMode == PhysicsMode.Mass) {
 						float tempVal = pM.Mass;
@@ -308,6 +321,11 @@ public class Player : MonoBehaviour {
 
 	}
 
+	public void Reset() {
+		timeReversed = false;
+		timeResetting = true;
+	}
+
 	//movement input
 	private void GetMovementInput() {
 		if(Input.GetKey(KeyCode.W)) {
@@ -332,7 +350,7 @@ public class Player : MonoBehaviour {
 	}
 
 	private void GetTimeManipInput() {
-		if (!loadNextLevel) {
+		if (!loadNextLevel && !timeResetting) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				if(antimatterResetTime == -1 || timeReversed == false) {
 					timeReversed = false;
@@ -420,6 +438,10 @@ public class Player : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 		gamePaused = !gamePaused;
 		pauseMenu.GetComponent<Animator>().SetBool("GamePaused",gamePaused);
+	}
+
+	public void ResetTimeElapsed() {
+		timeElapsed = 0;
 	}
 }
 
