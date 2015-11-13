@@ -156,6 +156,10 @@ Prefab:
       propertyPath: m_LocalRotation.x
       value: .323944956
       objectReference: {fileID: 0}
+    - target: {fileID: 11499544, guid: 79b99bd7e6b32408bae8ddede88f8c4e, type: 2}
+      propertyPath: goalElement
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79b99bd7e6b32408bae8ddede88f8c4e, type: 2}
   m_IsPrefabParent: 0
@@ -281,6 +285,50 @@ Prefab:
     - target: {fileID: 461510, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
       propertyPath: m_LocalPosition.x
       value: 20.1599998
+      objectReference: {fileID: 0}
+    - target: {fileID: 11429216, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492060, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492060, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11486342, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432470, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: s
+      objectReference: {fileID: 0}
+    - target: {fileID: 11411520, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: a
+      objectReference: {fileID: 0}
+    - target: {fileID: 11460162, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: b
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441750, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: i
+      objectReference: {fileID: 0}
+    - target: {fileID: 11498536, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: c
+      objectReference: {fileID: 0}
+    - target: {fileID: 11419380, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: s
+      objectReference: {fileID: 0}
+    - target: {fileID: 11438838, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
+      propertyPath: m_Text
+      value: '-'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5564a9d979f954b45ac4f0ce6fa5b14f, type: 2}
