@@ -367,7 +367,7 @@ public class Player : MonoBehaviour {
 			wireframeMode = !wireframeMode;
 		}
 		if(wireframeMode) {
-			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 50f, Time.deltaTime*(2+GetComponent<Camera>().nearClipPlane));
+			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 80f, Time.deltaTime*(2+GetComponent<Camera>().nearClipPlane));
 		} else {
 			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 0.1f, Time.deltaTime*(2+GetComponent<Camera>().nearClipPlane));
 		}
