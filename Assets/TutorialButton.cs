@@ -15,6 +15,8 @@ public class TutorialButton : MonoBehaviour {
 	private static float timeFadeIn = -2f;
 	private bool parentController;
 
+	public PhysicsModifyable target;
+
 	// Use this for initialization
 	void Start () {
 		if(timeFadeIn == -2f) {
@@ -33,9 +35,10 @@ public class TutorialButton : MonoBehaviour {
 			if(parentController) {
 				transform.parent.GetComponent<CanvasGroup>().alpha = Mathf.MoveTowards(transform.parent.GetComponent<CanvasGroup>().alpha, 0.6f, Time.deltaTime/2f);
 			}
-			if(timeHeld >= 1f && holdForTime || (!holdForTime && Input.GetKey(buttonToPress))) {
+			if((timeHeld >= 1f && holdForTime) || (!holdForTime && timeHeld > 0)) {
 				if(timeFadeOffset == 1) {
 					twinkle.PlayTwinkle();
+					transform.GetChild(0).GetComponent<Image>().fillAmount = 1;
 				}
 				transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
 				GetComponent<Image>().color = new Color(0,0,0,0);
@@ -53,12 +56,20 @@ public class TutorialButton : MonoBehaviour {
 					timeHeld -= Time.deltaTime/2f;
 				}
 				timeHeld = Mathf.Max(0,timeHeld);
-				transform.GetChild(0).GetComponent<Image>().fillAmount = timeHeld;
+				if(holdForTime) {
+					transform.GetChild(0).GetComponent<Image>().fillAmount = timeHeld;
+				}
 			}
 		} else if(parentController) {
-			timeFadeIn -= Time.deltaTime;
+			if((target != null && target.mass > 0) || target == null) {
+				timeFadeIn -= Time.deltaTime;
+			}
 		}
 
 
+	}
+
+	void OnLevelWasLoaded() {
+		timeFadeIn = -2f;
 	}
 }

@@ -15,14 +15,14 @@ public class ScrollWheelTutorial : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(transform.parent.childCount > 1) {
+		if(transform.GetSiblingIndex() != 0) {
 			GetComponent<CanvasGroup>().alpha = 0;
 		} else {
 			GetComponent<CanvasGroup>().alpha = Mathf.MoveTowards(GetComponent<CanvasGroup>().alpha, 1f, Time.deltaTime/2f);
 		}
 
 
-		if(aim.GetComponent<PhysicsModifyable>().mass > 0) {
+		if(aim.GetComponent<PhysicsModifyable>().mass > 0 || aim.GetComponent<PhysicsModifyable>().charge != 0) {
 			Destroy(this.gameObject);
 		}
 

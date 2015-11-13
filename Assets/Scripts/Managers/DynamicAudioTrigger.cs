@@ -12,7 +12,8 @@ public class DynamicAudioTrigger : MonoBehaviour {
 	public enum Comparison {
 		GreaterThan,
 		LessThan,
-		Equal
+		Equal,
+		Scale
 	}
 
 	public DynaAudioType dynamicTrigger;
@@ -49,11 +50,15 @@ public class DynamicAudioTrigger : MonoBehaviour {
 				case Comparison.GreaterThan:
 					GetComponent<AudioSource>().volume = Mathf.MoveTowards(GetComponent<AudioSource>().volume, obj1.GetComponent<Rigidbody>().velocity.magnitude > value ? targetVolume : minimumVolume, Time.deltaTime/transitionSpeed);
 					break;
+				case Comparison.Scale:
+					GetComponent<AudioSource>().volume = Mathf.MoveTowards(GetComponent<AudioSource>().volume, Mathf.Max(minimumVolume, Mathf.Min(targetVolume,obj1.GetComponent<Rigidbody>().velocity.magnitude/value)), Time.deltaTime/transitionSpeed);
+					break;
 					
 				}
 				break;
 			case DynaAudioType.Distance:
-					GetComponent<AudioSource>().volume = Mathf.MoveTowards(GetComponent<AudioSource>().volume, Mathf.Min(1,value/(Vector3.Distance(obj1.transform.position, obj2.transform.position)+0.01f)), Time.deltaTime/transitionSpeed);
+					Debug.Log(Vector3.Distance(obj1.transform.position, obj2.transform.position));
+					GetComponent<AudioSource>().volume = Mathf.MoveTowards(GetComponent<AudioSource>().volume, Mathf.Max(minimumVolume, Mathf.Min(targetVolume,(value/(Vector3.Distance(obj1.transform.position, obj2.transform.position)+0.0001f)) - 1)), Time.deltaTime/transitionSpeed);
 				break;
 
 			}

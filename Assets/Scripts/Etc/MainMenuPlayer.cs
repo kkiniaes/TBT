@@ -72,4 +72,8 @@ public class MainMenuPlayer : MonoBehaviour {
 		state = MenuState.Main;
 		GetComponent<AudioSource>().time = 35;
 	}
+
+	public void QuitGame() {
+		Application.Quit();
+	}
 }

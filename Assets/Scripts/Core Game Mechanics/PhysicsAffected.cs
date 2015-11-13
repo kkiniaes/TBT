@@ -89,6 +89,10 @@ public class PhysicsAffected : MonoBehaviour {
 		}
 	}
 
+	void OnLevelWasLoaded() {
+		objs.Clear();
+	}
+
 	public static void TryAddPM(PhysicsModifyable pM) {
 		if(!objs.Contains(pM)) {
 			objs.Add(pM);

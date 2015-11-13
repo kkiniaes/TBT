@@ -34,8 +34,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Taylor/LongMaze.unity
   - enabled: 1
-    path: Assets/Scenes/Seth Triplett/CircuitSwitch.unity
-  - enabled: 1
     path: Assets/Scenes/Cheng Hann/IntroFission.unity
   - enabled: 1
     path: Assets/Scenes/Taylor/Funnel.unity

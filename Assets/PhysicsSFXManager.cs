@@ -9,6 +9,8 @@ public class PhysicsSFXManager : MonoBehaviour {
 
 	private float audioRepeatTimer = 0.1f;
 
+	private float combineEffectRepeatTimer = 0.4f;
+
 	// Use this for initialization
 	void Awake () {
 		instance = this;
@@ -29,6 +31,7 @@ public class PhysicsSFXManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		audioRepeatTimer -=	Time.deltaTime;
+		combineEffectRepeatTimer -= Time.deltaTime;
 		if(GetComponent<AudioSource>().clip != null
 		   && GetComponent<AudioSource>().clip.Equals(clips[2])
 		   && GetComponent<AudioSource>().pitch == -2f
@@ -52,12 +55,15 @@ public class PhysicsSFXManager : MonoBehaviour {
 	}
 
 	public void PlayElementCombineSFX() {
-		GetComponent<AudioSource>().pitch = 1f;
-		GetComponent<AudioSource>().volume = 1f;
-		GetComponent<AudioSource>().PlayOneShot(clips[1]);
-		GetComponent<AudioSource>().pitch = 2f;
-//		GetComponent<AudioSource>().volume = 1f;
-		GetComponent<AudioSource>().PlayOneShot(clips[1]);
+		if(combineEffectRepeatTimer <= 0) {
+			combineEffectRepeatTimer = 0.4f;
+			GetComponent<AudioSource>().pitch = 1f;
+			GetComponent<AudioSource>().volume = 1f;
+			GetComponent<AudioSource>().PlayOneShot(clips[1]);
+			GetComponent<AudioSource>().pitch = 2f;
+	//		GetComponent<AudioSource>().volume = 1f;
+			GetComponent<AudioSource>().PlayOneShot(clips[1]);
+		}
 	}
 
 	public void PlayWarpingSFX() {
