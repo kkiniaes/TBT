@@ -367,7 +367,13 @@ public class Player : MonoBehaviour {
 			wireframeMode = !wireframeMode;
 		}
 		if(wireframeMode) {
-			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 80f, Time.deltaTime*(2+GetComponent<Camera>().nearClipPlane));
+			float maxDistance = 0;
+			foreach (PhysicsModifyable obj in PhysicsAffected.objs) {
+				maxDistance = Mathf.Max (maxDistance, Vector3.Distance (obj.transform.position, transform.position));
+			}
+			// Some tolerance.
+			maxDistance += 2;
+			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, maxDistance, Time.deltaTime*(2+GetComponent<Camera>().nearClipPlane));
 		} else {
 			GetComponent<Camera>().nearClipPlane = Mathf.MoveTowards(GetComponent<Camera>().nearClipPlane, 0.1f, Time.deltaTime*(2+GetComponent<Camera>().nearClipPlane));
 		}

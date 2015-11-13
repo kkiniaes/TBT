@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PhysicsAffected : MonoBehaviour {
-	private static List<PhysicsModifyable> objs = new List<PhysicsModifyable>();
+	public static List<PhysicsModifyable> objs = new List<PhysicsModifyable>();
 
 	//note: attraction is linear (stuff / radius instead of stuff / radius^2) to simplify things
 	private const float G = 20f; //gravitational constant
