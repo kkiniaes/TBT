@@ -10,9 +10,9 @@ PlayerSettings:
   targetResolution: 0
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: In the beginning
-  defaultCursor: {fileID: 0}
+  companyName: VGDev
+  productName: TimeBeforeTime
+  defaultCursor: {fileID: 2800000, guid: 40fe87aef3928479d9823f2c64c2c3b9, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 1
   defaultScreenWidth: 1024
@@ -159,12 +159,13 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 0}
+  resolutionDialogBanner: {fileID: 2800000, guid: d6a0a6d33140c49a7853cff954d8a564,
+    type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 0}
+      m_Icon: {fileID: 2800000, guid: 8ba2aadf31261440f839b4909701e33f, type: 3}
       m_Width: 128
       m_Height: 128
   m_BuildTargetBatching: []

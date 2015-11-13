@@ -588,6 +588,10 @@ Prefab:
       propertyPath: m_BlocksRaycasts
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11479284, guid: 5085f0c87d5904a4a8b4d3014739f873, type: 2}
+      propertyPath: m_Text
+      value: V1.0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5085f0c87d5904a4a8b4d3014739f873, type: 2}
   m_IsPrefabParent: 0
