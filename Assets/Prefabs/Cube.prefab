@@ -90,8 +90,8 @@ MonoBehaviour:
   immutable: 0
   specificallyImmutable:
     mass: 0
-    charge: 1
-    entangled: 1
+    charge: 0
+    entangled: 0
   mass: 0
   charge: 0
   entangled: {fileID: 0}
@@ -141,11 +141,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: specificallyImmutable.entangled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: specificallyImmutable.charge
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
