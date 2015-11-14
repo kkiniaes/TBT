@@ -95,7 +95,7 @@ public class Goal : MonoBehaviour {
 								Goal child = null;
 								Goal parent = null;
 								
-								if(GetComponent<PhysicsAffected>() == null && g.GetComponent<PhysicsAffected>() != null || g.id < id) {
+								if((GetComponent<PhysicsAffected>() == null && g.GetComponent<PhysicsAffected>() != null) || g.id < id) {
 									child = this;
 									parent = g;
 								} else {
