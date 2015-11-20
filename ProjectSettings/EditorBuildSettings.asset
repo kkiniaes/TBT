@@ -6,68 +6,70 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/SuperCredits/SuperCredits.unity
+  - enabled: 0
     path: Assets/Scenes/Kartik/MainMenu.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Kartik/IntroToGravity.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Kartik/BarriersToGravity.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Kartik/BarriersToGravity2.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Ryan Voor/TimePausingSpheres.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/Gate.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Taylor/SmallMaze.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Kartik/CombiningElements.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/OverTheWall.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/Slopes.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/Switches.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/WindTunnel.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ChrisPayne/Chris.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Taylor/LongMaze.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/IntroFission.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Taylor/Funnel.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Kartik/IntroToQE.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Seth Triplett/IntroToQuantumEntanglement.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Seth Triplett/CircuitSwitch.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/IntroAntimatter.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/ThreadTheNeedle.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/TugOfWar.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/ControlPanel.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Taylor/LargeMaze.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Kartik/AntiMatter.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/Timing.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/WeightWatching.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/Machine.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Taylor/GiantMaze.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/Slit.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/AntiMineField.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cheng Hann/ForceField.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Kartik/Credits.unity
