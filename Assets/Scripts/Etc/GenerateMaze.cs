@@ -107,7 +107,7 @@ public class GenerateMaze : MonoBehaviour {
 	private List<GameObject> blocks;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		rand = new System.Random ();
 		HashSet<Edge> connections = getRandomConnections(new Point(columns, rows));
 

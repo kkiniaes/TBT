@@ -48,10 +48,18 @@ public class PhysicsAffected : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		Rigidbody myRB = GetComponent<Rigidbody>();
-		//PhysicsModifyable myPM = GetComponent<PhysicsModifyable>();
+        Rigidbody myRB = GetComponent<Rigidbody>();
+		PhysicsModifyable myPM = GetComponent<PhysicsModifyable>();
 
-		if (Mathf.Abs(Player.instance.timeScale) == 1) {
+        if(!LevelManager.instance.inBounds(transform.position)) {
+            if(myPM.Entangled == null) {
+                transform.position = LevelManager.instance.reflect(transform.position);
+            } else {
+                myPM.Entangled = null;
+            }
+        }
+
+        if (Mathf.Abs(Player.instance.timeScale) == 1) {
 			velocity = myRB.velocity;
 			angularVelocity = myRB.angularVelocity;
 		}

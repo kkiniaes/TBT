@@ -91,6 +91,10 @@ public class Player : MonoBehaviour {
 		GetTimeManipInput();
 		GetVisualModeInput();
 
+        if(!LevelManager.instance.inBounds(transform.position)) {
+            transform.position = LevelManager.instance.reflect(transform.position);
+        }
+
 		if(!loadNextLevel && GetComponent<Camera>().fieldOfView <= 90 && (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))) {
 			gamePaused = !gamePaused;
 			pauseMenu.GetComponent<Animator>().SetBool("GamePaused",gamePaused);

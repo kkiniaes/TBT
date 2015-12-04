@@ -8,14 +8,56 @@ public class LevelManager : MonoBehaviour {
 	public Dictionary<PhysicsModifyable, Stack> stateStacks = new Dictionary<PhysicsModifyable, Stack>();
 	public Element goalElement;
 
+	private Vector3 avgPos = Vector3.zero;
+	private float maxDist = 0;
+    private float MAX_DISTANCE_MULTIPLIER = 10f;
+
 	void Awake() {
 		instance = this;
 	}
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
+        float numObjects = 0;
+        foreach(PhysicsModifyable pM in stateStacks.Keys) {
+            numObjects++;
+            avgPos = avgPos + pM.Position;
 
+            int innerCount = 0;
+            foreach(PhysicsModifyable pmInner in stateStacks.Keys) {
+                innerCount++;
+                if(innerCount > numObjects) {
+                    float dist = Vector3.Distance(pM.Position, pmInner.Position) * MAX_DISTANCE_MULTIPLIER;
+                    if(dist > maxDist) {
+                        maxDist = dist;
+                    }
+                }
+            }
+
+            float playerDist = Vector3.Distance(pM.Position, Player.instance.transform.position) * MAX_DISTANCE_MULTIPLIER;
+            if(playerDist > maxDist) {
+                maxDist = playerDist;
+            }
+        }
+
+        if(stateStacks.Keys.Count > 0) {
+            avgPos /= numObjects;
+        } else {
+            avgPos = Player.instance.transform.position;
+        }
 	}
+
+    public bool inBounds(Vector3 pos) {
+        return Vector3.Distance(pos, avgPos) <= maxDist;
+    }
+
+    public Vector3 reflect(Vector3 pos) {
+        if(!inBounds(pos)) {
+            return pos + (Vector3.Distance(pos, avgPos) + maxDist) * Vector3.Normalize(avgPos - pos);
+        } else {
+            return pos;
+        }
+    }
 
 	// Update is called once per frame
 	void Update () {

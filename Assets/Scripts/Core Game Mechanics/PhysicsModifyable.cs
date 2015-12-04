@@ -70,7 +70,7 @@ public class PhysicsModifyable : MonoBehaviour {
 				if(entangled != null) {
 					UnBind(this, entangled);
 					entangled.entangled = null;
-				}
+                }
 
 				if(value != null) {
 					Bind(this, value);
@@ -122,7 +122,13 @@ public class PhysicsModifyable : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (willBind && entangled != null) {
+        if(!LevelManager.instance.inBounds(Position)) {
+            if(GetComponent<PhysicsAffected>() == null) {
+                Position = LevelManager.instance.reflect(Position);
+            }
+        }
+
+        if (willBind && entangled != null) {
 			Bind(this, entangled);
 		}
 		if(immutable) {
